@@ -52,7 +52,7 @@
                 <p>Enter the details below.</p>
 
                 <!-- Create a Hunt Form-->
-                <form>
+                <form action="https://cs467-capstone.uw.r.appspot.com/" method="POST">
                     <label for="user-name">Username:</label><br>
                     <input type="text" id="user-name" name="user-name"><br>
                     <label for="hunt-title">Hunt Title:</label><br>
@@ -62,20 +62,22 @@
                     <!----><div id="radio-box">
                         <p>Hunt Theme:</p>
                         <label for="hunt-theme-historical">Historical</label>
-                        <input type="radio" id="hunt-theme-historical" name="hunt-theme-historical"><br>
+                        <input type="radio" id="hunt-theme-historical" name="hunt-theme" value="historical"><br>
                         <label for="hunt-theme-cultural">Cultural</label>
-                        <input type="radio" id="hunt-theme-cultural" name="hunt-theme-cultural"><br>
+                        <input type="radio" id="hunt-theme-cultural" name="hunt-theme" value="cultural"><br>
                         <label for="hunt-theme-other">Other</label>
-                        <input type="radio" id="hunt-theme-other" name="hunt-theme-other"><br>
+                        <input type="radio" id="hunt-theme-other" name="hunt-theme" value="other"><br>
                     </div>
                     <!-- Treasure -->         
                     <label for="treasure">Treasure:</label><br>
                     <input type="text" id="treasure" name="treasure"><br>
                     <!-- Clues -->         
                     <label for="clue-1">Clue 1:</label><br>
-                    <input type="text" id="clue-1" name="clue-1"><br>
+                    <!--<input type="text" id="clue-1" name="clue-1"><br> -->
+                    <textarea id="clue-1" name="clue-1"></textarea><br>
                     <label for="clue-2">Clue 2:</label><br>
-                    <input type="text" id="clue-2" name="clue-2"><br>
+                    <!--<input type="text" id="clue-2" name="clue-2"><br> -->
+                    <textarea id="clue-2" name="clue-2"></textarea><br>
 
                     <!-- Add More Clues -->
                     <div id="clue-3" style="display: none;">
@@ -89,7 +91,7 @@
                         <input type="text" id="clue-4" name="clue-4"><br>
                     </div>
                 
-                    <button type="button" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
+                    <button type="submit" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
                         <i class="material-icons">add</i>
                         add another clue
                     </button>
@@ -103,24 +105,26 @@
 
         <!-- hidden pop up 2 -->
         <div class="container3" id="c3" style="display: none;">
-            <div class="find-hunt">
-                <h3>Find a Hunt</h3>
-                <p>Choose from the list of available Treasure Hunts.</p>
-                <div id="find-hunt-radio-box">
-                    <label for="hunt-1">This Hunt</label>
-                    <input type="radio" id="hunt-1" name="hunt-1"><br>
-                    <label for="hunt-2">That Hunt</label>
-                    <input type="radio" id="hunt-2" name="hunt-2"><br>
-                    <label for="hunt-3">The Other Hunt</label>
-                    <input type="radio" id="hunt-3" name="hunt-3"><br>
+            <form action="https://cs467-capstone.uw.r.appspot.com/" method="POST">
+                <div class="find-hunt">
+                    <h3>Find a Hunt</h3>
+                    <p>Choose from the list of available Treasure Hunts.</p>
+                    <div id="find-hunt-radio-box">
+                        <label for="hunt-1">This Hunt</label>
+                        <input type="radio" id="hunt-1" name="hunt" value="hunt-1"><br>
+                        <label for="hunt-2">That Hunt</label>
+                        <input type="radio" id="hunt-2" name="hunt" value="hunt-2"><br>
+                        <label for="hunt-3">The Other Hunt</label>
+                        <input type="radio" id="hunt-3" name="hunt" value="hunt-3"><br>
+                    </div>
+                    
+                    <!-- link play button to play page -->
+                    <a href="/play"><button type="button" class="button alt-gradient-button" id="play" onclick="playHunt()" >
+                        <i class="material-icons">done</i>
+                        Play
+                    </button></a>
                 </div>
-                
-                <!-- link play button to play page -->
-                <a href="/play"><button type="button" class="button alt-gradient-button" id="play" onclick="playHunt()" >
-                    <i class="material-icons">done</i>
-                    Play
-                </button></a>
-            </div>
+            </form>
         </div>
 
     </div>

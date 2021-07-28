@@ -124,6 +124,17 @@ function submitHunt(){
     toggleButton1()
 }
 
+// this function was adapted from https://www.learnwithjason.dev/blog/get-form-values-as-json
+function dataSubmit(event){
+  event.preventDefault();
+  const data = new FormData(event.target);
+  const value = Object.fromEntries(data.entries());
+
+  console.log({value});
+}
+
+const form = document.querySelector('form');
+form.addEventListener('submit', dataSubmit);
 
 function playHunt(){
     
