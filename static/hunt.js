@@ -134,6 +134,7 @@ function dataSubmit(event){
 }
 
 const form = document.getElementById('create-hunt');
+console.log(form)
 form.addEventListener('submit', dataSubmit);
 
 function playHunt(){
