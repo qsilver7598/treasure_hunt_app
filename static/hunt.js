@@ -122,6 +122,7 @@ function addClue(){
 
 function submitHunt(){
     toggleButton1()
+    dataSubmit();
 }
 
 // this function was adapted from https://www.learnwithjason.dev/blog/get-form-values-as-json
