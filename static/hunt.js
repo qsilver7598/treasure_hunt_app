@@ -135,7 +135,7 @@ function dataSubmit(event){
 }
 
 const form = document.getElementById('create-hunt-form');
-console.log("AL was here")
+console.log("AL is hungry")
 console.log(form)
 form.addEventListener('submit', dataSubmit);
 
