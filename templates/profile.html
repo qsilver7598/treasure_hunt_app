@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- this document was adapted from W3Schools Responsive HTML page  https://www.w3schools.com/html/html_responsive.asp -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+<script type="text/javascript" src="{{ url_for('static', filename='hunt.js') }}"></script>
+</head>
+<body>
+
+	<div class="map-container" id="play-map"></div>
+	<h1>User Info</h1>
+	<h2>Welcome {{ userinfo['email'] }}</h2>
+	<p>Your owner ID is: {{ userinfo['owner id'] }}</p>
+	<div class="container">
+		<div class="text-wrap">
+			<p>Your user ID is:</p>
+			<textarea id="textA">{{ userinfo['user id'] }}</textarea>
+			<div id="copyToClipboard-a" class="clipboard icon"></div>
+		</div>
+		<div class="text-wrap">
+			<p>Your JWT issued by Auth0:</p>
+			<textarea id="textB">{{ id_token }}</textarea>
+			<div id="copyToClipboard-b" class="clipboard icon"></div>
+		</div><br>
+	</div> 
+	<a class="button-dashboard" href="/logout">Logout</a>
+</body>
+</html>

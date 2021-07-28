@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- this document was adapted from W3Schools Responsive HTML page  https://www.w3schools.com/html/html_responsive.asp -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+<script type="text/javascript" src="{{ url_for('static', filename='hunt.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE"></script>
+</head>
+<body>
+    
+    <div class="top-bar">   
+        <!-- profile button -->   
+        <a href="/ui_login"><button class="button alt-gradient-button" id="profile-button">
+            <i class="material-icons">person</i>
+            User Account
+        </button></a>
+        <!-- headline -->
+    <h1>Treasure Hunt</h1>
+    <h2>It's not about the treasure, it's about the hunt</h2>
+    </div>
+
+    <div class="main">
+        <!-- welcome message -->
+        <div class="container1" id="c1">
+
+        <!-- Button Container -->
+            <div class="button-box">
+                <h4>Get started by selecting from our hunts, or create one of your own!</h4>
+                <form>
+                    
+                    <button type="button" class="button alt-gradient-button" id="b1" onclick="toggleButton1()">
+                        <i class="material-icons">add</i>
+                        Create a Hunt
+                    </button>
+                
+                    <button type="button" class="button alt-gradient-button" id="b2" onclick="toggleButton2()" >
+                        <i class="material-icons">search</i>
+                        Choose a Hunt
+                    </button>
+                </form>
+            </div>
+            
+        
+        </div>
+
+        <!-- hidden pop up 1 -->
+        <div class="container2" id="c2" style="display: none;">
+            <div class="create-hunt">
+                <h3>Create a Treasure Hunt!</h3>
+                <p>Enter the details below.</p>
+
+                <!-- Create a Hunt Form-->
+                <form>
+                    <label for="user-name">Username:</label><br>
+                    <input type="text" id="user-name" name="user-name"><br>
+                    <label for="hunt-title">Hunt Title:</label><br>
+                    <input type="text" id="hunt-title" name="hunt-title"><br>
+                    <label for="hunt-theme">Hunt Theme:</label><br>
+                    <input type="text" id="hunt-theme" name="hunt-theme"><br>
+                    <!----><div id="radio-box">
+                        <p>Hunt Theme:</p>
+                        <label for="hunt-theme-historical">Historical</label>
+                        <input type="radio" id="hunt-theme-historical" name="hunt-theme-historical"><br>
+                        <label for="hunt-theme-cultural">Cultural</label>
+                        <input type="radio" id="hunt-theme-cultural" name="hunt-theme-cultural"><br>
+                        <label for="hunt-theme-other">Other</label>
+                        <input type="radio" id="hunt-theme-other" name="hunt-theme-other"><br>
+                    </div>
+                    <!-- Treasure -->         
+                    <label for="treasure">Treasure:</label><br>
+                    <input type="text" id="treasure" name="treasure"><br>
+                    <!-- Clues -->         
+                    <label for="clue-1">Clue 1:</label><br>
+                    <input type="text" id="clue-1" name="clue-1"><br>
+                    <label for="clue-2">Clue 2:</label><br>
+                    <input type="text" id="clue-2" name="clue-2"><br>
+
+                    <!-- Add More Clues -->
+                    <div id="clue-3" style="display: none;">
+                        <label for="clue-3">Clue 3:</label><br>
+                        <input type="text" id="clue-3" name="clue-3"><br>
+                    </div>
+
+                    <!-- Add More Clues -->
+                    <div id="clue-4" style="display: none;">
+                        <label for="clue-4">Clue 4:</label><br>
+                        <input type="text" id="clue-4" name="clue-4"><br>
+                    </div>
+                
+                    <button type="button" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
+                        <i class="material-icons">add</i>
+                        add another clue
+                    </button>
+                    <button type="button" class="button alt-gradient-button" id="submit" onclick="submitHunt()" >
+                        <i class="material-icons">done</i>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- hidden pop up 2 -->
+        <div class="container3" id="c3" style="display: none;">
+            <div class="find-hunt">
+                <h3>Find a Hunt</h3>
+                <p>Choose from the list of available Treasure Hunts.</p>
+                <div id="find-hunt-radio-box">
+                    <label for="hunt-1">This Hunt</label>
+                    <input type="radio" id="hunt-1" name="hunt-1"><br>
+                    <label for="hunt-2">That Hunt</label>
+                    <input type="radio" id="hunt-2" name="hunt-2"><br>
+                    <label for="hunt-3">The Other Hunt</label>
+                    <input type="radio" id="hunt-3" name="hunt-3"><br>
+                </div>
+                
+                <!-- link play button to play page -->
+                <a href="/play"><button type="button" class="button alt-gradient-button" id="play" onclick="playHunt()" >
+                    <i class="material-icons">done</i>
+                    Play
+                </button></a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
