@@ -133,7 +133,7 @@ function dataSubmit(event){
   console.log({value});
 }
 
-const form = document.getElementById('create-hunt');
+const form = document.getElementById('create-hunt-form');
 console.log("AL is here")
 console.log(form)
 form.addEventListener('submit', dataSubmit);
