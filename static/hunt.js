@@ -134,10 +134,10 @@ function dataSubmit(event){
   console.log({value});
 }
 
-const form = document.getElementById('create-hunt-form');
-console.log("AL is hungry")
+const form = document.getElementById("create-hunt-form");
+console.log("AL & C are hungry")
 console.log(form)
-form.addEventListener('submit', dataSubmit);
+form.addEventListener("submit", dataSubmit);
 
 function playHunt(){
     
