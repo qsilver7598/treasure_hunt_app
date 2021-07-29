@@ -125,7 +125,10 @@ function submitHunt(){
     dataSubmit();
 }
 
+///try #1
 // this function was adapted from https://www.learnwithjason.dev/blog/get-form-values-as-json
+
+//this doesn't work-- at leas the getelementbyid didnt work, so that's as far as it went
 function dataSubmit(event){
   event.preventDefault();
   const data = new FormData(event.target);
@@ -133,15 +136,29 @@ function dataSubmit(event){
 
   console.log({value});
 }
-
 //const form = document.getElementById("create-hunt-form");
 const form = document.querySelectorAll(".create-form input");
+console.log("form:",form)
+form.addEventListener("submit", dataSubmit);
+///
+
+
+///try #2
+//youtube tutorial https://www.youtube.com/watch?v=P-jKHhr6YxI&ab_channel=JuniorDeveloperCentral
+//this creates an empty node list, not sure if that's because there is no input at the point the script runs, or what.
+//has no event listener yet
 const form2 = document.querySelectorAll(".create-form input");
 Array.from(form2).reduce((acc,input) => ({...acc,[input.id]: input.value }), {});
 console.log("AL nap time")
 console.log("form2:",form2)
-console.log("form:",form)
-form.addEventListener("submit", dataSubmit);
+
+///try #3
+//i think this will grab empty strings unless called after submit
+//will need to be array/json obj as well
+username = document.querySelector('#user-name');
+title = document.querySelector('#hunt-title');
+theme = document.querySelector('#hunt-theme');
+console.log("username",username)
 
 
 function playHunt(){
