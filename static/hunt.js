@@ -135,9 +135,12 @@ function dataSubmit(event){
 }
 
 //const form = document.getElementById("create-hunt-form");
-const form = document.querySelectorAll(".create-form");
-console.log("AL snuggle time")
-console.log(form)
+const form = document.querySelectorAll(".create-form input");
+const form2 = document.querySelectorAll(".create-form input");
+Array.from(form2).reduce((acc,input) => ({...acc,[input.id]: input.value }), {});
+console.log("AL nap time")
+console.log("form2:",form2)
+console.log("form:",form)
 form.addEventListener("submit", dataSubmit);
 
 
