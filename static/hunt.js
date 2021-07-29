@@ -139,7 +139,7 @@ function dataSubmit(event){
 //const form = document.getElementById("create-hunt-form");
 const form = document.querySelectorAll(".create-form input");
 console.log("form:",form)
-form.addEventListener("submit", dataSubmit);
+//form.addEventListener("submit", dataSubmit);
 ///
 
 
