@@ -134,16 +134,25 @@ def verify_jwt(request):
             return 401
 
 
+# Homepage for the webapp
 @app.route('/')
 def index():
-    return render_template("index.html")
+    if 'profile' in session:
+        return render_template("index.html", id_token=session["token"])
+    else:
+        return render_template("index.html")
 
 
+# Displays the play page
 @app.route('/play')
+@requires_auth
 def play():
-    return render_template("play.html")
+    return render_template("play.html", id_token=session["token"])
 
 
+# This route is used for the creation and retrieval of hunts.
+# Doing a post request will allow a hunt to be created. JSON with name, theme, empty clue and treasure list req.
+# Doing a get request will retrieve the hunts in the database 5 at a time. With a link to the next page in the list.
 @app.route('/hunts', methods=['POST','GET'])
 def hunts_get_post():
     if request.method == 'POST':
@@ -225,6 +234,11 @@ def hunts_get_post():
         return jsonify(error='Method not recognized')
 
 
+# This route allows the editing, deletion, and retrieval of a specific hunt.
+# A delete request will delete the desired hunt and all of the clues and treasures attached.
+# A get request will retrieve the desired hunt.
+# A put or patch request will allow editing of the hunt. put will require all of the columns in the entity
+# while a patch request will allow a single column to be edited.
 @app.route('/hunts/<hunt_id>', methods=['PUT','DELETE','GET', 'PATCH'])
 def hunts_put_delete(hunt_id):
     if request.method == 'PUT':
@@ -331,6 +345,9 @@ def hunts_put_delete(hunt_id):
         return jsonify(error='Method not recognized')
 
 
+# This route is used for the creation and retrieval of clues.
+# Doing a post request will allow a clue to be created. JSON with gps coordinates and description req.
+# Doing a get request will retrieve the clues in the database 5 at a time. With a link to the next page in the list.
 @app.route('/clues', methods=['POST', 'GET'])
 def clues_get_post():
     if request.method == 'POST':
@@ -371,6 +388,11 @@ def clues_get_post():
         return jsonify(error='Method not recognized')
 
 
+# This route allows the editing, deletion, and retrieval of a specific clue.
+# A delete request will delete the desired clue and remove the clue from the hunt.
+# A get request will retrieve the desired clue.
+# A put or patch request will allow editing of the clue. Put will require all of the columns in the entity
+# while a patch request will allow a single column to be edited.
 @app.route('/clues/<clue_id>', methods=['PUT', 'DELETE', 'GET', 'PATCH'])
 def clues_get_delete(clue_id):
     if request.method == 'PUT':
@@ -431,6 +453,9 @@ def clues_get_delete(clue_id):
         return jsonify(error='Method not recognized')
 
 
+# This route will add or remove a clue from a hunt.
+# A put request will add a clue to a hunt and mark that clue has being attached to a hunt.
+# A delete request will remove the clue from the hunt.
 @app.route('/hunts/<hunt_id>/clues/<clue_id>', methods=['PUT', 'DELETE'])
 def clues_put_delete(hunt_id, clue_id):
     if request.method == 'PUT':
@@ -512,6 +537,9 @@ def clues_put_delete(hunt_id, clue_id):
         return jsonify(error='Method not recognized')
 
 
+# This route is used for the creation and retrieval of treasures.
+# Doing a post request will allow a treasure to be created. JSON with gps coordinates and description req.
+# Doing a get request will retrieve the treasures in the database 5 at a time. With a link to the next page in the list.
 @app.route('/treasures', methods=['POST', 'GET'])
 def treasures_get_post():
     if request.method == 'POST':
@@ -552,6 +580,11 @@ def treasures_get_post():
         return jsonify(error='Method not recognized')
 
 
+# This route allows the editing, deletion, and retrieval of a specific treasure.
+# A delete request will delete the desired treasure and remove the treasure from the hunt.
+# A get request will retrieve the desired treasure.
+# A put or patch request will allow editing of the treasure. Put will require all of the columns in the entity
+# while a patch request will allow a single column to be edited.
 @app.route('/treasures/<treasure_id>', methods=['PUT', 'DELETE', 'GET', 'PATCH'])
 def treasures_get_delete(treasure_id):
     if request.method == 'PUT':
@@ -612,6 +645,9 @@ def treasures_get_delete(treasure_id):
         return jsonify(error='Method not recognized')
 
 
+# This route will add or remove a treasure from a hunt.
+# A put request will add a treasure to a hunt and mark that treasure has being attached to a hunt.
+# A delete request will remove the treasure from the hunt.
 @app.route('/hunts/<hunt_id>/treasures/<treasure_id>', methods=['PUT', 'DELETE'])
 def treasures_put_delete(hunt_id, treasure_id):
     if request.method == 'PUT':
@@ -690,6 +726,7 @@ def treasures_put_delete(hunt_id, treasure_id):
         return jsonify(error='Method not recognized')
 
 
+# This route will display the list of users in the database.
 @app.route('/users', methods=['GET'])
 def users_get():
     if request.method == 'GET':
@@ -703,6 +740,7 @@ def users_get():
         return jsonify(error='Method not recognized')
 
 
+# This route will get the data of a specific user.
 @app.route('/users/<user_id>/', methods=['GET'])
 def owner_get(user_id):
     if request.method == 'GET':
@@ -716,22 +754,6 @@ def owner_get(user_id):
         return json.dumps(user), 201
     else:
         return jsonify(error='Method not recognized')
-    
-
-@app.route('/login', methods=['POST'])
-def login_user():
-    content = request.get_json()
-    username = content["username"]
-    password = content["password"]
-    body = {'grant_type':'password','username':username,
-            'password':password,
-            'client_id':CLIENT_ID,
-            'client_secret':CLIENT_SECRET
-           }
-    headers = { 'content-type': 'application/json' }
-    url = 'https://' + DOMAIN + '/oauth/token'
-    r = requests.post(url, json=body, headers=headers)
-    return r.text, 200, {'Content-Type':'application/json'}
 
 
 @app.route('/callback')

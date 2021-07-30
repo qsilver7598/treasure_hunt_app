@@ -4,9 +4,11 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-<style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
 <script type="text/javascript" src="{{ url_for('static', filename='hunt.js') }}"></script>
+<style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE"></script>
+<script>var token = '{{ id_token }}'</script>
+
 </head>
 <body>
     
@@ -14,7 +16,7 @@
         <!-- profile button -->   
         <a href="/ui_login"><button class="button alt-gradient-button" id="profile-button">
             <i class="material-icons">person</i>
-            User Account
+            Login/Profile
         </button></a>
         <!-- headline -->
     <h1>Treasure Hunt</h1>
@@ -27,7 +29,7 @@
 
         <!-- Button Container -->
             <div class="button-box">
-                <h4>Get started by selecting from our hunts, or create one of your own!</h4>
+                <h4>Get started by logging in and selecting from our hunts, or create one of your own!</h4>
                 <form>
                     
                     <button type="button" class="button alt-gradient-button" id="b1" onclick="toggleButton1()">
