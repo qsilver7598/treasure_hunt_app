@@ -44,6 +44,10 @@
             
         
         </div>
+        <!-- For Testing-->
+        <div id="msg">
+            <pre></pre>
+        </div>
 
         <!-- hidden pop up 1 -->
         <div class="container2" id="c2" style="display: none;">
@@ -54,13 +58,19 @@
                 <!-- Create a Hunt Form
                 <form id="create-hunt" action="https://cs467-capstone.uw.r.appspot.com/" method="POST">-->
                 <form class="create-form" id="create-hunt-form">
-                    <label for="user-name">Username:</label><br>
-                    <input type="text" id="user-name" name="user-name"><br>
-                    <label for="hunt-title">Hunt Title:</label><br>
-                    <input type="text" id="hunt-title" name="hunt-title"><br>
-                    <label for="hunt-theme">Hunt Theme:</label><br>
-                    <input type="text" id="hunt-theme" name="hunt-theme"><br>
-                    <!----><div id="radio-box">
+                    <div class="create-input">
+                        <label for="user-name">Username:</label><br>
+                        <input type="text" id="user-name" name="user-name"><br>
+                    </div>
+                    <div class="create-input">
+                        <label for="hunt-title">Hunt Title:</label><br>
+                        <input type="text" id="hunt-title" name="hunt-title"><br>
+                    </div>
+                    <div>
+                        <label for="hunt-theme">Hunt Theme:</label><br>
+                        <input type="text" id="hunt-theme" name="hunt-theme"><br>
+                    </div>
+                    <!--<div class="create-input" id="radio-box">
                         <p>Hunt Theme:</p>
                         <label for="hunt-theme-historical">Historical</label>
                         <input type="radio" id="hunt-theme-historical" name="hunt-theme" value="historical"><br>
@@ -68,35 +78,39 @@
                         <input type="radio" id="hunt-theme-cultural" name="hunt-theme" value="cultural"><br>
                         <label for="hunt-theme-other">Other</label>
                         <input type="radio" id="hunt-theme-other" name="hunt-theme" value="other"><br>
+                    </div>-->
+                    <!-- Treasure -->   
+                    <div class="create-input">     
+                        <label for="treasure">Treasure:</label><br>
+                        <input type="text" id="treasure" name="treasure"><br>
+                    </div> 
+                    <!-- Clues -->        
+                    <div class="create-input" id="clue-1">
+                        <label for="clue1">Clue 1:</label><br>
+                        <textarea id="clue1" name="clue1"></textarea><br>
                     </div>
-                    <!-- Treasure -->         
-                    <label for="treasure">Treasure:</label><br>
-                    <input type="text" id="treasure" name="treasure"><br>
-                    <!-- Clues -->         
-                    <label for="clue-1">Clue 1:</label><br>
-                    <!--<input type="text" id="clue-1" name="clue-1"><br> -->
-                    <textarea id="clue-1" name="clue-1"></textarea><br>
-                    <label for="clue-2">Clue 2:</label><br>
-                    <!--<input type="text" id="clue-2" name="clue-2"><br> -->
-                    <textarea id="clue-2" name="clue-2"></textarea><br>
-
-                    <!-- Add More Clues -->
-                    <div id="clue-3" style="display: none;">
-                        <label for="clue-3">Clue 3:</label><br>
-                        <input type="text" id="clue-3" name="clue-3"><br>
+                    <div class="create-input" id="clue-2">
+                        <label for="clue2">Clue 2:</label><br>
+                        <textarea id="clue2" name="clue2"></textarea><br>
                     </div>
 
                     <!-- Add More Clues -->
-                    <div id="clue-4" style="display: none;">
-                        <label for="clue-4">Clue 4:</label><br>
-                        <input type="text" id="clue-4" name="clue-4"><br>
+                    <div class="create-input" id="clue-3" style="display: none;">
+                        <label for="clue3">Clue 3:</label><br>
+                        <textarea id="clue3" name="clue3"></textarea><br>
+                    </div>
+
+                    <!-- Add More Clues -->
+                    <div class="create-input" id="clue-4" style="display: none;">
+                        <label for="clue4">Clue 4:</label><br>
+                        <textarea id="clue4" name="clue4"></textarea><br>
                     </div>
                 
-                    <button type="submit" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
+                    <button type="button" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
                         <i class="material-icons">add</i>
                         add another clue
                     </button>
-                    <button type="button" class="button alt-gradient-button" id="submit" onclick="submitHunt()" >
+                    <button type="submit" class="button alt-gradient-button" id="submit" onclick="submitHunt()" >
                         <i class="material-icons">done</i>
                         Submit
                     </button>
@@ -110,7 +124,7 @@
                 <div class="find-hunt">
                     <h3>Find a Hunt</h3>
                     <p>Choose from the list of available Treasure Hunts.</p>
-                    <div id="find-hunt-radio-box">
+                    <div class="choose-input" id="find-hunt-radio-box">
                         <label for="hunt-1">This Hunt</label>
                         <input type="radio" id="hunt-1" name="hunt" value="hunt-1"><br>
                         <label for="hunt-2">That Hunt</label>

@@ -122,47 +122,50 @@ function addClue(){
 
 function submitHunt(){
     toggleButton1()
-    dataSubmit();
-}
-
-///try #1
-// this function was adapted from https://www.learnwithjason.dev/blog/get-form-values-as-json
-
-//this doesn't work-- at leas the getelementbyid didnt work, so that's as far as it went
-function dataSubmit(event){
-  event.preventDefault();
-  const data = new FormData(event.target);
-  const value = Object.fromEntries(data.entries());
-
-  console.log({value});
-}
-//const form = document.getElementById("create-hunt-form");
-const form = document.querySelectorAll(".create-form input");
-console.log("form:",form)
-//form.addEventListener("submit", dataSubmit);
-///
-
-
-///try #2
-//youtube tutorial https://www.youtube.com/watch?v=P-jKHhr6YxI&ab_channel=JuniorDeveloperCentral
-//this creates an empty node list, not sure if that's because there is no input at the point the script runs, or what.
-//has no event listener yet
-const form2 = document.querySelectorAll(".create-form input");
-Array.from(form2).reduce((acc,input) => ({...acc,[input.id]: input.value }), {});
-console.log("AL nap time")
-console.log("form2:",form2)
-
-///try #3
-//i think this will grab empty strings unless called after submit
-//will need to be array/json obj as well
-username = document.querySelector('#user-name');
-title = document.querySelector('#hunt-title');
-theme = document.querySelector('#hunt-theme');
-console.log("username",username)
-
-
-function playHunt(){
     
 }
+// this function was adapted from https://gist.github.com/prof3ssorSt3v3/52ebd432bb7b8a155985a2f82509541d
+//outer array likely not needed for our purposes
 
+let hunt_list = [];
+const huntCreate = (ev)=>{
+  //ev.preventDefault();  //to stop the form submitting
+  let hunt = {
+      id: Date.now(),
+      username: document.getElementById('user-name').value,
+      title: document.getElementById('hunt-title').value,
+      theme: document.getElementById('hunt-theme').value,
+      treasure: document.getElementById('treasure').value,
+      clue1: document.getElementById('clue1').value,
+      clue2: document.getElementById('clue2').value,
+      clue3: document.getElementById('clue3').value,
+      clue4: document.getElementById('clue4').value
+
+      //theme: document.querySelector('#radio-box input').value
+  }
+  hunt_list.push(hunt);
+  // to clear the form for the next entries
+  document.querySelector('form').reset();
+
+  //for display purposes only
+  console.warn('added' , {hunt} );
+  console.log(hunt)
+  console.log(hunt.clue1)
+  let pre = document.querySelector('#msg pre');
+  pre.textContent = '\n' + JSON.stringify(hunt_list, '\t', 2);
+  setTimeout(alert("paused"),4000);
+
+  //send to server
+  const myHuntJSON = JSON.stringify(hunt);
+  window.location = "https://cs467-capstone.uw.r.appspot.php?x=" + myHuntJSON;//or whatever the correct address is
+}
+
+function playHunt(){
+  
+}
+
+
+document.addEventListener('DOMContentLoaded', ()=>{
+document.getElementById('submit').addEventListener('click', huntCreate);
+});
 
