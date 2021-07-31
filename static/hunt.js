@@ -9,6 +9,7 @@ const Url='https://cs467-capstone.uw.r.appspot.com';
 
 
 // jQuery functions for interaction with the database
+// CREATE HUNT
 $(document).ready(function(){
   $('#createHunt').click(function(){
     var hunt = getHuntInfo();
@@ -46,6 +47,62 @@ $(document).ready(function(){
       }
     })
   })
+
+  //CREATE CLUES
+  $('#treasure-button').click(function(){
+    var hunt = getClueInfo();
+    if (hunt == 'error'){
+      alert('One or more of the fields are empty. Please try again.');
+    }
+    else{
+      $.ajax({
+        url: Url + '/clues',
+        type: 'POST',
+        data: getClueInfo(),
+        contentType: 'application/json',
+        dataType: 'json',
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        success: function(response){
+          $('#create-hunt-form').trigger('reset');
+        },
+        error: function(){
+          alert('There was an error with your request.')
+          window.location.href = '/'
+        }
+      })
+    }
+  })
+  
+
+  //CREATE treasure
+  $('#submit').click(function(){
+    var hunt = getTreasureInfo();
+    if (hunt == 'error'){
+      alert('One or more of the fields are empty. Please try again.');
+    }
+    else{
+      $.ajax({
+        url: Url + '/treasures',
+        type: 'POST',
+        data: getTreasureInfo(),
+        contentType: 'application/json',
+        dataType: 'json',
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        success: function(response){
+          $('#create-hunt-form').trigger('reset');
+        },
+        error: function(){
+          alert('There was an error with your request.')
+          window.location.href = '/'
+        }
+      })
+    }
+  })
+  
 })
 
 
@@ -63,6 +120,33 @@ function getHuntInfo(){
 }
 
 
+function getClueInfo(){
+  var hunt = {
+    name: [],
+    theme: [],
+    clues: $("#clue1").val(),
+    treasures: []
+  }
+  if (hunt['clues'] == ''){
+    return 'error';
+  }
+  return JSON.stringify(hunt);
+}
+
+function getTreasureInfo(){
+  var hunt = {
+    name: [],
+    theme: [],
+    clues: [],
+    treasures: $("#treasure").val()
+  }
+  if (hunt['treasures'] == ''){
+    return 'error';
+  }
+  return JSON.stringify(hunt);
+}
+
+//FIND HUNT BUTTON
 function createHuntList(hunts){
   $.each(hunts, function(key, val){
     var radioBtn = $('<input type="radio" id=' + key + ' />');
@@ -124,16 +208,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 /*
 * This section regards button clicks and hiding/showing forms
+button 1 id = b1
+default container = c1 = x
+create hunt container = c2 = y
  */
 function toggleButton1() {
-    //console.log("button 1")
 var x = document.getElementById("c1");
 var y = document.getElementById("c2");
 
 if (x.style.display === "none") {
-    //console.log("x1 =", x)
     x.style.display = "block";
-    //console.log("x2 =", x)
 } else {
     //console.log("x3 =", x)
     x.style.display = "none";
@@ -148,16 +232,19 @@ if (y.style.display === "none") {
 //toggle_C2();
 
 }
-
+/*
+button 1 id = b1
+create hunt container = c2 = y
+ */
 function toggle_C2() {
-    var y = document.getElementById("c2");
+  var y = document.getElementById("c2");
 
-    if (y.style.display === "none") {
-        y.style.display = "block";
-    } else {
-        y.style.display = "none";
-    }
-    
+  if (y.style.display === "none") {
+      y.style.display = "block";
+  } else {
+      y.style.display = "none";
+  }
+  
 }
 
 function toggleButton2() {
@@ -208,8 +295,6 @@ function addClue(){
     } else {
         y.style.display = "block";
     }
-
-
 }
 
 // function submitHunt(){
