@@ -72,6 +72,8 @@ function createHuntList(hunts){
   })
 }
 
+
+/* MAP STUFF */
 function initMap() {
     
   map = new google.maps.Map(document.getElementById("map"), {
@@ -178,6 +180,25 @@ function toggleButton2() {
   }, 1500);
 }
 
+function createClue(){
+  var x = document.getElementById("treasure");
+  var y = document.getElementById("c2-2");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      y.style.display = "block";
+  }
+}
+
+function createTreasure(){
+  var x = document.getElementById("treasure-input");
+  var y = document.getElementById("c2-2");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      y.style.display = "block";
+  }
+}
 
 function addClue(){
     var x = document.getElementById("clue-3");

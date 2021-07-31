@@ -68,9 +68,60 @@
                         <input type="text" id="hunt-theme" name="hunt-theme"><br>
                     </div>
                     <br>
-                    <button type="button" class="button alt-gradient-button" id="createHunt">
+                    <button type="button" class="button alt-gradient-button" id="createHunt" onclick="createClue()" >
                         <i class="material-icons">done</i>
                         Add Clues
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- hidden pop up 1 -->
+        <div class="container2" id="c2-2" style="display: none;">
+            <div class="create-hunt">
+                <p>Enter the clues below.</p>
+                <!-- Create a Hunt Form
+                <form id="create-hunt" action="https://cs467-capstone.uw.r.appspot.com/" method="POST">-->
+                <form class="create-clues" id="create-clues-form">
+
+                    <!-- Clues -->        
+                    <div class="create-input" id="clue-1">
+                        <label for="clue1">Clue 1:</label><br>
+                        <textarea id="clue1" name="clue1"></textarea><br>
+                    </div>
+                    <div class="create-input" id="clue-2">
+                        <label for="clue2">Clue 2:</label><br>
+                        <textarea id="clue2" name="clue2"></textarea><br>
+                    </div>
+
+                    <!-- Add More Clues -->
+                    <div class="create-input" id="clue-3" style="display: none;">
+                        <label for="clue3">Clue 3:</label><br>
+                        <textarea id="clue3" name="clue3"></textarea><br>
+                    </div>
+
+                    <!-- Add More Clues -->
+                    <div class="create-input" id="clue-4" style="display: none;">
+                        <label for="clue4">Clue 4:</label><br>
+                        <textarea id="clue4" name="clue4"></textarea><br>
+                    </div>
+                    <!-- Treasure -->   
+                    <div class="create-input" id="treasure-input" style="display: none;">     
+                        <label for="treasure">Treasure:</label><br>
+                        <input type="text" id="treasure" name="treasure"><br>
+                    </div> 
+                    <!-- Buttons -->
+                    <button type="button" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
+                        <i class="material-icons">add</i>
+                        add another clue
+                    </button>
+                    <br>
+                    <button type="button" class="button alt-gradient-button" id="treasure-button" onclick="createTreasure()" >
+                        <i class="material-icons">done</i>
+                        Create Treasure
+                    </button>
+                    <button type="submit" class="button alt-gradient-button" id="submit" onclick="submitHunt()" >
+                        <i class="material-icons">done</i>
+                        Submit
                     </button>
                 </form>
             </div>

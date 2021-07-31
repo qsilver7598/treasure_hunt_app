@@ -1,202 +1,219 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  .menu {
-    float: right;
-    width: 20%;
-    text-align: center;
+  box-sizing: border-box;
+}
 
-  }
+.menu {
+  float: right;
+  width: 20%;
+  text-align: center;
+
+}
 
 #profile-button {
-    float: right;
+  float: right;
 }
 
 #treasure-map-bg {
-    position: absolute;
-    max-width: 100%;
-    height: auto;
-    overflow: hidden;/*does this work?*/
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  overflow: hidden;/*does this work?*/
 }
-  
- /* .menu a {
-    display: block;
-    background-color: #e5e5e5;
-    padding: 8px;
-    margin-top: 7px;
-    display: block;
+
+/* .menu a {
+  display: block;
+  background-color: #e5e5e5;
+  padding: 8px;
+  margin-top: 7px;
+  display: block;
+  width: 100%;
+  color: black;
+}
+*/
+.main {
+  float: left;
+  width: 60%;
+  padding: 0 20px;
+}
+
+.right {
+  background-color: #e5e5e5;
+  float: right;
+  width: 20%;
+  padding: 15px;
+  margin-top: 7px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
     width: 100%;
-    color: black;
   }
-  */
-  .main {
-    float: left;
-    width: 60%;
-    padding: 0 20px;
-  }
-  
-  .right {
-    background-color: #e5e5e5;
-    float: right;
-    width: 20%;
-    padding: 15px;
-    margin-top: 7px;
-    text-align: center;
-  }
-  
-  @media only screen and (max-width: 620px) {
-    /* For mobile phones: */
-    .menu, .main, .right {
-      width: 100%;
-    }
-  }
+}
 
 body {
-    /*background-image: url("map.jpg");
-    /*width: 100%;
-    overflow:hidden;*/
-    background-image: url("map.jpg");
-    background-repeat: no-repeat;
-    background-position: top;
-    background-attachment: fixed;
-    background-size: cover;
+  /*background-image: url("map.jpg");
+  /*width: 100%;
+  overflow:hidden;*/
+  background-image: url("map.jpg");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: fixed;
+  background-size: cover;
 
-    font-family:Verdana;
-    color:#aaaaaa;
+  font-family:Verdana;
+  color:#aaaaaa;
 }
 
 .top-bar {
-    background-color:#3130309f;
-    margin-top: 0px;
-    padding: 30px;
+  background-color:#3130309f;
+  margin-top: 0px;
+  padding: 30px;
 
-    
-    color: linear-gradient(to right, red, yellow);
-    text-align:center;
+  
+  color: linear-gradient(to right, red, yellow);
+  text-align:center;
 
- }
+}
 
 /*.nav-bar {
-    overflow:auto;
+  overflow:auto;
 }*/
 
 /*.container1 {*/
 #c1 {
-    display: block;
+  display: block;
 
-    position: relative;
-    left: 35%;
-    max-width: 1000px !important;
-    padding: 50px 25px;
-    margin: 3%; /*this will likely need to change once the hidden class is enacted*/
-    text-align: center;
-    background-color: rgba(226, 225, 225, 0.829);
-    /*border-color: white;*/
-    border-radius: 4px;
-    box-shadow: 0px 4px 12px rgba(black, 0.08);
+  position: relative;
+  left: 35%;
+  max-width: 1000px !important;
+  padding: 50px 25px;
+  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
+  text-align: center;
+  background-color: rgba(226, 225, 225, 0.829);
+  /*border-color: white;*/
+  border-radius: 4px;
+  box-shadow: 0px 4px 12px rgba(black, 0.08);
 
-    color: black;
+  color: black;
 }
 
 #c2 {
-    display: block;
+  display: block;
 
-    position: relative;
-    left: 35%;
-    max-width: 1000px !important;
-    padding: 50px 25px;
-    margin: 3%; /*this will likely need to change once the hidden class is enacted*/
-    text-align: center;
-    background-color: rgba(226, 225, 225, 0.829);
-    /*border-color: white;*/
-    border-radius: 4px;
-    box-shadow: 0px 4px 12px rgba(black, 0.08);
+  position: relative;
+  left: 35%;
+  max-width: 1000px !important;
+  padding: 50px 25px;
+  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
+  text-align: center;
+  background-color: rgba(226, 225, 225, 0.829);
+  /*border-color: white;*/
+  border-radius: 4px;
+  box-shadow: 0px 4px 12px rgba(black, 0.08);
 
-    color: black;
+  color: black;
+}
+
+#c2-2 {
+  display: block;
+
+  position: relative;
+  left: 35%;
+  max-width: 1000px !important;
+  padding: 50px 25px;
+  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
+  text-align: center;
+  background-color: rgba(226, 225, 225, 0.829);
+  /*border-color: white;*/
+  border-radius: 4px;
+  box-shadow: 0px 4px 12px rgba(black, 0.08);
+
+  color: black;
 }
 
 #c3 {
-    display: none;
+  display: none;
 
-    position: relative;
-    left: 35%;
-    max-width: 1000px !important;
-    padding: 50px 25px;
-    margin: 3%; /*this will likely need to change once the hidden class is enacted*/
-    text-align: center;
-    background-color: rgba(226, 225, 225, 0.829);
-    /*border-color: white;*/
-    border-radius: 4px;
-    box-shadow: 0px 4px 12px rgba(black, 0.08);
+  position: relative;
+  left: 35%;
+  max-width: 1000px !important;
+  padding: 50px 25px;
+  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
+  text-align: center;
+  background-color: rgba(226, 225, 225, 0.829);
+  /*border-color: white;*/
+  border-radius: 4px;
+  box-shadow: 0px 4px 12px rgba(black, 0.08);
 
-    color: black;
+  color: black;
 }
 /*
 #c1 {
-    display: block;
+  display: block;
 }
 
 #c2 {
-    display: none;
+  display: none;
 }
 
 #c3 {
-    display: none;
+  display: none;
 }*/
 
 .button-box {
-    /*padding: 50px 25px;*/
-    /*border: 1px solid black;*/
-    border-radius: 4px;
-    /*margin-top: -155px;*/
-    text-align: center;
-    /*background-color: rgb(226, 225, 225, 0.829);*/
-    /*border-color: white;*/
-    box-shadow: 0px 4px 12px rgba(black, 0.08);
+  /*padding: 50px 25px;*/
+  /*border: 1px solid black;*/
+  border-radius: 4px;
+  /*margin-top: -155px;*/
+  text-align: center;
+  /*background-color: rgb(226, 225, 225, 0.829);*/
+  /*border-color: white;*/
+  box-shadow: 0px 4px 12px rgba(black, 0.08);
 }
 
 
 i.material-icons{
-       font-size: 40px;
-       margin: auto;
-    
-       color: white;
+     font-size: 40px;
+     margin: auto;
+  
+     color: white;
 
-       transition: opacity 0.2s;
+     transition: opacity 0.2s;
 }
 
 .alt-gradient-button {
-    background: linear-gradient(to right, #d2ac47, #f0e883);
-    /*background: linear-gradient(to right, #f0e883, #d2ac47);*/
-    border: none;
-    color: white;
-    font-weight: 700;
-    font-size: x-large;
-    text-shadow: 0px 2px 2px rgba(black, 0.2);
-    opacity: 0.85;
-    box-shadow: 0px 0px 0px 4px rgba(black, 0.02);
-    
-    padding: 8px;
-    /*&:hover{
-        opacity: 1;
-        color: rgb(228, 225, 225);
-        box-shadow: 0px 0px 0px 4px rgba(black, 0.03);
-    }
+  background: linear-gradient(to right, #d2ac47, #f0e883);
+  /*background: linear-gradient(to right, #f0e883, #d2ac47);*/
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: x-large;
+  text-shadow: 0px 2px 2px rgba(black, 0.2);
+  opacity: 0.85;
+  box-shadow: 0px 0px 0px 4px rgba(black, 0.02);
+  
+  padding: 8px;
+  /*&:hover{
+      opacity: 1;
+      color: rgb(228, 225, 225);
+      box-shadow: 0px 0px 0px 4px rgba(black, 0.03);
+  }
 
-    &:active{
-        opacity: 0.8;
-    }
+  &:active{
+      opacity: 0.8;
+  }
 
-    &:focus{
-        color: white;
-    }
+  &:focus{
+      color: white;
+  }
 
-    i.material-icons{
-        margin-right: 5px;
-        margin-left: -6px;
-    }
-    */
+  i.material-icons{
+      margin-right: 5px;
+      margin-left: -6px;
+  }
+  */
 }
 
 
@@ -205,123 +222,123 @@ i.material-icons{
 */
 
 /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-       #map {
-        height: 100%;
-        width: auto;
-      }
-      
-       /*Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .custom-map-control-button {
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        height: 40px;
-        cursor: pointer;
-      }
-      .custom-map-control-button:hover {
-        background: #ebebeb;
-      }
+     * element that contains the map. */
+     #map {
+      height: 100%;
+      width: auto;
+    }
+    
+     /*Optional: Makes the sample page fill the window. */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .custom-map-control-button {
+      background-color: #fff;
+      border: 0;
+      border-radius: 2px;
+      box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+      margin: 10px;
+      padding: 0 0.5em;
+      font: 400 18px Roboto, Arial, sans-serif;
+      overflow: hidden;
+      height: 40px;
+      cursor: pointer;
+    }
+    .custom-map-control-button:hover {
+      background: #ebebeb;
+    }
 
 
 /* This section is for the profile page */
 
 .button-dashboard {
-  position: absolute;
-  display: block;
-  width: 115px;
-  height: 25px;
-  background: #4E9CAF;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
+position: absolute;
+display: block;
+width: 115px;
+height: 25px;
+background: #4E9CAF;
+text-align: center;
+border-radius: 5px;
+color: white;
+font-weight: bold;
 }
 
 .container {
-  display: flex;
-  justify-content: flex-start;
-  padding: 5px;
+display: flex;
+justify-content: flex-start;
+padding: 5px;
 }
 
 .text-wrap {
-  margin: 5px;
-  justify-content: left;
-  align-items: center;
-  position: relative;
-  background-color: #eee;
-  padding: 1em;
+margin: 5px;
+justify-content: left;
+align-items: center;
+position: relative;
+background-color: #eee;
+padding: 1em;
 }
 
 textarea {
-  min-width: 20vw;
-  max-width: 80vw;
-  min-height: 200px;
-  max-height: 80vh;
-  padding: 0.8em 1em;
-  font-size: 1em;
+min-width: 20vw;
+max-width: 80vw;
+min-height: 200px;
+max-height: 80vh;
+padding: 0.8em 1em;
+font-size: 1em;
 }
 
 textarea::-webkit-scrollbar {
-  width: 4px;
+width: 4px;
 }
 
 textarea::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+background: #f1f1f1; 
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background: #888; 
+background: #888; 
 }
 
 textarea::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+background: #555; 
 }
 
 .clipboard.icon {
-  position: absolute;
-  top: .6em;
-  right: .8em;
-  margin-top: 4px;
-  margin-left: 4px;
-  width: 11px;
-  height: 13px;
-  border: solid 1px #333333;
-  border-top: none;
-  border-radius: 1px; 
-  cursor: pointer;
+position: absolute;
+top: .6em;
+right: .8em;
+margin-top: 4px;
+margin-left: 4px;
+width: 11px;
+height: 13px;
+border: solid 1px #333333;
+border-top: none;
+border-radius: 1px; 
+cursor: pointer;
 }
 
 .clipboard.icon:before {
-  top: -1px;
-  left: 2px;
-  width: 5px;
-  height: 1px;
-  border: solid 1px #333333;
-  border-radius: 1px; 
+top: -1px;
+left: 2px;
+width: 5px;
+height: 1px;
+border: solid 1px #333333;
+border-radius: 1px; 
 }
 
 .clipboard.icon:after {
-  width: 3px;
-  height: 1px;
-  background-color: #333333;
-  box-shadow: 8px 0 0 0 #333333; 
+width: 3px;
+height: 1px;
+background-color: #333333;
+box-shadow: 8px 0 0 0 #333333; 
 }
 
 .icon:before, .icon:after {
-  content: '';
-  position: absolute;
-  display: block;
+content: '';
+position: absolute;
+display: block;
 }
