@@ -7,12 +7,12 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-
+console.log('version 2')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
   $('#createHunt').click(function(){
-    console.log('version 1')
+    
     var hunt = getHuntInfo();
     if (hunt == 'error'){
       alert('One or more of the fields are empty. Please try again.');
