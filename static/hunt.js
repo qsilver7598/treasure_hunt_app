@@ -30,7 +30,7 @@ $(document).ready(function(){
           $('#create-hunt-form').trigger('reset');
         },
         error: function(){
-          alert('There was an error with your request.')
+          alert('There was an error with your request. #1')
           window.location.href = '/'
         }
       })
@@ -68,7 +68,7 @@ $(document).ready(function(){
           $('#create-hunt-form').trigger('reset');
         },
         error: function(){
-          alert('There was an error with your request.')
+          alert('There was an error with your request. #2')
           window.location.href = '/'
         }
       })
@@ -96,7 +96,7 @@ $(document).ready(function(){
           $('#create-hunt-form').trigger('reset');
         },
         error: function(){
-          alert('There was an error with your request.')
+          alert('There was an error with your request. #3')
           window.location.href = '/'
         }
       })
