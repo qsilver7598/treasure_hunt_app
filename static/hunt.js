@@ -12,6 +12,7 @@ const Url='https://cs467-capstone.uw.r.appspot.com';
 // CREATE HUNT
 $(document).ready(function(){
   $('#createHunt').click(function(){
+    console.log('version 1')
     var hunt = getHuntInfo();
     if (hunt == 'error'){
       alert('One or more of the fields are empty. Please try again.');
