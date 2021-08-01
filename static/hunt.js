@@ -27,7 +27,8 @@ $(document).ready(function(){
           Authorization: 'Bearer ' + token
         },
         success: function(response){
-          $('#create-hunt-form').trigger('reset');
+          //$('#create-hunt-form').trigger('reset');
+          alert(hunt.name, 'was created successfully.')//not resetting form on submission so we can still grab values without having to set globals
         },
         error: function(){
           alert('There was an error with your request. #1')
@@ -105,7 +106,7 @@ $(document).ready(function(){
   
 })
 
-
+//getting info from name theme only
 function getHuntInfo(){
   var hunt = {
     name: $("#hunt-title").val(),
@@ -116,33 +117,37 @@ function getHuntInfo(){
   if (hunt['name'] == '' || hunt['theme'] == ''){
     return 'error';
   }
+  console.log('1 hunt:', hunt)
   return JSON.stringify(hunt);
 }
 
-
+//getting info from partial form
 function getClueInfo(){
   var hunt = {
-    name: [],
-    theme: [],
+    name: $("#hunt-title").val(),
+    theme: $("#hunt-theme").val(),
     clues: $("#clue1").val(),
     treasures: []
   }
   if (hunt['clues'] == ''){
     return 'error';
   }
+  console.log('2 hunt:', hunt)
   return JSON.stringify(hunt);
 }
 
+//getting info from whole form
 function getTreasureInfo(){
   var hunt = {
-    name: [],
-    theme: [],
-    clues: [],
+    name: $("#hunt-title").val(),
+    theme: $("#hunt-theme").val(),
+    clues: $("#clue1").val(),
     treasures: $("#treasure").val()
   }
   if (hunt['treasures'] == ''){
     return 'error';
   }
+  console.log('3 hunt:', hunt)
   return JSON.stringify(hunt);
 }
 
