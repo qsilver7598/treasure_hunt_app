@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 3')
+console.log('version 4')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -67,7 +67,8 @@ $(document).ready(function(){
           Authorization: 'Bearer ' + token
         },
         success: function(response){
-          $('#create-hunt-form').trigger('reset');
+          //$('#create-hunt-form').trigger('reset');
+          alert(hunt.name, 'clue was added successfully.')//not resetting form on submission so we can still grab values without having to set globals
         },
         error: function(){
           alert('There was an error with your request. #2')
@@ -95,7 +96,8 @@ $(document).ready(function(){
           Authorization: 'Bearer ' + token
         },
         success: function(response){
-          $('#create-hunt-form').trigger('reset');
+          //$('#create-hunt-form').trigger('reset');
+          alert(hunt.name, 'treasure was added successfully.')//not resetting form on submission so we can still grab values without having to set globals
         },
         error: function(){
           alert('There was an error with your request. #3')
@@ -134,6 +136,7 @@ function getClueInfo(){
     return 'error';
   }
   console.log('2 hunt:', hunt)
+  console.log('clues:', clues)
   return JSON.stringify(hunt);
 }
 
