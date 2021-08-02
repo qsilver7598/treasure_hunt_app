@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 9')
+console.log('version 10')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -129,12 +129,13 @@ function getClueInfo(){
   var hunt = {
     name: $("#hunt-title").val(),
     theme: $("#hunt-theme").val(),
-    clues: [$(".clue-info").val()],//grabbing whole class, including all clue text and location info
+    clues: [
+      {
+        description: $("#clue1").val(),
+        gps: $("#clue1-loc").val()
+      }
+    ],//grabbing whole class, including all clue text and location info
     treasures: []
-    /*name: hunt.name,
-    description: $("#clue1").val(),
-    gps_Coordinates: $("#clue1-loc").val(),
-    hunt: hunt*/
   }
   if (hunt['clues'] == ''){
     return 'error';
