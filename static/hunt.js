@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 6')
+console.log('version 7')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -45,7 +45,7 @@ $(document).ready(function(){
       success: function(response){
         var returnedData = JSON.parse(response);
         createHuntList(returnedData['hunts']);
-        
+        console.log("response",response)
       }
     })
   })
