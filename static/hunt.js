@@ -141,7 +141,7 @@ function getClueInfo(){
     return 'error';
   }
   console.log('2 hunt:', hunt)
-  console.log('clues:', hunt.clues)
+  console.log('clues:', hunt['clues'])
   return JSON.stringify(hunt);
 }
 
@@ -172,6 +172,17 @@ function createHuntList(hunts){
 
 
 /* MAP STUFF */
+function toggleMap(){
+  var x = document.getElementById("treasure-map-input");
+  if (x.style.display == "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
+  initMap_Treasure();
+  console.log("toggleMap called initMapTreasure")
+}
+
 function initMap() {
     
   map = new google.maps.Map(document.getElementById("map"), {

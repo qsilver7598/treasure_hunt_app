@@ -7,7 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='hunt.js') }}"></script>
 <style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE"></script>-->
 <script>var token = '{{ id_token }}'</script>
 
 </head>
@@ -88,13 +88,21 @@
                         <label for="clue1">Clue 1 Text:</label><br>
                         <textarea class="clue-info" id="clue1" name="clue1"></textarea><br>
                         <label for="clue1-loc">Clue 1 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue1-loc" name="clue1-loc"><br>
+                        <input type="text" class="clue-info" id="clue1-loc" name="clue1-loc">
+                        <button type="button" class="button alt-gradient-button" id="map-loc-clue1" onclick="toggleMap()" >
+                            <!--<i class="material-icons">add</i>-->
+                            map
+                        </button>
                     </div>
                     <div class="create-input" id="clue-2">
                         <label for="clue2">Clue 2 Text:</label><br>
                         <textarea class="clue-info" id="clue2" name="clue2"></textarea><br>
                         <label for="clue2-loc">Clue 2 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue2-loc" name="clue2-loc"><br>
+                        <input type="text" class="clue-info" id="clue2-loc" name="clue2-loc">
+                        <button type="button" class="button alt-gradient-button" id="map-loc-clue2" onclick="toggleMap()" >
+                            <!--<i class="material-icons">add</i>-->
+                            map
+                        </button>
                     </div>
 
                     <!-- Add More Clues -->
@@ -102,7 +110,11 @@
                         <label for="clue3">Clue 3:</label><br>
                         <textarea class="clue-info" id="clue3" name="clue3"></textarea><br>
                         <label for="clue3-loc">Clue 3 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue3-loc" name="clue3-loc"><br>
+                        <input type="text" class="clue-info" id="clue3-loc" name="clue3-loc">
+                        <button type="button" class="button alt-gradient-button" id="map-loc-clue3" onclick="toggleMap()" >
+                            <!--<i class="material-icons">add</i>-->
+                            map
+                        </button>
                     </div>
 
                     <!-- Add More Clues -->
@@ -110,14 +122,22 @@
                         <label for="clue4">Clue 4:</label><br>
                         <textarea class="clue-info" id="clue4" name="clue4"></textarea><br>
                         <label for="clue4-loc">Clue 4 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue4-loc" name="clue4-loc"><br>
+                        <input type="text" class="clue-info" id="clue4-loc" name="clue4-loc">
+                        <button type="button" class="button alt-gradient-button" id="map-loc-clue4" onclick="toggleMap()" >
+                            <!--<i class="material-icons">add</i>-->
+                            map
+                        </button>
                     </div>
                     <!-- Treasure -->   
                     <div class="create-input" id="treasure-input" style="display: none;">     
                         <label for="treasure">Treasure:</label><br>
                         <input type="text" class="treasure-info" id="treasure" name="treasure"><br>
                         <label for="treasure-loc">Treasure Location:</label><br>
-                        <input type="text" class="treasure-info" id="treasure-loc" name="treasure-loc"><br>
+                        <input type="text" class="treasure-info" id="treasure-loc" name="treasure-loc">
+                        <button type="button" class="button alt-gradient-button" id="map-loc-Treasure" onclick="toggleMap()" >
+                            <!--<i class="material-icons">add</i>-->
+                            map
+                        </button>
                     </div> 
                     <!-- Buttons -->
                     <button type="button" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
@@ -159,6 +179,20 @@
         </div>
 
     </div>
+    <!-- map modal-->
 
+    <div class="map-box" id="treasure-map-input" style="display: none;">  
+        <div id="map"></div>
+        <button type="button" class="button alt-gradient-button" id="map-done" style="display: inline;" onclick="toggleMap()" >
+            <i class="material-icons">done</i>
+            Done
+        </button>
+    </div>
+    
+    <!--Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE&callback=initMap&libraries=&v=weekly&channel=2"
+      async
+    ></script>
 </body>
 </html>
