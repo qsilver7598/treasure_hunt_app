@@ -170,6 +170,14 @@ function createHuntList(hunts){
   })
 }
 
+//DISPLAY CLUE
+function showClue(hunts){
+  $.each(hunts, function(val){
+       var clue = $('<p id=clueText>' + val['clues'] + '</p>' + '<br><br>');
+       clue.appendTo('#clue-pop-up');
+  })
+}
+
 
 /* MAP STUFF */
 function toggleMap(){
@@ -190,7 +198,12 @@ function initMap() {
     zoom: 6,
     
   });
-  
+  // The marker, positioned at current position
+  const marker = new google.maps.Marker({
+    position: { lat: -34.397, lng: 150.644 },
+    map: map,
+  });
+
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
   locationButton.textContent = "Pan to Current Location";
@@ -209,6 +222,7 @@ function initMap() {
           infoWindow.setContent("Location found.");
           infoWindow.open(map);
           map.setCenter(pos);
+          marker.setPosition(pos);
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
