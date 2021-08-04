@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 19')
+console.log('version 20')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -69,11 +69,12 @@ $(document).ready(function(){
         },
         success: function(response){
           $('#create-hunt-form').trigger('reset');
-          alert(hunt.name, 'clue was added successfully.')
+          alert(clue.name, 'clue was added successfully.')
         },
         error: function(){
           alert('There was an error with your request. #2')
-          alert('take a screenshot')
+          alert('look at errors in console while I sleep')
+          sleep(3000);
           window.location.href = '/'
         }
       })
