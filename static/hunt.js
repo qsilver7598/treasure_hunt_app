@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 18')
+console.log('version 19')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -28,8 +28,8 @@ $(document).ready(function(){
           Authorization: 'Bearer ' + token
         },
         success: function(response){
-          //$('#create-hunt-form').trigger('reset');
-          alert(hunt.name, 'was created successfully.')//not resetting form on submission so we can still grab values without having to set globals
+          $('#create-hunt-form').trigger('reset');
+          alert(hunt.name, 'was created successfully.')
         },
         error: function(){
           alert('There was an error with your request. #1')
@@ -61,7 +61,7 @@ $(document).ready(function(){
       $.ajax({
         url: Url + '/clues',
         type: 'POST',
-        data: getClueInfo(),
+        data: getClueInfo(),//replace with clue var ??????????????????????
         contentType: 'application/json',
         dataType: 'json',
         headers: {
@@ -69,7 +69,7 @@ $(document).ready(function(){
         },
         success: function(response){
           $('#create-hunt-form').trigger('reset');
-          alert(hunt.name, 'clue was added successfully.')//not resetting form on submission so we can still grab values without having to set globals
+          alert(hunt.name, 'clue was added successfully.')
         },
         error: function(){
           alert('There was an error with your request. #2')
@@ -99,7 +99,7 @@ $(document).ready(function(){
         },
         success: function(response){
           $('#create-hunt-form').trigger('reset');
-          alert(hunt.name, 'treasure was added successfully.')//not resetting form on submission so we can still grab values without having to set globals
+          alert(hunt.name, 'treasure was added successfully.')
         },
         error: function(){
           alert('There was an error with your request. #3')
