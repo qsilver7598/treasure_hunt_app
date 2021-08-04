@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 20')
+console.log('version 21')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -60,7 +60,7 @@ $(document).ready(function(){
     else{
       $.ajax({
         url: Url + '/clues',
-        type: 'POST',
+        method: 'POST',
         data: getClueInfo(),//replace with clue var ??????????????????????
         contentType: 'application/json',
         dataType: 'json',
