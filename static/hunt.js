@@ -126,6 +126,26 @@ function getHuntInfo(){
 
 //getting info from partial form
 function getClueInfo(){
+  var clues = {
+    clues: [
+      {
+        description: $("#clue1").val(),
+        gps: $("#clue1-loc").val()
+      },
+      {
+        description: $("#clue1").val(),
+        gps: $("#clue1-loc").val()
+      },
+    ]
+  }
+  if (hunt['clues'] == ''){
+    return 'error';
+  }
+  console.log('2 hunt:', hunt)
+  console.log('clues:', hunt['clues'])
+  return JSON.stringify(clues);
+}
+/*function getClueInfo(){
   var hunt = {
     name: $("#hunt-title").val(),
     theme: $("#hunt-theme").val(),
@@ -143,7 +163,7 @@ function getClueInfo(){
   console.log('2 hunt:', hunt)
   console.log('clues:', hunt['clues'])
   return JSON.stringify(hunt);
-}
+}*/
 
 //getting info from whole form
 function getTreasureInfo(){
@@ -173,7 +193,7 @@ function createHuntList(hunts){
 //DISPLAY CLUE
 function showClue(hunts){
   $.each(hunts, function(key, val){
-       var clue = $('<p id=' + key + '>' + val['clues'][0]['description'] + '</p>' + '<br><br>');
+       var clue = $('<p id=' + key + '>' + val['clues'] + '</p>' + '<br><br>');
        clue.appendTo('#clue-pop-up');
   })
 }
