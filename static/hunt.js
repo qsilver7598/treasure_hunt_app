@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 11')
+console.log('version 12')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -129,20 +129,16 @@ function getClueInfo(){
   var clues = {
     clues: [
       {
-        description: $("#clue1").val(),
-        gps: $("#clue1-loc").val()
-      },
-      {
-        description: $("#clue1").val(),
-        gps: $("#clue1-loc").val()
-      },
+        'description': $("#clue1").val(),
+        'gps coordinates': $("#clue1-loc").val()
+      }
     ]
   }
   if (hunt['clues'] == ''){
     return 'error';
   }
-  console.log('2 hunt:', hunt)
-  console.log('clues:', hunt['clues'])
+  console.log('2 hunt:', clues)
+  console.log('clues:', clues['clues'])
   return JSON.stringify(clues);
 }
 /*function getClueInfo(){
@@ -215,7 +211,7 @@ function initMap() {
     
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
+    zoom: 8,
     
   });
   // The marker, positioned at current position
