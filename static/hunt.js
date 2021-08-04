@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 10')
+console.log('version 11')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -172,8 +172,8 @@ function createHuntList(hunts){
 
 //DISPLAY CLUE
 function showClue(hunts){
-  $.each(hunts, function(val){
-       var clue = $('<p id=clueText>' + val['clues'] + '</p>' + '<br><br>');
+  $.each(hunts, function(key, val){
+       var clue = $('<p id=' + key + '>' + val['clues'][0]['description'] + '</p>' + '<br><br>');
        clue.appendTo('#clue-pop-up');
   })
 }
