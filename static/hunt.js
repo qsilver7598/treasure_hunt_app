@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 21')
+console.log('version 22')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -51,7 +51,7 @@ $(document).ready(function(){
   })
 
   //CREATE CLUES
-  $('#treasure-button').click(function(){
+ /* $('#treasure-button').click(function(){
     var clue = getClueInfo();
     console.log('clue txt:', clue)
     if (clue == 'error'){
@@ -60,7 +60,7 @@ $(document).ready(function(){
     else{
       $.ajax({
         url: Url + '/clues',
-        method: 'POST',
+        type: 'POST',
         data: getClueInfo(),//replace with clue var ??????????????????????
         contentType: 'application/json',
         dataType: 'json',
@@ -79,8 +79,25 @@ $(document).ready(function(){
         }
       })
     }
-  })
+  })*/
   
+  //CREATE CLUES
+  $('#treasure-button').click(function(){
+    var clue = getClueInfo();
+    console.log('clue txt:', clue)
+    if (clue == 'error'){
+      alert('One or more of the fields are empty. Please try again.');
+    }
+    else{
+      $.post(Url + '/clues',{data: clue}).done(function(response){
+          $('#create-hunt-form').trigger('reset');
+          alert(clue.name, 'clue was added successfully.');
+        }).fail(function(){
+          alert('There was an error with your request. #2');
+          window.location.href = '/';
+        }); 
+      }
+    })
 
   //CREATE treasure
   $('#submit').click(function(){
@@ -346,12 +363,17 @@ function createTreasure(){
 }
 
 function addClue(){
-    var x = document.getElementById("clue-3");
-    var y = document.getElementById("clue-4");
+    var x = document.getElementById("clue-2");
+    var y = document.getElementById("clue-3");
+    var z = document.getElementById("clue-4");
     if (x.style.display === "none") {
         x.style.display = "block";
-    } else {
-        y.style.display = "block";
+    } 
+    else if(y.style.display === "none") {
+      y.style.display = "block";
+  } 
+    else {
+        z.style.display = "block";
     }
 }
 
