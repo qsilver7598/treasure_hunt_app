@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 24')
+console.log('version 26')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -51,7 +51,7 @@ $(document).ready(function(){
   })
 
   //CREATE CLUES
- $('#treasure-button').click(function(){
+ $('#moreClues').click(function(){
     var clue = getClueInfo();
     console.log('clue txt:', clue)
     if (clue == 'error'){
@@ -80,30 +80,11 @@ $(document).ready(function(){
       })
     }
   })
-  
-  //CREATE CLUES
-  /*$('#treasure-button').click(function(){
-    var clue = getClueInfo();
-    console.log('clue txt:', clue)
-    if (clue == 'error'){
-      alert('One or more of the fields are empty. Please try again.');
-    }
-    else{
-      $.post(Url + '/clues',{data: clue}, {headers: { Authorization: 'Bearer ' + token
-      }}).done(function(response){
-          $('#create-hunt-form').trigger('reset');
-          alert(clue.name, 'clue was added successfully.');
-        }).fail(function(){
-          alert('There was an error with your request. #2');
-          window.location.href = '/';
-        }); 
-      }
-    })*/
 
   //CREATE treasure
   $('#submit').click(function(){
-    var hunt = getTreasureInfo();
-    if (hunt == 'error'){
+    var treasure = getTreasureInfo();
+    if (treasure == 'error'){
       alert('One or more of the fields are empty. Please try again.');
     }
     else{
@@ -118,7 +99,7 @@ $(document).ready(function(){
         },
         success: function(response){
           $('#create-hunt-form').trigger('reset');
-          alert(hunt.name, 'treasure was added successfully.')
+          alert(treasure.name, 'treasure was added successfully.')
         },
         error: function(){
           alert('There was an error with your request. #3')
@@ -145,7 +126,7 @@ function getHuntInfo(){
   return JSON.stringify(hunt);
 }
 
-//getting info from partial form
+//getting clues one at a time
 function getClueInfo(){
   var clues = {
         'description': $("#clue1").val(),
@@ -158,39 +139,18 @@ function getClueInfo(){
   console.log('clues:', clues['clues'])
   return JSON.stringify(clues);
 }
-/*function getClueInfo(){
-  var hunt = {
-    name: $("#hunt-title").val(),
-    theme: $("#hunt-theme").val(),
-    clues: [
-      {
-        description: $("#clue1").val(),
-        gps: $("#clue1-loc").val()
-      }
-    ],//grabbing whole class, including all clue text and location info
-    treasures: []
-  }
-  if (hunt['clues'] == ''){
-    return 'error';
-  }
-  console.log('2 hunt:', hunt)
-  console.log('clues:', hunt['clues'])
-  return JSON.stringify(hunt);
-}*/
 
-//getting info from whole form
+//getting treasure info
 function getTreasureInfo(){
-  var hunt = {
-    name: $("#hunt-title").val(),
-    theme: $("#hunt-theme").val(),
-    clues: [$(".clue-info").val()],//grabbing whole class, including all clue text and location info
-    treasures: [$(".treasure-info").val()]
+  var treasures = {
+    'description': $("#treasure").val(),
+    'gps coordinates': $("#treasure-loc").val() 
   }
-  if (hunt['treasures'] == ''){
+  if (treasures['treasures'] == ''){
     return 'error';
   }
-  console.log('3 hunt:', hunt)
-  return JSON.stringify(hunt);
+  console.log('treasures:', treasures)
+  return JSON.stringify(treasures);
 }
 
 //FIND HUNT BUTTON
