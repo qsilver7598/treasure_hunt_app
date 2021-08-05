@@ -171,6 +171,32 @@ function showClue(hunts){
   })
 }
 
+//DISPLAY CLUE
+function clueTest(){
+  var clues;
+  $.ajax({
+    url: Url + '/clues',
+    type: 'GET',
+    success: function(response){
+      var returnedData = JSON.parse(response);
+      clues = returnedData['clues'];
+      console.log("response",response)
+    }
+  })
+
+  $.each(clues, function(key, val){
+       var clueText = val['clues'];
+       /*{
+        'description': $("#treasure").val(),
+       }*/
+       clueText.appendTo('show-clue-1');
+      /* var clueMarker = { 
+         'gps coordinates': $("#treasure-loc").val() 
+        }
+        clueMarker.appendTo("show-clue-1");*/
+  })
+}
+
 
 /* MAP STUFF */
 function toggleMap(){
