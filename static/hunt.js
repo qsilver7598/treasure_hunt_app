@@ -153,7 +153,44 @@ $(document).ready(function(){
       })
     }
   })
+
+  /////GAME PLAY REQS/////
+    // Get request to retrieve hunt in database
+    $('#play').click(function(){
+      var huntID = getSelectedHunt();
+      $.ajax({
+        url: Url + '/hunts/' + huntID,
+        type: 'GET',
+        success: function(response){
+          var returnedData = JSON.parse(response);
+          createHuntObj(returnedData['hunts']);
+          console.log("response",response)
+        }
+      })
+    })
 })
+
+//get hunt id from radio button
+//https://www.geeksforgeeks.org/how-to-get-value-of-selected-radio-button-using-javascript/
+function getSelectedHunt(){
+  var huntList = document.getElementsByName('huntRadio');
+  var selectedHunt, huntID;
+  
+  for(i = 0; i < huntList.length; i++) {
+      if(huntList[i].checked)
+      selectedHunt = huntList[i].value;
+  }
+  huntID = selectedHunt['hunt ID'];
+  console.log("id: ",huntID)
+  console.log("hunt info: ",selectedHunt)
+}
+
+function createHuntObj(huntData){
+  console.log("huntData: ", huntData)
+  //new huntObj;
+
+
+}
 
 //getting info from name theme only
 function getHuntInfo(){
@@ -197,7 +234,7 @@ function getTreasureInfo(){
 //FIND HUNT BUTTON
 function createHuntList(hunts){
   $.each(hunts, function(key, val){
-    var radioBtn = $('<input type="radio" id=' + key + ' />');
+    var radioBtn = $('<input type="radio" name="huntRadio" id=' + key + ' />');
     var label = $('<label id=huntName>' + val['name'] + '</label>' + '<br><br>');
     radioBtn.appendTo('#find-hunt-radio-box');
     label.appendTo('#find-hunt-radio-box');
