@@ -7,7 +7,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 26')
+console.log('version 27')
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
@@ -176,7 +176,8 @@ function clueTest(){
     "description": "This is a clue description.",
     "gps coordinates": "15.12345, 45.12345"
   }]
-  clues.appendTo('show-clue-1');
+  clues.appendTo('#show-clue-1');
+  console.log(getElementById('#show-clue-1'))
 }
 
 //DISPLAY CLUE
