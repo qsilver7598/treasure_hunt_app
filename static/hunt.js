@@ -4,27 +4,12 @@
 
 let map, infoWindow;
 
-/*const huntObject = {
-  name: none,
-  theme: none,
-  id: none,
-  numClues: none,
-  clues: {
-    clueID: none,
-    clueText: none,
-    clueLoc: none,
-  },
-  treasure:{
-    treasureID: none,
-    treasureText: none,
-    treasureLoc: none,
-  }
-}*/
+const huntIDArray, huntNameArray;
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 4")
+console.log("Test::: 5")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -38,6 +23,7 @@ $(document).ready(function(){
       success: function(response){
         var returnedData = JSON.parse(response);
         createHuntList(returnedData['hunts']);
+        huntIDArray.push(returnedData['hunt id']);//probably not the right way to do that
         console.log("response:",response)
         console.log("returnedData:",returnedData)
         console.log("returnedData['hunts']:",returnedData['hunts'])
@@ -199,7 +185,10 @@ function getSelectedHunt(){
   for(i = 0; i < huntList.length; i++) {
     console.log("huntList[i].value: ", huntList[i].value)
       if(huntList[i].checked)
-        selectedHunt = huntList[i].value;
+        selectedHuntIDX = huntList[i].id;//trying to get id of attribute
+       
+        selectedHuntName = huntList[i].nextSibling.innerText;//trying to get id of attribute
+        huntNameArray.push(selectedHuntName);
         console.log("selectedHunt: ", selectedHunt)
   }
   huntID = selectedHunt['hunt ID'];
