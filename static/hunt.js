@@ -4,7 +4,7 @@
 
 let map, infoWindow;
 
-const huntObject = {
+/*const huntObject = {
   name: none,
   theme: none,
   id: none,
@@ -19,12 +19,12 @@ const huntObject = {
     treasureText: none,
     treasureLoc: none,
   }
-}
+}*/
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 1")
+console.log("Test::: 2")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
