@@ -4,6 +4,23 @@
 
 let map, infoWindow;
 
+const huntObject = {
+  name: none,
+  theme: none,
+  id: none,
+  numClues: none,
+  clues: {
+    clueID: none,
+    clueText: none,
+    clueLoc: none,
+  },
+  treasure:{
+    treasureID: none,
+    treasureText: none,
+    treasureLoc: none,
+  }
+}
+
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
@@ -165,7 +182,7 @@ $(document).ready(function(){
         success: function(response){
           var returnedData = JSON.parse(response);
           createHuntObj(returnedData['hunts']);
-          console.log("response",response)
+          console.log("returnedData",returnedData)
         }
       })
     })
@@ -184,6 +201,7 @@ function getSelectedHunt(){
   huntID = selectedHunt['hunt ID'];
   console.log("id: ",huntID)
   console.log("hunt info: ",selectedHunt)
+  alert("pause")
 }
 
 function createHuntObj(huntData){
