@@ -1,0 +1,13 @@
+{
+    "clues": 
+    [
+        {
+            "description": "This is a clue description.",
+            "gps coordinates": "15.12345, 45.12345"
+        }, 
+        {
+            "description": "This is a totally different clue description.",
+            "gps coordinates": "15.3, 25.3"
+         } 
+    ]
+    }

@@ -171,8 +171,16 @@ function showClue(hunts){
   })
 }
 
-//DISPLAY CLUE
 function clueTest(){
+  var clues = [{
+    "description": "This is a clue description.",
+    "gps coordinates": "15.12345, 45.12345"
+  }]
+  clues.appendTo('show-clue-1');
+}
+
+//DISPLAY CLUE
+function clueTest2(){
   var clues;
   $.ajax({
     url: Url + '/clues',
@@ -180,7 +188,9 @@ function clueTest(){
     success: function(response){
       var returnedData = JSON.parse(response);
       clues = returnedData['clues'];
+      clues.appendTo('show-clue-1');
       console.log("response",response)
+      console.log("clues",clues)
     }
   })
 
