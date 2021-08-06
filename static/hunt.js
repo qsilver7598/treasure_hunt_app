@@ -24,7 +24,7 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 2")
+console.log("Test::: 3")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -195,8 +195,10 @@ function getSelectedHunt(){
   var selectedHunt, huntID;
   
   for(i = 0; i < huntList.length; i++) {
+    console.log("huntList[i].value: ", huntList[i].value)
       if(huntList[i].checked)
-      selectedHunt = huntList[i].value;
+        selectedHunt = huntList[i].value;
+        console.log("selectedHunt: ", selectedHunt)
   }
   huntID = selectedHunt['hunt ID'];
   console.log("id: ",huntID)
