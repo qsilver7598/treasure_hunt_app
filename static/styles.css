@@ -263,6 +263,13 @@ i.material-icons{
       background: #ebebeb;
     }
 
+    .map-box {
+      position: fixed;
+      float: right;
+      height: 50%;
+      width: 50%;
+    }
+
 
 /* This section is for the profile page */
 

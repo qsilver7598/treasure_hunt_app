@@ -63,71 +63,33 @@
                         <label for="hunt-title">Hunt Title:</label><br>
                         <input type="text" id="hunt-title" name="hunt-title"><br>
                     </div>
+                    <br>
                     <div>
                         <label for="hunt-theme">Hunt Theme:</label><br>
                         <input type="text" id="hunt-theme" name="hunt-theme"><br>
                     </div>
                     <br>
-                    <button type="button" class="button alt-gradient-button" id="createHunt" onclick="createClue()" >
+                    <div>
+                        <label for="clue-number">Number of Clues:</label><br>
+                        <input type="number" id="clue-number" name="clue-number"><br>
+                    </div>
+                    <br>
+                    <button type="button" class="button alt-gradient-button" id="createHunt">
                         <i class="material-icons">done</i>
                         Add Clues
                     </button>
                 </form>
             </div>
         </div>
+
         <!-- hidden pop up 1 -->
         <div class="container2" id="c2-2" style="display: none;">
             <div class="create-hunt">
                 <p>Enter the clues below.</p>
-                <!-- Create a Hunt Form
-                <form id="create-hunt" action="https://cs467-capstone.uw.r.appspot.com/" method="POST">-->
                 <form class="create-clues" id="create-clues-form">
 
-                    <!-- Clues -->        
-                    <div class="create-input" id="clue-1">
-                        <label for="clue1">Clue 1 Text:</label><br>
-                        <textarea class="clue-info" id="clue1" name="clue1"></textarea><br>
-                        <label for="clue1-loc">Clue 1 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue1-loc" name="clue1-loc">
-                        <button type="button" class="button alt-gradient-button" id="map-loc-clue1" onclick="toggleMap()" >
-                            <!--<i class="material-icons">add</i>-->
-                            map
-                        </button>
-                    </div>
-                    <div class="create-input" id="clue-2" style="display: none;">
-                        <label for="clue2">Clue 2 Text:</label><br>
-                        <textarea class="clue-info" id="clue2" name="clue2"></textarea><br>
-                        <label for="clue2-loc">Clue 2 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue2-loc" name="clue2-loc">
-                        <button type="button" class="button alt-gradient-button" id="map-loc-clue2" onclick="toggleMap()" >
-                            <!--<i class="material-icons">add</i>-->
-                            map
-                        </button>
-                    </div>
+                    <!-- Clue div goes here. It is dynamically created in JS depending on num selected -->
 
-                    <!-- Add More Clues -->
-                    <div class="create-input" id="clue-3" style="display: none;">
-                        <label for="clue3">Clue 3:</label><br>
-                        <textarea class="clue-info" id="clue3" name="clue3"></textarea><br>
-                        <label for="clue3-loc">Clue 3 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue3-loc" name="clue3-loc">
-                        <button type="button" class="button alt-gradient-button" id="map-loc-clue3" onclick="toggleMap()" >
-                            <!--<i class="material-icons">add</i>-->
-                            map
-                        </button>
-                    </div>
-
-                    <!-- Add More Clues -->
-                    <div class="create-input" id="clue-4" style="display: none;">
-                        <label for="clue4">Clue 4:</label><br>
-                        <textarea class="clue-info" id="clue4" name="clue4"></textarea><br>
-                        <label for="clue4-loc">Clue 4 Location:</label><br>
-                        <input type="text" class="clue-info" id="clue4-loc" name="clue4-loc">
-                        <button type="button" class="button alt-gradient-button" id="map-loc-clue4" onclick="toggleMap()" >
-                            <!--<i class="material-icons">add</i>-->
-                            map
-                        </button>
-                    </div>
                     <!-- Treasure -->   
                     <div class="create-input" id="treasure-input" style="display: none;">     
                         <label for="treasure">Treasure:</label><br>
@@ -140,18 +102,14 @@
                         </button>
                     </div> 
                     <!-- Buttons -->
-                    <button type="button" class="button alt-gradient-button" id="moreClues" onclick="addClue()" >
-                        <i class="material-icons">add</i>
-                        add another clue
-                    </button>
                     <br>
-                    <button type="button" class="button alt-gradient-button" id="treasure-button" onclick="createTreasure()" >
+                    <button type="button" class="button alt-gradient-button" id="submit-clues">
                         <i class="material-icons">add</i>
                         add Treasure
                     </button>
-                    <button type="submit" class="button alt-gradient-button" id="submit" onclick="submitHunt()" >
-                        <i class="material-icons">done</i>
-                        Submit
+                    <button type="button" class="button alt-gradient-button" id="submit-treasure" style="display: none">
+                        <i class="material-icons">add</i>
+                        Finalize Hunt
                     </button>
                 </form>
             </div>
@@ -191,7 +149,7 @@
     
     <!--Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE&callback=initMap&libraries=&v=weekly&channel=2"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE&callback=initMap"
       async
     ></script>
 </body>

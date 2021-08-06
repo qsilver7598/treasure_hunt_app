@@ -7,37 +7,12 @@ let map, infoWindow;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log('version 27')
+
 // jQuery functions for interaction with the database
 // CREATE HUNT
 $(document).ready(function(){
-  $('#createHunt').click(function(){
-    
-    var hunt = getHuntInfo();
-    if (hunt == 'error'){
-      alert('One or more of the fields are empty. Please try again.');
-    }
-    else{
-      $.ajax({
-        url: Url + '/hunts',
-        type: 'POST',
-        data: getHuntInfo(),
-        contentType: 'application/json',
-        dataType: 'json',
-        headers: {
-          Authorization: 'Bearer ' + token
-        },
-        success: function(response){
-          $('#create-hunt-form').trigger('reset');
-          alert(hunt.name, 'was created successfully.')
-        },
-        error: function(){
-          alert('There was an error with your request. #1')
-          window.location.href = '/'
-        }
-      })
-    }
-  })
+
+  // Get request to retrieve hunts in database
   $('#b2').click(function(){
     $.ajax({
       url: Url + '/hunts',
@@ -50,39 +25,94 @@ $(document).ready(function(){
     })
   })
 
-  //CREATE CLUES
- $('#moreClues').click(function(){
-    var clue = getClueInfo();
-    console.log('clue txt:', clue)
-    if (clue == 'error'){
+  $('#createHunt').click(function(){
+    var hunt = getHuntInfo();
+    if (hunt == 'error'){
       alert('One or more of the fields are empty. Please try again.');
     }
     else{
       $.ajax({
-        url: Url + '/clues',
+        url: Url + '/hunts',
         type: 'POST',
-        data: getClueInfo(),//replace with clue var ??????????????????????
+        data: hunt,
         contentType: 'application/json',
         dataType: 'json',
         headers: {
           Authorization: 'Bearer ' + token
         },
         success: function(response){
-          $('#create-hunt-form').trigger('reset');
-          alert(clue.name, 'clue was added successfully.')
+          alert(response['name'] + ' was created successfully.') // create a popup window if time
+          newHuntId = response['hunt id'];
+          $('#hunt-title').attr('readonly', true);
+          $('#hunt-theme').attr('readonly', true);
+          $('#clue-number').attr('readonly', true);
+          createClues();
         },
         error: function(){
-          alert('There was an error with your request. #2')
-         // alert('look at errors in console while I sleep')
-          //sleep(3000);
+          alert('There was an error with your request. #1')
           window.location.href = '/'
         }
       })
     }
   })
 
-  //CREATE treasure
-  $('#submit').click(function(){
+  //create clues and attach them to the hunt
+  $('#submit-clues').click(function(){
+    // check all of the fields and make sure they are not empty
+    var emptyFieldCheck = false;
+    for (let i = 1; i <= numberOfClues; i++){
+      var clue = getClueInfo("#clue" + i, "#clue" + i + "-loc");
+      if (clue == 'error'){
+        emptyFieldCheck = true;
+      }
+    }
+    // if any field is empty an alert will be triggered
+    // if all fields are filled out then the clues will be created in the database
+    if (emptyFieldCheck == true){
+      alert('One or more of the clue fields are empty. Please try again.');
+    }
+    else{
+      for (let j = 1; j <= numberOfClues; j++){
+        var clue = getClueInfo("#clue" + j, "#clue" + j + "-loc");
+        $.ajax({
+          url: Url + '/clues',
+          type: 'POST',
+          data: clue,
+          contentType: 'application/json',
+          dataType: 'json',
+          async: false,
+          success: function(response){
+            newClueId = response['clue id'];
+            // after clue is created, attach to the hunt
+            $.ajax({
+              url: Url + '/hunts/' + newHuntId + '/clues/' + newClueId,
+              type: 'PUT',
+              headers: {
+                Authorization: 'Bearer ' + token
+              },
+              async: false,
+              success: function(response){
+                alert('clue added to hunt')
+                createTreasure();
+              },
+              error: function(){
+                alert('There was an error with your request. #1')
+                window.location.href = '/'
+              }
+            })
+          },
+          error: function(){
+            alert('There was an error with your request. #2')
+            window.location.href = '/'
+          }
+        })
+      }
+    }
+  })
+
+  //create treasure and attach it to the hunt
+  $('#submit-treasure').click(function(){
+    // check all of the fields and make sure they are not empty
     var treasure = getTreasureInfo();
     if (treasure == 'error'){
       alert('One or more of the fields are empty. Please try again.');
@@ -91,24 +121,38 @@ $(document).ready(function(){
       $.ajax({
         url: Url + '/treasures',
         type: 'POST',
-        data: getTreasureInfo(),
+        data: treasure,
         contentType: 'application/json',
         dataType: 'json',
         headers: {
           Authorization: 'Bearer ' + token
         },
         success: function(response){
-          $('#create-hunt-form').trigger('reset');
-          alert(treasure.name, 'treasure was added successfully.')
+          newTreasureId = response['treasure id'];
+          // after treasure is created, attach to the hunt
+          $.ajax({
+            url: Url + '/hunts/' + newHuntId + '/treasures/' + newTreasureId,
+            type: 'PUT',
+            headers: {
+              Authorization: 'Bearer ' + token
+            },
+            success: function(response){
+              alert('treasure added to hunt')
+              window.location.href = '/'
+            },
+            error: function(){
+              alert('There was an error with your request. #3')
+              window.location.href = '/'
+            }
+          })
         },
         error: function(){
-          alert('There was an error with your request. #3')
+          alert('There was an error with your request. #4')
           window.location.href = '/'
         }
       })
     }
   })
-  
 })
 
 //getting info from name theme only
@@ -119,38 +163,35 @@ function getHuntInfo(){
     clues: [],
     treasures: []
   }
-  if (hunt['name'] == '' || hunt['theme'] == ''){
+  numberOfClues = $("#clue-number").val();
+  if (hunt['name'] == '' || hunt['theme'] == '' || numberOfClues == ''){
     return 'error';
   }
-  console.log('1 hunt:', hunt)
   return JSON.stringify(hunt);
 }
 
 //getting clues one at a time
-function getClueInfo(){
-  var clues = {
-        'description': $("#clue1").val(),
-        'gps coordinates': $("#clue1-loc").val()    
+function getClueInfo(desc, loc){
+  var clue = {
+    'description': $(desc).val(),
+    'gps coordinates': $(loc).val()    
   }
-  if (clues['clues'] == ''){
+  if (clue['description'] == '' || clue['gps coordinates'] == ''){
     return 'error';
   }
-  console.log('2 clues:', clues)
-  console.log('clues:', clues['clues'])
-  return JSON.stringify(clues);
+  return JSON.stringify(clue);
 }
 
 //getting treasure info
 function getTreasureInfo(){
-  var treasures = {
+  var treasure = {
     'description': $("#treasure").val(),
     'gps coordinates': $("#treasure-loc").val() 
   }
-  if (treasures['treasures'] == ''){
+  if (treasure['description'] == '' || treasure['gps coordinates'] == ''){
     return 'error';
   }
-  console.log('treasures:', treasures)
-  return JSON.stringify(treasures);
+  return JSON.stringify(treasure);
 }
 
 //FIND HUNT BUTTON
@@ -217,22 +258,42 @@ function toggleMap(){
   } else {
       x.style.display = "none";
   }
-  initMap_Treasure();
-  console.log("toggleMap called initMapTreasure")
+  let popUpInfo = new google.maps.InfoWindow({
+    content: "Click the map to get Lat/Lng!",
+    position: initialLocation,
+  });
+  popUpInfo.open(map);
+  // configure the click listener
+  map.addListener('click', (mapsMouseEvent) => {
+    // close the current pop up window
+    popUpInfo.close();
+    // create new pop up window
+    popUpInfo = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
+    });
+    popUpInfo.setContent(
+      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    );
+    popUpInfo.open(map);
+  })
 }
 
 function initMap() {
-    
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-    
+  // google map with new style
+  map = new google.maps.Map(document.getElementById('map'), {
+    mapId: "c667678be8f885b9"
   });
-  // The marker, positioned at current position
-  const marker = new google.maps.Marker({
-    position: { lat: -34.397, lng: 150.644 },
-    map: map,
-  });
+
+  // center on user's location if geolocation prompt allowed
+  navigator.geolocation.getCurrentPosition(function(position){
+    initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    map.setCenter(initialLocation);
+    map.setZoom(13);
+  }, function(positionError){
+    // user denied geolocation prompt - default to corvallis
+    map.setCenter(new google.maps.LatLng(44.56370413923824, -123.27945503001553));
+    map.setZoom(5);
+  })
 
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
@@ -336,17 +397,47 @@ function toggleButton2() {
   }, 1500);
 }
 
-function createClue(){
-  var x = document.getElementById("treasure");
-  var y = document.getElementById("c2-2");
-  if (x.style.display === "none") {
-      x.style.display = "block";
-  } else {
-      y.style.display = "block";
+// function to dynamically create the clue entry html depending upon
+// how many clues the user is wanting to add
+function createClues(){
+  for (var i = 1; i <= numberOfClues; i++){
+    $('<div></div>', {
+      "class": 'create-input',
+      id: 'clue-' + i
+    }).insertBefore('#create-clues-form').after('<br/>');
+    $('<label></label', {
+      for: 'clue' + i,
+      text: 'Clue ' + i + ' Text:'
+    }).appendTo('#clue-' + i).after('<br/>');
+    $('<textarea></textarea', {
+      "class": 'clue-info',
+      id: 'clue' + i,
+      name: 'clue' + i 
+    }).appendTo('#clue-' + i).after('<br/>', '<br/>');
+    $('<label></label', {
+      for: 'clue' + i + '-loc',
+      text: 'Clue ' + i + ' Location:'
+    }).appendTo('#clue-' + i).after('<br/>');
+    $('<input/>', {
+      type: 'text',
+      "class": 'clue-loc',
+      id: 'clue' + i + '-loc',
+      name: 'clue' + i + '-loc'
+    }).appendTo('#clue-' + i);
+    $('<button/>', {
+      type: 'button',
+      "class": 'button alt-gradient-button',
+      id: 'map-loc-clue' + i,
+      onclick: 'toggleMap()',
+      text: 'map'
+    }).appendTo('#clue-' + i);
   }
+  $('#c2-2').css('display', 'block');
 }
 
 function createTreasure(){
+  $('#submit-clues').hide();
+  $('#submit-treasure').show();
   var x = document.getElementById("treasure-input");
   var y = document.getElementById("c2-2");
   if (x.style.display === "none") {
@@ -429,3 +520,44 @@ function addClue(){
 // document.addEventListener('DOMContentLoaded', ()=>{
 // document.getElementById('submit').addEventListener('click', huntCreate);
 // });
+
+
+// for (let j = 1; j <= numberOfClues; j++){
+//   // delay to allow server to properly attach all of the clues
+//   (function(j){
+//     setTimeout(function(){
+//       var clue = getClueInfo("#clue" + j, "#clue" + j + "-loc");
+//       $.ajax({
+//         url: Url + '/clues',
+//         type: 'POST',
+//         data: clue,
+//         contentType: 'application/json',
+//         dataType: 'json',
+//         success: function(response){
+//           newClueId = response['clue id'];
+//           // after clue is created, attach to the hunt
+//           $.ajax({
+//             url: Url + '/hunts/' + newHuntId + '/clues/' + newClueId,
+//             type: 'PUT',
+//             headers: {
+//               Authorization: 'Bearer ' + token
+//             },
+//             success: function(response){
+//               alert('clue added to hunt')
+//               createTreasure();
+//             },
+//             error: function(){
+//               alert('There was an error with your request. #1')
+//               window.location.href = '/'
+//             }
+//           })
+//         },
+//         error: function(){
+//           alert('There was an error with your request. #2')
+//           window.location.href = '/'
+//         }
+//       })
+//     }, 1500 * j);
+//   }(j));
+// }
+// }
