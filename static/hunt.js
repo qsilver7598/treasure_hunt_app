@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 8")
+console.log("Test::: 9")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -185,10 +185,10 @@ function getSelectedHunt(){
   var selectedHunt, huntID;
   
   for(i = 0; i < huntList.length; i++) {
-    console.log("huntList[i].value: ", huntList[i].value)
+    console.log("huntList[i].id: ", huntList[i].id)
+    alert("pause hunt")
       if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;//trying to get id of attribute
-       
         selectedHuntName = huntList[i].nextSibling.innerText;//trying to get id of attribute
         huntNameArray.push(selectedHuntName);
         console.log("selectedHunt: ", selectedHunt)
@@ -198,12 +198,13 @@ function getSelectedHunt(){
   console.log("id: ",huntID)
   console.log("hunt info: ",selectedHunt)
   alert("pause hunt")
+  return 5912290700296192 //hard code id for Grey Cat Hunt
 }
 
 function createHuntObj(huntData){
   console.log("huntData: ", huntData)
   //new huntObj;
-
+  alert("pause data")
 
 }
 
