@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 6")
+console.log("Test::: 7")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -269,6 +269,8 @@ function clueTest(){
   }]
   clues.appendTo('#show-clue-1');
   console.log(getElementById('#show-clue-1'))
+
+  return (15.12345, 45.12345);
 }
 
 //DISPLAY CLUE
@@ -364,6 +366,16 @@ function initMap() {
           infoWindow.open(map);
           map.setCenter(pos);
           marker.setPosition(pos);
+
+          //clue marker
+          new google.maps.Marker({
+            position: clueTest(),
+            map,
+            title: "Clue 1",
+          });
+          //add to map after time out
+          setTimeout(function(){ marker.setMap(map); }, 3000);
+
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
