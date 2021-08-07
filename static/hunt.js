@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 17")
+console.log("Test::: 18")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -264,13 +264,13 @@ function storeHuntIDs(hunts){
 }
 
 //DISPLAY CLUE
-function showClue(hunts){
+/*function showClue(hunts){
   $.each(hunts, function(key, val){
        var clue = $('<p id=' + key + '>' + val['clues'] + '</p>' + '<br><br>');
        clue.appendTo('#clue-pop-up');
   })
 }
-
+*/
 function clueTest(){
   var clues = [{
     "description": "This is a clue description.",
@@ -279,11 +279,11 @@ function clueTest(){
   clues.appendTo('#show-clue-1');
   console.log(getElementById('#show-clue-1'))
 
-  return (15.12345, 45.12345);
+  return (44.53522795062745, -123.36314760791065);
 }
 
 //DISPLAY CLUE
-function clueTest2(){
+/*function clueTest2(){
   var clues;
   $.ajax({
     url: Url + '/clues',
@@ -301,14 +301,14 @@ function clueTest2(){
        var clueText = val['clues'];
        /*{
         'description': $("#treasure").val(),
-       }*/
-       clueText.appendTo('show-clue-1');
+       }
+       clueText.appendTo('show-clue-1');*/
       /* var clueMarker = { 
          'gps coordinates': $("#treasure-loc").val() 
         }
         clueMarker.appendTo("show-clue-1");*/
-  })
-}
+  /*})
+}*/
 
 
 /* MAP STUFF */
