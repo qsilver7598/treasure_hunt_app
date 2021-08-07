@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 15")
+console.log("Test::: 16")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -26,6 +26,10 @@ $(document).ready(function(){
         createHuntList(returnedData['hunts']);
         storeHuntIDs(returnedData['hunts']);//store hunt name and ID in global arrays
         console.log("returnedData['hunts']:", returnedData['hunts'])
+      },
+      error: function(){
+        alert('There was an error with b2 button get request')
+        //window.location.href = '/'
       }
     })
   })
@@ -170,6 +174,10 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           console.log("returnedData after Play:",returnedData)
           alert("pause play")
+        },
+        error: function(){
+          alert('There was an error with play button get request')
+          //window.location.href = '/'
         }
       })
     })
@@ -183,14 +191,14 @@ function getSelectedHunt(){
   
   for(i = 0; i < huntList.length; i++) {
     console.log("huntList[i].id: ", huntList[i].id) // !!! grabs html tag id successfully
-    alert("pause hunt")
+    alert("pause hunt1")
       if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
         selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
   
-        alert("pause hunt")
+        alert("pause hunt2")
   }
-  alert("pause hunt")
+  alert("pause hunt3")
   return huntIDArray[selectedHuntIDX]; //returns the hunt id stored at the idx of checked radio btn
 }
 
