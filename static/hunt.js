@@ -272,15 +272,15 @@ function storeHuntIDs(hunts){
 }
 
 function storeClueIDs(clues){
-     for(i = 0; i < clues.length; i++) {
-      clueIDArray.push(clues[i]['hunt id']);
-      clueDescriptionArray.push(clues[i]['name']);
-      console.log("clueIDArray:",clueIDArray)
-      console.log("clueIDArray[i]:",clueIDArray[i])
-      console.log("clueDescriptionArray:",clueDescriptionArray)
-      console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
- }
-
+    for(i = 0; i < clues.length; i++) {
+    clueIDArray.push(clues[i]['hunt id']);
+    clueDescriptionArray.push(clues[i]['name']);
+    console.log("clueIDArray:",clueIDArray)
+    console.log("clueIDArray[i]:",clueIDArray[i])
+    console.log("clueDescriptionArray:",clueDescriptionArray)
+    console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
+  }
+}
 //DISPLAY CLUE
 /*function showClue(hunts){
   $.each(hunts, function(key, val){
