@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 12")
+console.log("Test::: 13")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -259,9 +259,9 @@ function storeHuntIDs(hunts){
  // $.each(function(hunts){
     for(i = 0; i < hunts.length; i++) {
     //huntIDArray.push(returnedData['hunts'][0]['hunt id']);
-      huntIDArray.push(hunts[0]['hunt id']);
+      huntIDArray.push(hunts[i]['hunt id']);
       console.log("huntIDArray:",huntIDArray)
-      console.log("huntIDArray[0]['hunt id']:",huntIDArray[0]['hunt id'])
+      console.log("huntIDArray[i]['hunt id']:",huntIDArray[i]['hunt id'])
   }//)
 }
 
