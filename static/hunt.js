@@ -13,7 +13,7 @@ var clueDescriptionArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 23")
+console.log("Test::: 24")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -274,7 +274,7 @@ function storeHuntIDs(hunts){
 function storeClueIDs(clues){
     for(i = 0; i < clues.length; i++) {
       clueIDArray.push(clues[i]['clue id']);
-      clueDescriptionArray.push(clues[i]['name']);
+      clueDescriptionArray.push(clues[i]['description']);
       console.log("clueIDArray:",clueIDArray)
       console.log("clueIDArray[i]:",clueIDArray[i])
       console.log("clueDescriptionArray:",clueDescriptionArray)
