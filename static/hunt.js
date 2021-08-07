@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 14")
+console.log("Test::: 15")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -24,7 +24,7 @@ $(document).ready(function(){
       success: function(response){
         var returnedData = JSON.parse(response);
         createHuntList(returnedData['hunts']);
-        storeHuntIDs(returnedData['hunts']);
+        storeHuntIDs(returnedData['hunts']);//store hunt name and ID in global arrays
         console.log("returnedData['hunts']:", returnedData['hunts'])
       }
     })
@@ -168,8 +168,7 @@ $(document).ready(function(){
         type: 'GET',
         success: function(response){
           var returnedData = JSON.parse(response);
-          createHuntObj(returnedData['hunts']);//######### probably remove #########
-          console.log("returnedData",returnedData)
+          console.log("returnedData after Play:",returnedData)
           alert("pause play")
         }
       })
@@ -180,31 +179,19 @@ $(document).ready(function(){
 //https://www.geeksforgeeks.org/how-to-get-value-of-selected-radio-button-using-javascript/
 function getSelectedHunt(){
   var huntList = document.getElementsByName('huntRadio');
-  //var selectedHunt, huntID;
+  var selectedHuntIDX, selectedHuntIDX;
   
   for(i = 0; i < huntList.length; i++) {
     console.log("huntList[i].id: ", huntList[i].id) // !!! grabs html tag id successfully
     alert("pause hunt")
       if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
-        selectedHuntName = huntList[i].previousSibling.innerText;//trying to get id of attribute
-        huntNameArray.push(selectedHuntName);
-        //console.log("selectedHunt: ", selectedHunt)
-        console.log("huntNameArray: ", huntNameArray)
+        selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
+  
         alert("pause hunt")
   }
-  //huntID = selectedHunt['hunt ID'];
-  //console.log("id: ",huntID)
-  //console.log("hunt info: ",selectedHunt)
   alert("pause hunt")
-  return 5912290700296192 //hard code id for Grey Cat Hunt
-}
-
-function createHuntObj(huntData){
-  console.log("huntData: ", huntData)
-  //new huntObj;
-  alert("pause data")
-
+  return huntIDArray[selectedHuntIDX]; //returns the hunt id stored at the idx of checked radio btn
 }
 
 //getting info from name theme only
