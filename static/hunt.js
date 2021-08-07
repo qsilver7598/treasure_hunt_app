@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 7")
+console.log("Test::: 8")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -172,6 +172,7 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           createHuntObj(returnedData['hunts']);
           console.log("returnedData",returnedData)
+          alert("pause play")
         }
       })
     })
@@ -191,11 +192,12 @@ function getSelectedHunt(){
         selectedHuntName = huntList[i].nextSibling.innerText;//trying to get id of attribute
         huntNameArray.push(selectedHuntName);
         console.log("selectedHunt: ", selectedHunt)
+        console.log("huntNameArray: ", huntNameArray)
   }
   huntID = selectedHunt['hunt ID'];
   console.log("id: ",huntID)
   console.log("hunt info: ",selectedHunt)
-  alert("pause")
+  alert("pause hunt")
 }
 
 function createHuntObj(huntData){
