@@ -11,7 +11,7 @@ var currHuntID = 0;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 20")
+console.log("Test::: 21")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -174,6 +174,8 @@ $(document).ready(function(){
         success: function(response){
           var returnedData = JSON.parse(response);
           console.log("returnedData after Play:",returnedData)
+          //need to get clue data with clueID
+          console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
           alert("pause play")
           //window.location.href = '/play'
         },
