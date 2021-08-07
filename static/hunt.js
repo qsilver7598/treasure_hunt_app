@@ -11,7 +11,7 @@ var currHuntID = 0;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 19")
+console.log("Test::: 20")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -196,7 +196,7 @@ function getSelectedHunt(){
     alert("pause hunt1")
       if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
-        selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
+        //selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
         currHuntID = huntIDArray[selectedHuntIDX];
         alert("pause hunt2")
   }
