@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 9")
+console.log("Test::: 10")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -182,21 +182,22 @@ $(document).ready(function(){
 //https://www.geeksforgeeks.org/how-to-get-value-of-selected-radio-button-using-javascript/
 function getSelectedHunt(){
   var huntList = document.getElementsByName('huntRadio');
-  var selectedHunt, huntID;
+  //var selectedHunt, huntID;
   
   for(i = 0; i < huntList.length; i++) {
-    console.log("huntList[i].id: ", huntList[i].id)
+    console.log("huntList[i].id: ", huntList[i].id) // !!! grabs html tag id successfully
     alert("pause hunt")
       if(huntList[i].checked)
-        selectedHuntIDX = huntList[i].id;//trying to get id of attribute
-        selectedHuntName = huntList[i].nextSibling.innerText;//trying to get id of attribute
+        selectedHuntIDX = huntList[i].id;// get id of attribute
+        selectedHuntName = huntList[i].previousSibling.innerText;//trying to get id of attribute
         huntNameArray.push(selectedHuntName);
-        console.log("selectedHunt: ", selectedHunt)
+        //console.log("selectedHunt: ", selectedHunt)
         console.log("huntNameArray: ", huntNameArray)
+        alert("pause hunt")
   }
-  huntID = selectedHunt['hunt ID'];
-  console.log("id: ",huntID)
-  console.log("hunt info: ",selectedHunt)
+  //huntID = selectedHunt['hunt ID'];
+  //console.log("id: ",huntID)
+  //console.log("hunt info: ",selectedHunt)
   alert("pause hunt")
   return 5912290700296192 //hard code id for Grey Cat Hunt
 }
