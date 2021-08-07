@@ -6,11 +6,12 @@ let map, infoWindow;
 
 var huntIDArray = [];
 var huntNameArray = [];
+var currHuntID = 0;
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 18")
+console.log("Test::: 19")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -174,6 +175,7 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           console.log("returnedData after Play:",returnedData)
           alert("pause play")
+          //window.location.href = '/play'
         },
         error: function(){
           alert('There was an error with play button get request')
@@ -195,7 +197,7 @@ function getSelectedHunt(){
       if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
         selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
-  
+        currHuntID = huntIDArray[selectedHuntIDX];
         alert("pause hunt2")
   }
   alert("pause hunt3")
