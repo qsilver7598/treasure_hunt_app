@@ -4,12 +4,13 @@
 
 let map, infoWindow;
 
-const huntIDArray, huntNameArray;
+var huntIDArray = [];
+var huntNameArray = [];
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 5")
+console.log("Test::: 6")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
