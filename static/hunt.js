@@ -13,7 +13,7 @@ var clueDescriptionArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 22")
+console.log("Test::: 23")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -179,7 +179,7 @@ $(document).ready(function(){
           //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
           console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
           storeClueIDs(returnedData['clues']);
-          clueIDArray.push(returnedData['clues'][0]['clue id']);
+          //clueIDArray.push(returnedData['clues'][0]['clue id']);
           alert("pause play")
           //window.location.href = '/play'
         },
@@ -273,13 +273,13 @@ function storeHuntIDs(hunts){
 
 function storeClueIDs(clues){
     for(i = 0; i < clues.length; i++) {
-    clueIDArray.push(clues[i]['hunt id']);
-    clueDescriptionArray.push(clues[i]['name']);
-    console.log("clueIDArray:",clueIDArray)
-    console.log("clueIDArray[i]:",clueIDArray[i])
-    console.log("clueDescriptionArray:",clueDescriptionArray)
-    console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
-  }
+      clueIDArray.push(clues[i]['clue id']);
+      clueDescriptionArray.push(clues[i]['name']);
+      console.log("clueIDArray:",clueIDArray)
+      console.log("clueIDArray[i]:",clueIDArray[i])
+      console.log("clueDescriptionArray:",clueDescriptionArray)
+      console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
+    }
 }
 //DISPLAY CLUE
 /*function showClue(hunts){
