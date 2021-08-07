@@ -10,7 +10,7 @@ var huntNameArray = [];
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 16")
+console.log("Test::: 17")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -187,7 +187,7 @@ $(document).ready(function(){
 //https://www.geeksforgeeks.org/how-to-get-value-of-selected-radio-button-using-javascript/
 function getSelectedHunt(){
   var huntList = document.getElementsByName('huntRadio');
-  var selectedHuntIDX, selectedHuntIDX;
+  var selectedHuntIDX, selectedHuntName;
   
   for(i = 0; i < huntList.length; i++) {
     console.log("huntList[i].id: ", huntList[i].id) // !!! grabs html tag id successfully
