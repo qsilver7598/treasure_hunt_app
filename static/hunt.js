@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 7")
+console.log("Test::: 8")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -323,7 +323,7 @@ function clueTest(){
 function toggleClueBtn(){
   var x = document.getElementById("show-first-clue");
   if (x.style.display == "none") {
-      x.style.display = "block";
+      x.style.display = "inline";
   } else {
       x.style.display = "none";
   }
@@ -340,6 +340,7 @@ function toggleMap(){
       toggleClueBtn();
   } else { //home page hide
       x.style.display = "none";
+      toggleClueBtn();
   }
 
   //map show
