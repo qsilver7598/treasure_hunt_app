@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 17")
+console.log("Test::: 18")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -426,6 +426,25 @@ function hiddenMarker(clueLoc){
   return h_marker;
 }
 
+function markerTest(clueID){
+  initMap();
+
+  $.ajax({
+    url: Url + '/clues/' + clueID,
+    type: 'GET',
+    success: function(response){
+      returnedData = JSON.parse(response);
+      var pos = JSON.parse(returnedData['gps coordinates'])
+      var marker = new google.maps.Marker({
+        position: pos
+      });
+      map.setZoom(15);
+      map.setCenter(pos);
+      marker.setMap(map);
+    }
+  })
+}
+
 // function that will toggle the map to create a clue
 function createClueMap(clickedId){
   if (clickedId == 'map-done'){
@@ -524,11 +543,11 @@ function initMap() {
   });
 
   //set user marker
-  const userMarker = new google.maps.Marker({
+ /* const userMarker = new google.maps.Marker({
     position: initialLocation,
     map: map,
     title: "You are here",
-  });
+  });*/
   //add to map after time out
   //setTimeout(function(){ clueMarker1.setMap(map); }, 3000);*/
 
@@ -566,10 +585,11 @@ function initMap() {
           infoWindow.setContent("hi!");
           infoWindow.open(map);
           map.setCenter(pos);
-          marker.setPosition(pos);
+          //marker.setPosition(pos);
 
-          const clueMarker1 = hiddenMarker(currClueCoords);
-          clueMarker1.setMap(map);
+          /*const clueMarker1 = hiddenMarker(currClueCoords);
+          clueMarker1.setMap(map);*/
+          markerTest(clueIDArray[0]);
           //clue marker
           /*console.log(currClueCoords)
           const clueMarker1 = new google.maps.Marker({
