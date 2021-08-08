@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 14")
+console.log("Test::: 15")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -199,11 +199,13 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           currClueDescription = returnedData['description'];
           currClueCoords = returnedData['gps coordinates'];
-
+          //push curr coords and description
           clueDescriptionArray.push(currClueDescription);
           clueCoordsArray.push(currClueCoords);
           console.log("description array:",clueDescriptionArray)
           console.log("coords array:",clueCoordsArray)
+          //reveal first clue on map at initialized location
+          showClue1();
         },
         error: function(){
           alert('There was an error with show clue button get request')
@@ -370,18 +372,6 @@ function storeClueIDs(clues){
       console.log("clueIDArray:",clueIDArray)
     }
 }
-//DISPLAY CLUE
-function clueTest(){///DELETE
- /* var clues = [{
-    "description": "This is a clue description.",
-    "gps coordinates": "15.12345, 45.12345"
-  }]
-  clues.appendTo('#show-clue-1');
-  console.log(getElementById('#show-clue-1'))*/
-  return (44.53522795062745, -123.36314760791065);
-}
-
-
 
 /* MAP STUFF */
 function toggleClueBtn(){
@@ -415,6 +405,15 @@ function toggleMap(){
       y.style.display = "none";
       button.style.display = "none";
   }
+}
+
+//reveals first clue on play map
+function showClue1(){
+  var popUpClue = new google.maps.InfoWindow({
+    content: currClueDescription,
+    position: initialLocation,
+  });
+  popUpClue.open(map);
 }
 
 // function that will toggle the map to create a clue
@@ -545,7 +544,7 @@ function initMap() {
             lng: position.coords.longitude,
           };
           infoWindow.setPosition(pos);
-          infoWindow.setContent(currClueDescription);
+          infoWindow.setContent("hi!");
           infoWindow.open(map);
           map.setCenter(pos);
           //marker.setPosition(pos);
@@ -555,10 +554,10 @@ function initMap() {
           const marker = new google.maps.Marker({
             position: currClueCoords,
             map,
-            title: "Clue 1",*/
+            title: "Clue 1",
           });
           //add to map after time out
-          //setTimeout(function(){ marker.setMap(map); }, 3000);
+          //setTimeout(function(){ marker.setMap(map); }, 3000);*/
 
         },
         () => {
