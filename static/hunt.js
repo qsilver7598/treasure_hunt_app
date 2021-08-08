@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 3")
+console.log("Test::: 4")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -183,8 +183,8 @@ $(document).ready(function(){
           storeClueIDs(returnedData['clues']);
           //clueIDArray.push(returnedData['clues'][0]['clue id']);
           console.log("clueIDArray[0]:", clueIDArray[0])
-          alert("pause before loading /play")
-          window.location.href = '/play'
+          //alert("pause before loading /play")
+          //window.location.href = '/play'
         },
         error: function(){
           alert('There was an error with play button get request')
