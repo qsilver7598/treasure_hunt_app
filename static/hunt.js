@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 27")
+console.log("Test::: 28")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -179,21 +179,21 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           console.log("returnedData after Play:",returnedData)
           //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
-          console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
+          //console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
           storeClueIDs(returnedData['clues']);
           //clueIDArray.push(returnedData['clues'][0]['clue id']);
           alert("pause before loading /play")
-          window.location.href = '/play'
+          //window.location.href = '/play'
         },
         error: function(){
           alert('There was an error with play button get request')
-          window.location.href = '/'
+          //window.location.href = '/'
         }
       })
     })
 
-    $('#show-clue').click(function(){
-      var huntID = getSelectedHunt();
+    $('#show-first-clue').click(function(){
+      //var huntID = getSelectedHunt();
       $.ajax({
         url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
         type: 'GET',
@@ -210,8 +210,8 @@ $(document).ready(function(){
           //window.location.href = '/play'
         },
         error: function(){
-          alert('There was an error with play button get request')
-          window.location.href = '/'
+          alert('There was an error with show clue button get request')
+          //window.location.href = '/'
         }
       })
     })
@@ -297,11 +297,11 @@ function storeHuntIDs(hunts){
 function storeClueIDs(clues){
     for(i = 0; i < clues.length; i++) {
       clueIDArray.push(clues[i]['clue id']);
-      clueDescriptionArray.push(clues[i]['description']);
+      //clueDescriptionArray.push(clues[i]['description']);
       console.log("clueIDArray:",clueIDArray)
       console.log("clueIDArray[i]:",clueIDArray[i])
-      console.log("clueDescriptionArray:",clueDescriptionArray)
-      console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
+      //console.log("clueDescriptionArray:",clueDescriptionArray)
+      //console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
     }
 }
 //DISPLAY CLUE
