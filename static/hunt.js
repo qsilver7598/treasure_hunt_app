@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 4")
+console.log("Test::: 5")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
