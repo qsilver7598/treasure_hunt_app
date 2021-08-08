@@ -201,7 +201,7 @@ $(document).ready(function(){
           currClueCoords = returnedData['gps coordinates'];
 
           clueDescriptionArray.push(currClueDescription);
-          clueCoordsArray.push(currClueDescription);
+          clueCoordsArray.push(currClueCoords);
           console.log("description array:",clueDescriptionArray)
           console.log("coords array:",clueCoordsArray)
         },
