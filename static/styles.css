@@ -82,7 +82,7 @@ body {
 }*/
 
 /*.container1 {*/
-#c1 {
+#c1, #c2, #c2-2, #c2-3, #c3, #c4 {
   display: block;
 
   position: relative;
@@ -98,69 +98,6 @@ body {
 
   color: black;
 }
-
-#c2 {
-  display: block;
-
-  position: relative;
-  left: 35%;
-  max-width: 1000px !important;
-  padding: 50px 25px;
-  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
-  text-align: center;
-  background-color: rgba(226, 225, 225, 0.829);
-  /*border-color: white;*/
-  border-radius: 4px;
-  box-shadow: 0px 4px 12px rgba(black, 0.08);
-
-  color: black;
-}
-
-#c2-2 {
-  display: block;
-
-  position: relative;
-  left: 35%;
-  max-width: 1000px !important;
-  padding: 50px 25px;
-  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
-  text-align: center;
-  background-color: rgba(226, 225, 225, 0.829);
-  /*border-color: white;*/
-  border-radius: 4px;
-  box-shadow: 0px 4px 12px rgba(black, 0.08);
-
-  color: black;
-}
-
-#c3 {
-  display: none;
-
-  position: relative;
-  left: 35%;
-  max-width: 1000px !important;
-  padding: 50px 25px;
-  margin: 3%; /*this will likely need to change once the hidden class is enacted*/
-  text-align: center;
-  background-color: rgba(226, 225, 225, 0.829);
-  /*border-color: white;*/
-  border-radius: 4px;
-  box-shadow: 0px 4px 12px rgba(black, 0.08);
-
-  color: black;
-}
-/*
-#c1 {
-  display: block;
-}
-
-#c2 {
-  display: none;
-}
-
-#c3 {
-  display: none;
-}*/
 
 .button-box {
   /*padding: 50px 25px;*/
@@ -196,25 +133,6 @@ i.material-icons{
   
   padding: 8px;
   cursor: pointer;
-  /*&:hover{
-      opacity: 1;
-      color: rgb(228, 225, 225);
-      box-shadow: 0px 0px 0px 4px rgba(black, 0.03);
-  }
-
-  &:active{
-      opacity: 0.8;
-  }
-
-  &:focus{
-      color: white;
-  }
-
-  i.material-icons{
-      margin-right: 5px;
-      margin-left: -6px;
-  }
-  */
 }
 
 
@@ -223,52 +141,73 @@ i.material-icons{
 */
 
 /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
+* element that contains the map. */
    
-    #map {
-      /*height: 100% !important;
-      max-width: 100% !important;*/
-      height: 700px !important;
-      width: auto !important;
-      position: fixed;
-      display: block;
-      border: 2px solid black;
-      margin-right: -50px;
-      justify-content: left;
-      z-index: 1;
-    }
-    
-    
-     /*Optional: Makes the sample page fill the window. */
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    
-    .custom-map-control-button {
-      background-color: #fff;
-      border: 0;
-      border-radius: 2px;
-      box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-      margin: 10px;
-      padding: 0 0.5em;
-      font: 400 18px Roboto, Arial, sans-serif;
-      overflow: hidden;
-      height: 40px;
-      cursor: pointer;
-    }
-    .custom-map-control-button:hover {
-      background: #ebebeb;
-    }
+#map {
+  /*height: 100% !important;
+  max-width: 100% !important;*/
+  height: 700px !important;
+  width: auto !important;
+  position: fixed;
+  display: block;
+  border: 2px solid black;
+  margin-right: -50px;
+  justify-content: left;
+  z-index: 1;
+}
 
-    .map-box {
-      position: fixed;
-      float: right;
-      height: 50%;
-      width: 50%;
-    }
+#mini-map {
+  height: 300px;
+  width: auto;
+  border: 2px solid black;
+}
+
+#mini-map-input {
+  position: fixed;
+  height: 50%;
+  width: 50%;
+}
+
+
+  /*Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-map-control-button {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  height: 40px;
+  cursor: pointer;
+}
+.custom-map-control-button:hover {
+  background: #ebebeb;
+}
+
+
+/* This section is for the popup loading screen */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
 
 
 /* This section is for the profile page */

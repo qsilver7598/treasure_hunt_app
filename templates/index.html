@@ -90,25 +90,36 @@
                 <form class="create-clues" id="create-clues-form">
 
                     <!-- Clue div goes here. It is dynamically created in JS depending on num selected -->
-
-                    <!-- Treasure -->   
-                    <div class="create-input" id="treasure-input" style="display: none;">     
-                        <label for="treasure">Treasure:</label><br>
-                        <input type="text" class="treasure-info" id="treasure" name="treasure"><br>
-                        <label for="treasure-loc">Treasure Location:</label><br>
-                        <input type="text" class="treasure-info" id="treasure-loc" name="treasure-loc">
-                        <button type="button" class="button alt-gradient-button" id="map-loc-Treasure" onclick="toggleMap()" >
-                            <!--<i class="material-icons">add</i>-->
-                            map
-                        </button>
-                    </div> 
                     <!-- Buttons -->
                     <br>
                     <button type="button" class="button alt-gradient-button" id="submit-clues">
                         <i class="material-icons">add</i>
                         add Treasure
                     </button>
-                    <button type="button" class="button alt-gradient-button" id="submit-treasure" style="display: none">
+                </form>
+            </div>
+        </div>
+
+        <!-- hidden pop up 2 -->
+        <div class="container2-2" id="c2-3" style="display: none;">
+            <div class="create-treasure">
+                <p>Enter the treasure below.</p>
+                <form class="create-treasure" id="create-treasure-form">
+                    
+                    <!-- Treasure -->   
+                    <div class="create-input" id="treasure-input" style="display: none;">     
+                        <label for="treasure">Treasure:</label><br>
+                        <input type="text" class="treasure-info" id="treasure" name="treasure"><br><br>
+                        <label for="treasure-loc">Treasure Location:</label><br>
+                        <input type="text" class="treasure-info" id="treasure1-loc" name="treasure-loc" readonly>
+                        <button type="button" class="button alt-gradient-button" id="treasure1" onclick="createClueMap(this.id)" >
+                            <!--<i class="material-icons">add</i>-->
+                            map
+                        </button>
+                    </div> 
+                    <br><br>
+                    <!-- Buttons -->
+                    <button type="button" class="button alt-gradient-button" id="submit-treasure">
                         <i class="material-icons">add</i>
                         Finalize Hunt
                     </button>
@@ -116,7 +127,7 @@
             </div>
         </div>
 
-        <!-- hidden pop up 2 for retrieving the hunts -->
+        <!-- hidden pop up 3 for retrieving the hunts -->
         <div class="container3" id="c3" style="display: none;">
             <form id="choose-hunt-form">
                 <div class="find-hunt">
@@ -124,15 +135,37 @@
                     <p>Choose from the list of available Treasure Hunts.</p>
                     <div class="choose-input" id="find-hunt-radio-box"></div>
                     <br>
-                    <!-- link play button to play page -->
-                    <button type="submit" class="button alt-gradient-button" id="editHunt">
+                    <!-- button to edit hunt -->
+                    <button type="button" class="button alt-gradient-button" id="edit-hunt-choose">
                         <i class="material-icons">done</i>
                         Edit Hunt
                     </button>
-                    <!-- <a href="/play"> --><button type="button" class="button alt-gradient-button" id="play" onclick="toggleMap()">
+                    <!-- link play button to play page -->
+                    <button type="button" class="button alt-gradient-button" id="play" onclick="toggleMap()">
                         <i class="material-icons">done</i>
                         Play
-                    </button> <!--</a>-->
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- hidden pop up 4 for confirming hunt -->
+        <div class="container4" id="c4" style="display: none;">
+            <form id="confirm-hunt">
+                <div class="confirm-hunt">
+                    <h3>Confirm Hunt</h3>
+                    <div id="hunt-info"></div>
+                    <br>
+                    <!-- button to edit -->
+                    <button type="button" class="button alt-gradient-button" id="edit-hunt-confirm-button">
+                        <i class="material-icons">done</i>
+                        Edit
+                    </button>
+                    <!-- button to confirm -->
+                    <button type="button" class="button alt-gradient-button" id="hunt-confirm-button" onClick="window.location.reload()">
+                        <i class="material-icons">done</i>
+                        Confirm
+                    </button>
                 </div>
             </form>
         </div>
@@ -150,6 +183,19 @@
         <i class="material-icons">done</i>
         Done
     </button>
+
+    <!-- small map to enter clue info -->
+    <div class="map-box" id="mini-map-input" style="display: none;">  
+        <div id="mini-map"></div>
+        <button type="button" class="button alt-gradient-button" id="map-done" style="display: inline;" onclick="createClueMap(this.id)" >
+            <i class="material-icons">done</i>
+            Done
+        </button>
+    </div>
+
+    <!-- section for the loading screen -->
+    <div class="modal" id="loading"><!-- Place at bottom of page --></div>
+
 
     <!--Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
