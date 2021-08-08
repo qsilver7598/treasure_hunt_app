@@ -30,6 +30,7 @@ from six.moves.urllib.parse import urlencode
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
 
+
 client = datastore.Client()
 
 CLIENT_ID = 'rAdGsFUnrqSyrTzMSWtXye4OiZKfHknY'
@@ -815,4 +816,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=True, threaded=True)
