@@ -203,8 +203,8 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           console.log("returnedData after show clue:",returnedData)
           //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
-          console.log("returnedData['clue']['description']:", returnedData['hunt']['description'])//testing
-          console.log("returnedData['clue']['gps coordinates']:", returnedData['clue']['gps coordinates'])
+          console.log("returnedData['description']:", returnedData['description'])//testing
+          console.log("returnedData['gps coordinates']:", returnedData['gps coordinates'])
           storeClueIDs(returnedData['clue']);
           //clueIDArray.push(returnedData['clues'][0]['clue id']);
           alert("pause before loading clue text")
