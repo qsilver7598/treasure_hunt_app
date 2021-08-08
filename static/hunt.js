@@ -9,11 +9,13 @@ var huntNameArray = [];
 var currHuntID = 0;//updated at getSelectedHunt()
 var clueIDArray = [];
 var clueDescriptionArray = [];
+var clueCoordsArray = [];
+var currClueDescription = "cats are cool";
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 25")
+console.log("Test::: 26")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -32,7 +34,7 @@ $(document).ready(function(){
       },
       error: function(){
         alert('There was an error with b2 button get request')
-        //window.location.href = '/'
+        window.location.href = '/'
       }
     })
   })
@@ -185,7 +187,31 @@ $(document).ready(function(){
         },
         error: function(){
           alert('There was an error with play button get request')
-          //window.location.href = '/'
+          window.location.href = '/'
+        }
+      })
+    })
+
+    $('#show-clue').click(function(){
+      var huntID = getSelectedHunt();
+      $.ajax({
+        url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
+        type: 'GET',
+        success: function(response){
+          var returnedData = JSON.parse(response);
+          console.log("returnedData after show clue:",returnedData)
+          //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
+          console.log("returnedData['clue']['description']:", returnedData['clue']['description'])
+          console.log("returnedData['clue']['gps coordinates']:", returnedData['clue']['gps coordinates'])
+          storeClueIDs(returnedData['clue']);
+          //clueIDArray.push(returnedData['clues'][0]['clue id']);
+          alert("pause before loading clue text")
+          //
+          //window.location.href = '/play'
+        },
+        error: function(){
+          alert('There was an error with play button get request')
+          window.location.href = '/'
         }
       })
     })
@@ -199,14 +225,11 @@ function getSelectedHunt(){
   
   for(i = 0; i < huntList.length; i++) {
     console.log("huntList[i].id: ", huntList[i].id) // !!! grabs html tag id successfully
-    alert("pause hunt1")
-      if(huntList[i].checked)
+       if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
         //selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
         currHuntID = huntIDArray[selectedHuntIDX];
-        alert("pause hunt2")
   }
-  alert("pause hunt3")
   return huntIDArray[selectedHuntIDX]; //returns the hunt id stored at the idx of checked radio btn
 }
 
@@ -282,51 +305,16 @@ function storeClueIDs(clues){
     }
 }
 //DISPLAY CLUE
-/*function showClue(hunts){
-  $.each(hunts, function(key, val){
-       var clue = $('<p id=' + key + '>' + val['clues'] + '</p>' + '<br><br>');
-       clue.appendTo('#clue-pop-up');
-  })
-}
-*/
 function clueTest(){
-  var clues = [{
+ /* var clues = [{
     "description": "This is a clue description.",
     "gps coordinates": "15.12345, 45.12345"
   }]
   clues.appendTo('#show-clue-1');
-  console.log(getElementById('#show-clue-1'))
-
+  console.log(getElementById('#show-clue-1'))*/
   return (44.53522795062745, -123.36314760791065);
 }
 
-//DISPLAY CLUE
-/*function clueTest2(){
-  var clues;
-  $.ajax({
-    url: Url + '/clues',
-    type: 'GET',
-    success: function(response){
-      var returnedData = JSON.parse(response);
-      clues = returnedData['clues'];
-      clues.appendTo('show-clue-1');
-      console.log("response",response)
-      console.log("clues",clues)
-    }
-  })
-
-  $.each(clues, function(key, val){
-       var clueText = val['clues'];
-       /*{
-        'description': $("#treasure").val(),
-       }
-       clueText.appendTo('show-clue-1');*/
-      /* var clueMarker = { 
-         'gps coordinates': $("#treasure-loc").val() 
-        }
-        clueMarker.appendTo("show-clue-1");*/
-  /*})
-}*/
 
 
 /* MAP STUFF */
@@ -389,7 +377,7 @@ function initMap() {
             lng: position.coords.longitude,
           };
           infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
+          infoWindow.setContent("loading clue #1.", currClueDescription);
           infoWindow.open(map);
           map.setCenter(pos);
           marker.setPosition(pos);
