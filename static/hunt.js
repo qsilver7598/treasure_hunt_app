@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 29")
+console.log("Test::: 1")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -382,10 +382,10 @@ function initMap() {
           infoWindow.setContent(currClueDescription);
           infoWindow.open(map);
           map.setCenter(pos);
-          marker.setPosition(pos);
+          //marker.setPosition(pos);
 
           //clue marker
-          new google.maps.Marker({
+          const marker = new google.maps.Marker({
             position: clueTest(),
             map,
             title: "Clue 1",
