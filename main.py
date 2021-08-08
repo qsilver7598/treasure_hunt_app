@@ -37,16 +37,16 @@ CLIENT_SECRET = 'AQo1deJ9E4NLdZwkQHt44eclYvOERpxZeHgEl3bWd1zvLluFRbMYr7M-ccWJOJl
 DOMAIN = '467-capstone.us.auth0.com'
 
 
-# CALLBACK_URL = 'http://localhost:8080/callback'
-# URL_USER = "http://localhost:8080/users"
-# URL_HUNT = "http://localhost:8080/hunts"
-# URL_CLUE = "http://localhost:8080/clues"
-# URL_TREASURE = "http://localhost:8080/treasure"
-CALLBACK_URL = 'https://cs467-capstone.uw.r.appspot.com/callback'
-URL_USER = "https://cs467-capstone.uw.r.appspot.com/users"
-URL_HUNT = "https://cs467-capstone.uw.r.appspot.com/hunts"
-URL_CLUE = "https://cs467-capstone.uw.r.appspot.com/clues"
-URL_TREASURE = "https://cs467-capstone.uw.r.appspot.com/treasure"
+CALLBACK_URL = 'http://localhost:8080/callback'
+URL_USER = "http://localhost:8080/users"
+URL_HUNT = "http://localhost:8080/hunts"
+URL_CLUE = "http://localhost:8080/clues"
+URL_TREASURE = "http://localhost:8080/treasure"
+# CALLBACK_URL = 'https://cs467-capstone.uw.r.appspot.com/callback'
+# URL_USER = "https://cs467-capstone.uw.r.appspot.com/users"
+# URL_HUNT = "https://cs467-capstone.uw.r.appspot.com/hunts"
+# URL_CLUE = "https://cs467-capstone.uw.r.appspot.com/clues"
+# URL_TREASURE = "https://cs467-capstone.uw.r.appspot.com/treasure"
 
 ALGORITHMS = ["RS256"]
 

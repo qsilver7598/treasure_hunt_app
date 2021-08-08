@@ -12,8 +12,8 @@ var clueDescriptionArray = [];
 var clueCoordsArray = [];
 var currClueDescription = "cats are cool";
 
-// const Url='http://localhost:8080';
-const Url='https://cs467-capstone.uw.r.appspot.com';
+const Url='http://localhost:8080';
+// const Url='https://cs467-capstone.uw.r.appspot.com';
 
 console.log("Test::: 8")
 
@@ -40,6 +40,7 @@ $(document).ready(function(){
   })
 
   $('#createHunt').click(function(){
+    $('#createHunt').prop('disabled', true);
     var hunt = getHuntInfo();
     if (hunt == 'error'){
       alert('One or more of the fields are empty. Please try again.');
@@ -57,14 +58,14 @@ $(document).ready(function(){
         success: function(response){
           alert(response['name'] + ' was created successfully.') // create a popup window if time
           newHuntId = response['hunt id'];
-          $('#hunt-title').attr('readonly', true);
-          $('#hunt-theme').attr('readonly', true);
-          $('#clue-number').attr('readonly', true);
+          $('#hunt-title').prop('readonly', true);
+          $('#hunt-theme').prop('readonly', true);
+          $('#clue-number').prop('readonly', true);
           createClues();
         },
         error: function(){
-          alert('There was an error with your request. #1')
-          window.location.href = '/'
+          alert('There was an error with your request. #1')  
+          $('#createHunt').prop('disabled', false);
         }
       })
     }
@@ -72,10 +73,11 @@ $(document).ready(function(){
 
   //create clues and attach them to the hunt
   $('#submit-clues').click(function(){
+    $('#submit-clues').prop('disabled', true);
     // check all of the fields and make sure they are not empty
     var emptyFieldCheck = false;
     for (let i = 1; i <= numberOfClues; i++){
-      var clue = getClueInfo("#clue" + i, "#clue" + i + "-loc");
+      var clue = getClueInfo("#clueInfo" + i, "#clue" + i + "-loc");
       if (clue == 'error'){
         emptyFieldCheck = true;
       }
@@ -84,52 +86,48 @@ $(document).ready(function(){
     // if all fields are filled out then the clues will be created in the database
     if (emptyFieldCheck == true){
       alert('One or more of the clue fields are empty. Please try again.');
+      $('#submit-clues').prop('disabled', false);
     }
+    // create all of the clues in the database before attaching to the hunt
     else{
-      for (let j = 1; j <= numberOfClues; j++){
-        var clue = getClueInfo("#clue" + j, "#clue" + j + "-loc");
-        $.ajax({
+      var requests = Array();
+      var clueIds = Array();
+      for (let i = 1; i <= numberOfClues; i++){
+        var clue = getClueInfo("#clueInfo" + i, "#clue" + i + "-loc");
+        requests.push($.ajax({
           url: Url + '/clues',
           type: 'POST',
           data: clue,
           contentType: 'application/json',
-          dataType: 'json',
-          async: false,
-          success: function(response){
-            newClueId = response['clue id'];
-            // after clue is created, attach to the hunt
-            $.ajax({
-              url: Url + '/hunts/' + newHuntId + '/clues/' + newClueId,
-              type: 'PUT',
-              headers: {
-                Authorization: 'Bearer ' + token
-              },
-              async: false,
-              success: function(response){
-                alert('clue added to hunt')
-                createTreasure();
-              },
-              error: function(){
-                alert('There was an error with your request. #1')
-                window.location.href = '/'
-              }
-            })
-          },
-          error: function(){
-            alert('There was an error with your request. #2')
-            window.location.href = '/'
+          dataType: 'json'
+        })
+        )
+      }
+      var defer = $.when.apply($, requests);
+      defer.done(function(){
+        $.each(arguments, function(index, responseData){
+          if (numberOfClues > 1){
+            clueIds.push(responseData[0]['clue id']);
+          }
+          else{
+            if (index == 0){
+              clueIds.push(responseData['clue id']);
+            }
           }
         })
-      }
+        attachCluesToHunt(clueIds);
+      })
     }
   })
 
   //create treasure and attach it to the hunt
   $('#submit-treasure').click(function(){
+    $('#submit-treasure').prop('disabled', true);
     // check all of the fields and make sure they are not empty
     var treasure = getTreasureInfo();
     if (treasure == 'error'){
       alert('One or more of the fields are empty. Please try again.');
+      $('#submit-treasure').prop('disabled', false);
     }
     else{
       $.ajax({
@@ -152,17 +150,17 @@ $(document).ready(function(){
             },
             success: function(response){
               alert('treasure added to hunt')
-              window.location.href = '/'
+              confirmHunt();
             },
             error: function(){
               alert('There was an error with your request. #3')
-              window.location.href = '/'
+              $('#submit-treasure').prop('disabled', false);
             }
           })
         },
         error: function(){
           alert('There was an error with your request. #4')
-          window.location.href = '/'
+          $('#submit-treasure').prop('disabled', false);
         }
       })
     }
@@ -262,11 +260,31 @@ function getClueInfo(desc, loc){
   return JSON.stringify(clue);
 }
 
+// attach clues to hunt
+function attachCluesToHunt(clueIds){
+  var requests = Array();
+  for (let i = 0; i < clueIds.length; i++){
+    requests.push($.ajax({
+      url: Url + '/hunts/' + newHuntId + '/clues/' + clueIds[i],
+      type: 'PUT',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+    )
+  }
+  var defer = $.when.apply($, requests);
+  defer.done(function(){
+    alert('clues attached to hunt');
+    createTreasure();
+  })
+}
+
 //getting treasure info
 function getTreasureInfo(){
   var treasure = {
     'description': $("#treasure").val(),
-    'gps coordinates': $("#treasure-loc").val() 
+    'gps coordinates': $("#treasure1-loc").val() 
   }
   if (treasure['description'] == '' || treasure['gps coordinates'] == ''){
     return 'error';
@@ -274,11 +292,65 @@ function getTreasureInfo(){
   return JSON.stringify(treasure);
 }
 
+// confirm the hunt is correct by the user
+function confirmHunt(){
+  $('#c2').hide();
+  $('#c2-2').hide();
+  $('#c2-3').hide();
+  $('#c4').show();
+  $.ajax({
+    url: Url + '/hunts/' + newHuntId,
+    type: 'GET',
+    success: function(response){
+      var returnedData = JSON.parse(response);
+      $('<label></label', {
+        text: 'Name: '
+      }).appendTo('#hunt-info');
+      $('<label></label', {
+        text: returnedData['name']
+      }).appendTo('#hunt-info').after('<br/>');
+
+      $('<label></label', {
+        text: 'Theme: '
+      }).appendTo('#hunt-info');
+      $('<label></label', {
+        text: returnedData['theme']
+      }).appendTo('#hunt-info').after('<br/>', '<br/>');
+
+      $.each(returnedData['clues'], function(key, val){
+        $('<label></label', {
+          text: 'Clue ' + (key + 1) + ' Location: '
+        }).appendTo('#hunt-info');
+        $('<button/>', {
+          type: 'button',
+          "class": 'button alt-gradient-button',
+          id: val['clue id'],
+          onclick: 'showClueLocation(this.id)',
+          text: 'map'
+        }).appendTo('#hunt-info').after('<br/>', '<br/>');
+      })
+
+        $.each(returnedData['treasures'], function(key, val){
+          $('<label></label', {
+            text: 'Treasure Location: '
+          }).appendTo('#hunt-info');
+          $('<button/>', {
+            type: 'button',
+            "class": 'button alt-gradient-button',
+            id: val['treasure id'],
+            onclick: 'showTreasureLocation(this.id)',
+            text: 'map'
+          }).appendTo('#hunt-info').after('<br/>', '<br/>');
+      })
+    }
+  })
+}
+
 //FIND HUNT BUTTON
 function createHuntList(hunts){
   $.each(hunts, function(key, val){
     var radioBtn = $('<input type="radio" name="huntRadio" id=' + key + ' />');
-    var label = $('<label id=huntName>' + val['name'] + '</label>' + '<br><br>');
+    var label = $('<label id=huntName>' + val['name'] + ' (' + val['theme'] + ')' + '</label>' + '<br><br>');
     radioBtn.appendTo('#find-hunt-radio-box');
     label.appendTo('#find-hunt-radio-box');
   })
@@ -351,14 +423,25 @@ function toggleMap(){
       y.style.display = "none";
       button.style.display = "none";
   }
+}
 
-  let popUpInfo = new google.maps.InfoWindow({
+// function that will toggle the map to create a clue
+function createClueMap(clickedId){
+  if (clickedId == 'map-done'){
+    $('#mini-map-input').hide();
+    initMap();
+  }
+  else{
+    $('#mini-map-input').show();
+  }
+
+  var popUpInfo = new google.maps.InfoWindow({
     content: "Click the map to get Lat/Lng!",
     position: initialLocation,
   });
-  popUpInfo.open(map);
+  popUpInfo.open(miniMap);
   // configure the click listener
-  map.addListener('click', (mapsMouseEvent) => {
+  miniMap.addListener('click', (mapsMouseEvent) => {
     // close the current pop up window
     popUpInfo.close();
     // create new pop up window
@@ -368,7 +451,63 @@ function toggleMap(){
     popUpInfo.setContent(
       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
     );
-    popUpInfo.open(map);
+    popUpInfo.open(miniMap);
+
+    // gather location of click to enter into data fields
+    var location = JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2);
+    $('#' + clickedId + '-loc').val(location);
+  })
+}
+
+// shows a mini popup of the location of the clue
+function showClueLocation(clickedId){
+  if (clickedId == 'map-done'){
+    $('#mini-map-input').hide();
+    initMap();
+  }
+  else{
+    $('#mini-map-input').show();
+  }
+
+  $.ajax({
+    url: Url + '/clues/' + clickedId,
+    type: 'GET',
+    success: function(response){
+      returnedData = JSON.parse(response);
+      var pos = JSON.parse(returnedData['gps coordinates'])
+      var marker = new google.maps.Marker({
+        position: pos
+      });
+      miniMap.setZoom(15);
+      miniMap.setCenter(pos);
+      marker.setMap(miniMap);
+    }
+  })
+}
+
+// shows a mini popup of the location of the treasure
+function showTreasureLocation(clickedId){
+  if (clickedId == 'map-done'){
+    $('#mini-map-input').hide();
+    initMap();
+  }
+  else{
+    $('#mini-map-input').show();
+  }
+
+  $.ajax({
+    url: Url + '/treasures/' + clickedId,
+    type: 'GET',
+    success: function(response){
+      returnedData = JSON.parse(response);
+      var pos = JSON.parse(returnedData['gps coordinates'])
+      var marker = new google.maps.Marker({
+        position: pos
+      });
+      miniMap.setZoom(15);
+      miniMap.setCenter(pos);
+      marker.setMap(miniMap);
+    }
   })
 }
 
@@ -378,15 +517,25 @@ function initMap() {
     mapId: "c667678be8f885b9"
   });
 
+  // google map with new style for the mini map
+  miniMap = new google.maps.Map(document.getElementById('mini-map'), {
+    mapId: "c667678be8f885b9"
+  });
+
+
   // center on user's location if geolocation prompt allowed
   navigator.geolocation.getCurrentPosition(function(position){
     initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     map.setCenter(initialLocation);
+    miniMap.setCenter(initialLocation);
     map.setZoom(13);
+    miniMap.setZoom(13);
   }, function(positionError){
     // user denied geolocation prompt - default to corvallis
     map.setCenter(new google.maps.LatLng(44.56370413923824, -123.27945503001553));
+    miniMap.setCenter(new google.maps.LatLng(44.56370413923824, -123.27945503001553));
     map.setZoom(5);
+    miniMap.setZoom(5);
   })
 
   infoWindow = new google.maps.InfoWindow();
@@ -515,7 +664,7 @@ function createClues(){
     }).appendTo('#clue-' + i).after('<br/>');
     $('<textarea></textarea', {
       "class": 'clue-info',
-      id: 'clue' + i,
+      id: 'clueInfo' + i,
       name: 'clue' + i 
     }).appendTo('#clue-' + i).after('<br/>', '<br/>');
     $('<label></label', {
@@ -526,13 +675,19 @@ function createClues(){
       type: 'text',
       "class": 'clue-loc',
       id: 'clue' + i + '-loc',
-      name: 'clue' + i + '-loc'
+      name: 'clue' + i + '-loc',
+      css: {
+        'margin-right': '5px'
+      },
+      prop: {
+        'readonly': 'true'
+      }
     }).appendTo('#clue-' + i);
     $('<button/>', {
       type: 'button',
       "class": 'button alt-gradient-button',
-      id: 'map-loc-clue' + i,
-      onclick: 'toggleMap()',
+      id: 'clue' + i,
+      onclick: 'createClueMap(this.id)',
       text: 'map'
     }).appendTo('#clue-' + i);
   }
@@ -540,8 +695,7 @@ function createClues(){
 }
 
 function createTreasure(){
-  $('#submit-clues').hide();
-  $('#submit-treasure').show();
+  $('#c2-3').show();
   var x = document.getElementById("treasure-input");
   var y = document.getElementById("c2-2");
   if (x.style.display === "none") {
@@ -551,20 +705,27 @@ function createTreasure(){
   }
 }
 
-function addClue(){
-    var x = document.getElementById("clue-2");
-    var y = document.getElementById("clue-3");
-    var z = document.getElementById("clue-4");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } 
-    else if(y.style.display === "none") {
-      y.style.display = "block";
-  } 
-    else {
-        z.style.display = "block";
-    }
-}
+$(document).ajaxStart(function(){
+  $('#loading').show();
+})
+$(document).ajaxStop(function(){
+  $('#loading').hide();
+})
+
+// function addClue(){
+//     var x = document.getElementById("clue-2");
+//     var y = document.getElementById("clue-3");
+//     var z = document.getElementById("clue-4");
+//     if (x.style.display === "none") {
+//         x.style.display = "block";
+//     } 
+//     else if(y.style.display === "none") {
+//       y.style.display = "block";
+//   } 
+//     else {
+//         z.style.display = "block";
+//     }
+// }
 
 // function submitHunt(){
 //     toggleButton1()
