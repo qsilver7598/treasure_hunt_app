@@ -11,11 +11,12 @@ var clueIDArray = [];
 var clueDescriptionArray = [];
 var clueCoordsArray = [];
 var currClueDescription = "cats are cool";
+var currClueCoords;
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 9")
+console.log("Test::: 10")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -201,12 +202,15 @@ $(document).ready(function(){
         type: 'GET',
         success: function(response){
           var returnedData = JSON.parse(response);
-          console.log("returnedData after show clue:",returnedData)
-          //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
+          currClueDescription = returnedData['description'];
+          currClueCoords = returnedData['gps coordinates'];
+
+          clueDescriptionArray.push(currClueDescription);
+          clueCoordsArray.push(currClueDescription);
+          console.log("description array:",clueDescriptionArray)
+          console.log("coords array:",clueCoordsArray)
           console.log("returnedData['description']:", returnedData['description'])//testing
           console.log("returnedData['gps coordinates']:", returnedData['gps coordinates'])
-          storeClueIDs(returnedData['clue']);
-          //clueIDArray.push(returnedData['clues'][0]['clue id']);
           alert("pause before loading clue text")
           //
           //window.location.href = '/play'
