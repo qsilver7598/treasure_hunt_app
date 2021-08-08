@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 6")
+console.log("Test::: 7")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -337,9 +337,9 @@ function toggleMap(){
   //home page show
   if (x.style.display === "none") {
       x.style.display = "block";
+      toggleClueBtn();
   } else { //home page hide
       x.style.display = "none";
-     
   }
 
   //map show
