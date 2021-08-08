@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 13")
+console.log("Test::: 14")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -551,14 +551,14 @@ function initMap() {
           //marker.setPosition(pos);
 
           //clue marker
-          console.log(currClueCoords)
+          /*console.log(currClueCoords)
           const marker = new google.maps.Marker({
             position: currClueCoords,
             map,
-            title: "Clue 1",
+            title: "Clue 1",*/
           });
           //add to map after time out
-          setTimeout(function(){ marker.setMap(map); }, 3000);
+          //setTimeout(function(){ marker.setMap(map); }, 3000);
 
         },
         () => {
