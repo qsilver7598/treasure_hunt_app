@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 2")
+console.log("Test::: 3")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -321,12 +321,34 @@ function clueTest(){
 
 /* MAP STUFF */
 function toggleMap(){
-  var x = document.getElementById("treasure-map-input");
+  /*var x = document.getElementById("treasure-map-input");
   if (x.style.display == "none") {
       x.style.display = "block";
   } else {
       x.style.display = "none";
+  }*/
+
+  var x = document.getElementById("home-page");
+  var y = document.getElementById("map");
+  var button = document.getElementById("map-done");
+
+  //home page show
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else { //home page hide
+      x.style.display = "none";
+     
   }
+
+  //map show
+  if (y.style.display === "none") {
+      y.style.display = "block";
+      button.style.display = "inline";
+  } else { //map hide
+      y.style.display = "none";
+      button.style.display = "none";
+  }
+
   let popUpInfo = new google.maps.InfoWindow({
     content: "Click the map to get Lat/Lng!",
     position: initialLocation,

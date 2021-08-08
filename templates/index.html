@@ -24,6 +24,7 @@
     <h2>It's not about the treasure, it's about the hunt</h2>
     </div>
 
+    <div id="home-page" style="display: block;">
     <div class="main">
         <!-- welcome message -->
         <div class="container1" id="c1">
@@ -137,16 +138,15 @@
         </div>
 
     </div>
-    <!-- map modal-->
 
-    <div class="map-box" id="treasure-map-input" style="display: none;">  
-        <div id="map"></div>
-        <button type="button" class="button alt-gradient-button" id="map-done" style="display: inline;" onclick="toggleMap()" >
-            <i class="material-icons">done</i>
-            Done
-        </button>
-    </div>
-    
+    </div><!--end home page -->
+    <!-- map modal-->
+    <div id="map" style="display: none;"></div>
+    <button type="button" class="button alt-gradient-button" id="map-done" style="display: none;" onclick="toggleMap()" >
+        <i class="material-icons">done</i>
+        Done
+    </button>
+
     <!--Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPPXGiGLcVpdeNjdKsHCYFZ1KrUzIPidE&callback=initMap"
