@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 26")
+console.log("Test::: 27")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -377,7 +377,7 @@ function initMap() {
             lng: position.coords.longitude,
           };
           infoWindow.setPosition(pos);
-          infoWindow.setContent("loading clue #1.", currClueDescription);
+          infoWindow.setContent(currClueDescription);
           infoWindow.open(map);
           map.setCenter(pos);
           marker.setPosition(pos);
