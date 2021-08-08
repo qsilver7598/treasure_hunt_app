@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 16")
+console.log("Test::: 17")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -205,7 +205,7 @@ $(document).ready(function(){
           console.log("description array:",clueDescriptionArray)
           console.log("coords array:",clueCoordsArray)
           //reveal first clue on map at initialized location
-          showClue1();
+          showClue1(currClueDescription);
         },
         error: function(){
           alert('There was an error with show clue button get request')
@@ -407,13 +407,23 @@ function toggleMap(){
   }
 }
 
-//reveals first clue on play map
-function showClue1(){
+//reveals passed description (clue) on play map
+function showClue1(clueDescr){
   var popUpClue = new google.maps.InfoWindow({
-    content: currClueDescription,
+    content: clueDescr,
     position: initialLocation,
   });
   popUpClue.open(map);
+}
+
+function hiddenMarker(clueLoc){
+  console.log("clueLoc",clueLoc)
+  const h_marker = new google.maps.Marker({
+    position: clueLoc,
+    map,
+    title: "Clue location",
+  });
+  return h_marker;
 }
 
 // function that will toggle the map to create a clue
@@ -513,6 +523,15 @@ function initMap() {
     mapId: "c667678be8f885b9"
   });
 
+  //set user marker
+  const userMarker = new google.maps.Marker({
+    position: initialLocation,
+    map: map,
+    title: "You are here",
+  });
+  //add to map after time out
+  //setTimeout(function(){ clueMarker1.setMap(map); }, 3000);*/
+
 
   // center on user's location if geolocation prompt allowed
   navigator.geolocation.getCurrentPosition(function(position){
@@ -547,17 +566,19 @@ function initMap() {
           infoWindow.setContent("hi!");
           infoWindow.open(map);
           map.setCenter(pos);
-          //marker.setPosition(pos);
+          marker.setPosition(pos);
 
+          const clueMarker1 = hiddenMarker(currClueCoords);
+          clueMarker1.setMap(map);
           //clue marker
           /*console.log(currClueCoords)
-          const marker = new google.maps.Marker({
+          const clueMarker1 = new google.maps.Marker({
             position: currClueCoords,
             map,
             title: "Clue 1",
           });
           //add to map after time out
-          //setTimeout(function(){ marker.setMap(map); }, 3000);*/
+          //setTimeout(function(){ clueMarker1.setMap(map); }, 3000);*/
 
         },
         () => {
