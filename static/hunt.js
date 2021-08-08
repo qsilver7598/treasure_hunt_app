@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 8")
+console.log("Test::: 9")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -179,7 +179,9 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           console.log("returnedData after Play:",returnedData)
           //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
-          //console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
+          console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
+          console.log("returnedData['clue id']:", returnedData['clue id'])
+          console.log("returnedData['description']:", returnedData['description'])
           storeClueIDs(returnedData['clues']);
           //clueIDArray.push(returnedData['clues'][0]['clue id']);
           console.log("clueIDArray[0]:", clueIDArray[0])
