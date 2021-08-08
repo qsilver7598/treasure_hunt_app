@@ -15,7 +15,7 @@ var currClueDescription = "cats are cool";
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 5")
+console.log("Test::: 6")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -203,7 +203,7 @@ $(document).ready(function(){
           var returnedData = JSON.parse(response);
           console.log("returnedData after show clue:",returnedData)
           //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
-          console.log("returnedData['clue']['description']:", returnedData['clue']['description'])
+          console.log("returnedData['clue']['description']:", returnedData['hunt']['description'])//testing
           console.log("returnedData['clue']['gps coordinates']:", returnedData['clue']['gps coordinates'])
           storeClueIDs(returnedData['clue']);
           //clueIDArray.push(returnedData['clues'][0]['clue id']);
@@ -320,14 +320,16 @@ function clueTest(){
 
 
 /* MAP STUFF */
-function toggleMap(){
-  /*var x = document.getElementById("treasure-map-input");
+function toggleClueBtn(){
+  var x = document.getElementById("show-first-clue");
   if (x.style.display == "none") {
       x.style.display = "block";
   } else {
       x.style.display = "none";
-  }*/
+  }
+}
 
+function toggleMap(){
   var x = document.getElementById("home-page");
   var y = document.getElementById("map");
   var button = document.getElementById("map-done");
