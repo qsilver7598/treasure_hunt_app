@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 10")
+console.log("Test::: 11")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -180,15 +180,8 @@ $(document).ready(function(){
         success: function(response){
           var returnedData = JSON.parse(response);
           console.log("returnedData after Play:",returnedData)
-          //need to get clue data with clueID***************************works for one clue ATM, need to set up loop to get all id's
-          console.log("returnedData['clues'][0]['clue id']:", returnedData['clues'][0]['clue id'])
-          console.log("returnedData['clue id']:", returnedData['clue id'])
-          console.log("returnedData['description']:", returnedData['description'])
           storeClueIDs(returnedData['clues']);
-          //clueIDArray.push(returnedData['clues'][0]['clue id']);
-          console.log("clueIDArray[0]:", clueIDArray[0])
-          //alert("pause before loading /play")
-          //window.location.href = '/play'
+          console.log("play: clueIDArray[0]:", clueIDArray[0])
         },
         error: function(){
           alert('There was an error with play button get request')
@@ -198,8 +191,7 @@ $(document).ready(function(){
     })
 
     $('#show-first-clue').click(function(){
-      //var huntID = getSelectedHunt();
-      console.log("clueIDArray[0]:", clueIDArray[0])
+      console.log("clue: clueIDArray[0]:", clueIDArray[0])
       $.ajax({
         url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
         type: 'GET',
@@ -212,11 +204,6 @@ $(document).ready(function(){
           clueCoordsArray.push(currClueDescription);
           console.log("description array:",clueDescriptionArray)
           console.log("coords array:",clueCoordsArray)
-          console.log("returnedData['description']:", returnedData['description'])//testing
-          console.log("returnedData['gps coordinates']:", returnedData['gps coordinates'])
-          alert("pause before loading clue text")
-          //
-          //window.location.href = '/play'
         },
         error: function(){
           alert('There was an error with show clue button get request')
@@ -233,10 +220,9 @@ function getSelectedHunt(){
   var selectedHuntIDX, selectedHuntName;
   
   for(i = 0; i < huntList.length; i++) {
-    console.log("huntList[i].id: ", huntList[i].id) // !!! grabs html tag id successfully
+    console.log("huntList[i].id: ", huntList[i].id) 
        if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
-        //selectedHuntName = huntList[i].previousSibling.innerText;//get name from associated label
         currHuntID = huntIDArray[selectedHuntIDX];
   }
   return huntIDArray[selectedHuntIDX]; //returns the hunt id stored at the idx of checked radio btn
@@ -371,29 +357,21 @@ function createHuntList(hunts){
 }
 
 function storeHuntIDs(hunts){
- // $.each(function(hunts){
     for(i = 0; i < hunts.length; i++) {
-    //huntIDArray.push(returnedData['hunts'][0]['hunt id']);
       huntIDArray.push(hunts[i]['hunt id']);
       huntNameArray.push(hunts[i]['name']);
-      console.log("huntIDArray:",huntIDArray)
-      console.log("huntIDArray[i]:",huntIDArray[i])
-      console.log("huntNameArray[i]:",huntNameArray[i])
-  }//)
+  }
+  console.log("huntIDArray:",huntIDArray)
 }
 
 function storeClueIDs(clues){
     for(i = 0; i < clues.length; i++) {
       clueIDArray.push(clues[i]['clue id']);
-      //clueDescriptionArray.push(clues[i]['description']);
       console.log("clueIDArray:",clueIDArray)
-      console.log("clueIDArray[i]:",clueIDArray[i])
-      //console.log("clueDescriptionArray:",clueDescriptionArray)
-      //console.log("clueDescriptionArray[i]:",clueDescriptionArray[i])
     }
 }
 //DISPLAY CLUE
-function clueTest(){
+function clueTest(){///DELETE
  /* var clues = [{
     "description": "This is a clue description.",
     "gps coordinates": "15.12345, 45.12345"
@@ -574,7 +552,7 @@ function initMap() {
 
           //clue marker
           const marker = new google.maps.Marker({
-            position: clueTest(),
+            position: currClueCoords,
             map,
             title: "Clue 1",
           });
