@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 18")
+console.log("Test::: 19")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -440,7 +440,7 @@ function markerTest(clueID){
       });
       map.setZoom(15);
       map.setCenter(pos);
-      marker.setMap(map);
+      //marker.setMap(map);
     }
   })
 }
@@ -596,9 +596,9 @@ function initMap() {
             position: currClueCoords,
             map,
             title: "Clue 1",
-          });
+          });*/
           //add to map after time out
-          //setTimeout(function(){ clueMarker1.setMap(map); }, 3000);*/
+          setTimeout(function(){ marker.setMap(map); }, 3000);
 
         },
         () => {
