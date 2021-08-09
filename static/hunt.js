@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 7")
+console.log("Test::: 8")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -43,7 +43,6 @@ $(document).ready(function(){
           nextList = returnedData['next'];
         }
         storeHuntIDs(returnedData['hunts']);//store hunt name and ID in global arrays
-        console.log("returnedData['hunts']:", returnedData['hunts'])
       },
       error: function(){
         alert('There was an error with b2 button get request')
@@ -247,8 +246,7 @@ function getSelectedHunt(){
   var selectedHuntIDX, selectedHuntName;
   
   for(i = 0; i < huntList.length; i++) {
-    console.log("huntList[i].id: ", huntList[i].id) 
-       if(huntList[i].checked)
+        if(huntList[i].checked)
         selectedHuntIDX = huntList[i].id;// get id of attribute
         currHuntID = huntIDArray[selectedHuntIDX];
   }
@@ -412,7 +410,6 @@ function getNextPage(clickedId){
         nextList = returnedData['next'];
       }
       storeHuntIDs(returnedData['hunts']);//store hunt name and ID in global arrays
-      console.log("returnedData['hunts']:", returnedData['hunts'])
     },
     error: function(){
       alert('There was an error with getting next hunts request')
@@ -590,13 +587,11 @@ function storeHuntIDs(hunts){
       huntIDArray.push(hunts[i]['hunt id']);
       huntNameArray.push(hunts[i]['name']);
   }
-  console.log("huntIDArray:",huntIDArray)
 }
 
 function storeClueIDs(clues){
     for(i = 0; i < clues.length; i++) {
       clueIDArray.push(clues[i]['clue id']);
-      console.log("clueIDArray:",clueIDArray)
     }
 }
 
@@ -800,15 +795,7 @@ function initMap() {
     miniMap.setZoom(5);
   })
 
-  //set user marker
-  /*const userMarker = new google.maps.Marker({
-    position: initialLocation,
-    map: map,
-    title: "You are here",
-  });*/
-
-  
-
+ 
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
   locationButton.textContent = "Pan to Current Location";
@@ -858,7 +845,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 // function for geolocation
 function getUserLocation() {
-  initMap();
+  //initMap();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -949,9 +936,7 @@ var y = document.getElementById("c2");
 if (x.style.display === "none") {
     x.style.display = "block";
 } else {
-    //console.log("x3 =", x)
     x.style.display = "none";
-    //console.log("x4 =", x)
 }
 
 if (y.style.display === "none") {
