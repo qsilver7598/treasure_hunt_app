@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 4")
+console.log("Test::: 5")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -858,6 +858,21 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 // function for geolocation
 function getUserLocation() {
+  initMap();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+      return pos;
+    });
+  }
+}
+
+// function for geolocation
+function setUserLocationMarker() {
   initMap();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
