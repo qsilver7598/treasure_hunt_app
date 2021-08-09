@@ -14,8 +14,8 @@ var currClueDescription = "cats are cool";
 var currClueCoords;
 var listener_id, target, options;
 
-const Url='http://localhost:8080';
-// const Url='https://cs467-capstone.uw.r.appspot.com';
+// const Url='http://localhost:8080';
+const Url='https://cs467-capstone.uw.r.appspot.com';
 
 console.log("Test::: 29")
 
