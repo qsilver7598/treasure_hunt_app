@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 24")
+console.log("Test::: 25")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -427,7 +427,7 @@ function hiddenMarker(clueLoc){
 }
 
 function markerTest(clueID){
-  initMap();
+  initMap();// do i need this????????????????????????
 
   $.ajax({
     url: Url + '/clues/' + clueID,
@@ -440,8 +440,8 @@ function markerTest(clueID){
       });
       map.setZoom(15);
       map.setCenter(pos);
-      //marker.setMap(map);
-      return marker;
+      marker.setMap(map);
+     
     }
   })
 }
@@ -590,7 +590,7 @@ function initMap() {
 
           /*const clueMarker1 = hiddenMarker(currClueCoords);
           clueMarker1.setMap(map);*/
-          const marker1 = markerTest(clueIDArray[0]);
+          markerTest(clueIDArray[0]);
           //clue marker
           /*console.log(currClueCoords)
           const clueMarker1 = new google.maps.Marker({
@@ -599,7 +599,7 @@ function initMap() {
             title: "Clue 1",
           });*/
           //add to map after time out
-          setTimeout(function(){ marker1.setMap(map); }, 3000);
+          //setTimeout(function(){ marker1.setMap(map); }, 3000);
 
         },
         () => {
