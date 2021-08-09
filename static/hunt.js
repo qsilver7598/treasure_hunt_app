@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 21")
+console.log("Test::: 22")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -435,7 +435,7 @@ function markerTest(clueID){
     success: function(response){
       returnedData = JSON.parse(response);
       var pos = JSON.parse(returnedData['gps coordinates'])
-      var marker = new google.maps.Marker({
+      var marker1 = new google.maps.Marker({
         position: pos
       });
       map.setZoom(15);
@@ -590,7 +590,7 @@ function initMap() {
 
           /*const clueMarker1 = hiddenMarker(currClueCoords);
           clueMarker1.setMap(map);*/
-          const marker1 = markerTest(clueIDArray[0]);
+          markerTest(clueIDArray[0]);
           //clue marker
           /*console.log(currClueCoords)
           const clueMarker1 = new google.maps.Marker({
