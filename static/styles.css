@@ -20,16 +20,6 @@
   overflow: hidden;/*does this work?*/
 }
 
-/* .menu a {
-  display: block;
-  background-color: #e5e5e5;
-  padding: 8px;
-  margin-top: 7px;
-  display: block;
-  width: 100%;
-  color: black;
-}
-*/
 .main {
   float: left;
   width: 60%;
@@ -45,17 +35,7 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 620px) {
-  /* For mobile phones: */
-  .menu, .main, .right {
-    width: 100%;
-  }
-}
-
 body {
-  /*background-image: url("map.jpg");
-  /*width: 100%;
-  overflow:hidden;*/
   background-image: url("map.jpg");
   background-repeat: no-repeat;
   background-position: top;
@@ -70,21 +50,13 @@ body {
   background-color:#3130309f;
   margin-top: 0px;
   padding: 30px;
-
-  
   color: linear-gradient(to right, red, yellow);
   text-align:center;
-
 }
 
-/*.nav-bar {
-  overflow:auto;
-}*/
-
-/*.container1 {*/
+/*.containers {*/
 #c1, #c2, #c2-2, #c2-3, #c3, #c4, #c5 {
   display: block;
-
   position: relative;
   left: 35%;
   max-width: 1000px !important;
@@ -95,7 +67,6 @@ body {
   /*border-color: white;*/
   border-radius: 4px;
   box-shadow: 0px 4px 12px rgba(black, 0.08);
-
   color: black;
 }
 
@@ -295,4 +266,27 @@ box-shadow: 8px 0 0 0 #333333;
 content: '';
 position: absolute;
 display: block;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones */
+  #c1, #c2, #c2-2, #c2-3, #c3, #c4, #c5 {
+    left: 0%
+  }
+
+  .menu, .main, .right {
+    width: 100%;
+  }
+
+  #mini-map-input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 965px) {
+  #b2 {
+    margin-top: 10px;
+  }
 }
