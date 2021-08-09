@@ -14,8 +14,8 @@ var currClueDescription = "cats are cool";
 var currClueCoords;
 var listener_id, target, options;
 
-// const Url='http://localhost:8080';
-const Url='https://cs467-capstone.uw.r.appspot.com';
+const Url='http://localhost:8080';
+// const Url='https://cs467-capstone.uw.r.appspot.com';
 
 console.log("Test::: 29")
 
@@ -29,8 +29,19 @@ $(document).ready(function(){
       url: Url + '/hunts',
       type: 'GET',
       success: function(response){
+        huntRadioIndex = 0;
         var returnedData = JSON.parse(response);
         createHuntList(returnedData['hunts']);
+        if ('next' in returnedData){
+          $('<button/>', {
+            type: 'button',
+            "class": 'button alt-gradient-button',
+            id: 'next-list',
+            onclick: 'getNextPage(this.id)',
+            text: 'More Hunts'
+          }).appendTo('#find-hunt-radio-box');
+          nextList = returnedData['next'];
+        }
         storeHuntIDs(returnedData['hunts']);//store hunt name and ID in global arrays
         console.log("returnedData['hunts']:", returnedData['hunts'])
       },
@@ -172,48 +183,64 @@ $(document).ready(function(){
   })
 
   /////GAME PLAY REQS/////
-    // Get request to retrieve hunt in database
-    $('#play').click(function(){
-      var huntID = getSelectedHunt();
-      $.ajax({
-        url: Url + '/hunts/' + huntID,
-        type: 'GET',
-        success: function(response){
-          var returnedData = JSON.parse(response);
-          console.log("returnedData after Play:",returnedData)
-          storeClueIDs(returnedData['clues']);
-          console.log("play: clueIDArray[0]:", clueIDArray[0])
-        },
-        error: function(){
-          alert('There was an error with play button get request')
-          //window.location.href = '/'
-        }
-      })
+  // Get request to retrieve hunt in database
+  $('#play').click(function(){
+    var huntID = getSelectedHunt();
+    $.ajax({
+      url: Url + '/hunts/' + huntID,
+      type: 'GET',
+      success: function(response){
+        var returnedData = JSON.parse(response);
+        console.log("returnedData after Play:",returnedData)
+        storeClueIDs(returnedData['clues']);
+        console.log("play: clueIDArray[0]:", clueIDArray[0])
+      },
+      error: function(){
+        alert('There was an error with play button get request')
+        //window.location.href = '/'
+      }
     })
+  })
 
-    $('#show-first-clue').click(function(){
-      console.log("clue: clueIDArray[0]:", clueIDArray[0])
-      $.ajax({
-        url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
-        type: 'GET',
-        success: function(response){
-          var returnedData = JSON.parse(response);
-          currClueDescription = returnedData['description'];
-          currClueCoords = returnedData['gps coordinates'];
-          //push curr coords and description
-          clueDescriptionArray.push(currClueDescription);
-          clueCoordsArray.push(currClueCoords);
-          console.log("description array:",clueDescriptionArray)
-          console.log("coords array:",clueCoordsArray)
-          //reveal first clue on map at initialized location
-          showClue1(currClueDescription);
-        },
-        error: function(){
-          alert('There was an error with show clue button get request')
-          //window.location.href = '/'
-        }
-      })
+  $('#show-first-clue').click(function(){
+    console.log("clue: clueIDArray[0]:", clueIDArray[0])
+    $.ajax({
+      url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
+      type: 'GET',
+      success: function(response){
+        var returnedData = JSON.parse(response);
+        currClueDescription = returnedData['description'];
+        currClueCoords = returnedData['gps coordinates'];
+        //push curr coords and description
+        clueDescriptionArray.push(currClueDescription);
+        clueCoordsArray.push(currClueCoords);
+        console.log("description array:",clueDescriptionArray)
+        console.log("coords array:",clueCoordsArray)
+        //reveal first clue on map at initialized location
+        showClue1(currClueDescription);
+      },
+      error: function(){
+        alert('There was an error with show clue button get request')
+        //window.location.href = '/'
+      }
     })
+  })
+
+  $('#edit-hunt-choose').click(function(){
+    var huntId = getSelectedHunt();
+    $.ajax({
+      url: Url + '/hunts/' + huntId,
+      type: 'GET',
+      success: function(response){
+        var returnedData = JSON.parse(response);
+        editPage(returnedData);
+      },
+      error: function(){
+        alert('There was an error with edit request')
+        window.location.href = '/'
+      }
+    })
+  })
 })
 
 //get hunt id from radio button
@@ -307,11 +334,19 @@ function confirmHunt(){
     success: function(response){
       var returnedData = JSON.parse(response);
       $('<label></label', {
+        text: returnedData['hunt id'],
+        css: {
+          'display': 'none'
+        },
+        id: 'hunt-label-id'
+      }).appendTo('#hunt-info');
+
+      $('<label></label', {
         text: 'Name: '
       }).appendTo('#hunt-info');
       $('<label></label', {
         text: returnedData['name']
-      }).appendTo('#hunt-info').after('<br/>');
+      }).appendTo('#hunt-info').after('<br/>', '<br/>');
 
       $('<label></label', {
         text: 'Theme: '
@@ -352,10 +387,204 @@ function confirmHunt(){
 //FIND HUNT BUTTON
 function createHuntList(hunts){
   $.each(hunts, function(key, val){
-    var radioBtn = $('<input type="radio" name="huntRadio" id=' + key + ' />');
+    var radioBtn = $('<input type="radio" name="huntRadio" id=' + huntRadioIndex + ' />');
     var label = $('<label id=huntName>' + val['name'] + ' (' + val['theme'] + ')' + '</label>' + '<br><br>');
     radioBtn.appendTo('#find-hunt-radio-box');
     label.appendTo('#find-hunt-radio-box');
+    huntRadioIndex++;
+  })
+}
+
+// get next page in hunt list
+function getNextPage(clickedId){
+  $('#' + clickedId).remove();
+  $.ajax({
+    url: nextList,
+    type: 'GET',
+    success: function(response){
+      var returnedData = JSON.parse(response);
+      createHuntList(returnedData['hunts']);
+      if ('next' in returnedData){
+        $('<button/>', {
+          type: 'button',
+          "class": 'button alt-gradient-button',
+          id: 'next-list',
+          onclick: 'getNextPage(this.id)',
+          text: 'More Hunts'
+        }).appendTo('#find-hunt-radio-box');
+        nextList = returnedData['next'];
+      }
+      storeHuntIDs(returnedData['hunts']);//store hunt name and ID in global arrays
+      console.log("returnedData['hunts']:", returnedData['hunts'])
+    },
+    error: function(){
+      alert('There was an error with getting next hunts request')
+      window.location.href = '/'
+    }
+  })
+}
+
+// edit the selected hunt page
+function editPage(hunt){
+  $('#c3').hide();
+  $('#c5').show();
+  $('<label></label', {
+    text: hunt['hunt id'],
+    css: {
+      'display': 'none'
+    },
+    id: 'hunt-label-id'
+  }).appendTo('#hunt-edit-info');
+
+  $('<label></label', {
+    text: 'Creator: '
+  }).appendTo('#hunt-edit-info');
+  $('<label></label', {
+    text: hunt['creator']
+  }).appendTo('#hunt-edit-info').after('<br/>', '<br/>');
+
+  $('<label></label', {
+    text: 'Name: '
+  }).appendTo('#hunt-edit-info');
+  $('<input/>', {
+    type: 'text',
+    id: 'edit-name',
+    css: {
+      'margin-right': '5px'
+    },
+    prop: {
+      'readonly': 'true'
+    },
+    value: hunt['name']
+  }).appendTo('#hunt-edit-info');
+  $('<button/>', {
+    type: 'button',
+    "class": 'button primary edit',
+    id: 'edit-name-button',
+    onclick: 'editInput(this.id)',
+    text: 'edit'
+  }).appendTo('#hunt-edit-info').after('<br/>', '<br/>');
+
+  $('<label></label', {
+    text: 'Theme: '
+  }).appendTo('#hunt-edit-info');
+  $('<input/>', {
+    type: 'text',
+    id: 'edit-theme',
+    css: {
+      'margin-right': '5px'
+    },
+    prop: {
+      'readonly': 'true'
+    },
+    value: hunt['theme']
+  }).appendTo('#hunt-edit-info');
+  $('<button/>', {
+    type: 'button',
+    "class": 'button primary edit',
+    id: 'edit-theme-button',
+    onclick: 'editInput(this.id)',
+    text: 'edit'
+  }).appendTo('#hunt-edit-info').after('<br/>', '<br/>');
+
+  $.each(hunt['clues'], function(key, val){
+    $('<label></label', {
+      text: 'Clue ' + (key + 1) + ' Location: '
+    }).appendTo('#hunt-edit-info');
+    $('<button/>', {
+      type: 'button',
+      "class": 'button alt-gradient-button',
+      id: val['clue id'],
+      onclick: 'showClueLocation(this.id)',
+      text: 'map'
+    }).appendTo('#hunt-edit-info').after('<br/>', '<br/>');
+  })
+
+    $.each(hunt['treasures'], function(key, val){
+      $('<label></label', {
+        text: 'Treasure Location: '
+      }).appendTo('#hunt-edit-info');
+      $('<button/>', {
+        type: 'button',
+        "class": 'button alt-gradient-button',
+        id: val['treasure id'],
+        onclick: 'showTreasureLocation(this.id)',
+        text: 'map'
+      }).appendTo('#hunt-edit-info').after('<br/>', '<br/>');
+  })
+}
+
+// allows editing of input
+function editInput(clickedId){
+  var inputId = clickedId.replace('-button', '');
+  $('#' + inputId).prop('readonly', false);
+  $('<button/>', {
+    type: 'button',
+    "class": 'button primary save',
+    id: 'confirm-' + inputId,
+    css: {
+      'margin-left': '5px'
+    },
+    onclick: 'confirmEdit(this.id)',
+    text: 'confirm'
+  }).insertAfter('#' + clickedId);
+}
+
+// confirms the edit of the hunt
+function confirmEdit(clickedId){
+  var editData = clickedId.replace('confirm-edit-', '');
+  var hunt = {};
+  hunt[editData] = $('#edit-' + editData).val()
+  if (hunt[editData] == ''){
+    alert('fields cannot be empty');
+    return
+  }
+  var huntId = $('#hunt-label-id').text();
+  $.ajax({
+    url: Url + '/hunts/' + huntId,
+    type: 'PATCH',
+    data: JSON.stringify(hunt),
+    contentType: 'application/json',
+    dataType: 'json',
+    headers: {
+      Authorization: 'Bearer ' + token
+    },
+    success: function(response){
+      alert(response['name'] + ' was edited successfully.') // create a popup window if time
+      $('#' + clickedId).remove();
+      var inputField = clickedId.replace('confirm-', '');
+      $('#' + inputField).prop('readonly', true);
+      $('#' + inputField).val(response[editData]);
+    },
+    error: function(){
+      alert('There was an error with your request. #1');
+    },
+    statusCode: {
+      403: function(response){
+        alert('You are not the owner of this hunt. Changes can not be made.');
+      }
+    }
+  })
+}
+
+// deletes a hunt
+function deleteHunt(){
+  var huntId = $('#hunt-label-id').text();
+  $.ajax({
+    url: Url + '/hunts/' + huntId,
+    type: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + token
+    },
+    success: function(response){
+      alert('hunt was deleted successfully.') // create a popup window if time
+      window.location.href = '/'
+    },
+    statusCode: {
+      403: function(response){
+        alert('You are not the owner of this hunt. Changes can not be made.');
+      }
+    }
   })
 }
 

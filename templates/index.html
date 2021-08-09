@@ -132,7 +132,7 @@
             <form id="choose-hunt-form">
                 <div class="find-hunt">
                     <h3>Find a Hunt</h3>
-                    <p>Choose from the list of available Treasure Hunts.</p>
+                    <h4>Choose from the list of available Treasure Hunts.</h4>
                     <div class="choose-input" id="find-hunt-radio-box"></div>
                     <br>
                     <!-- button to edit hunt -->
@@ -157,9 +157,9 @@
                     <div id="hunt-info"></div>
                     <br>
                     <!-- button to edit -->
-                    <button type="button" class="button alt-gradient-button" id="edit-hunt-confirm-button">
+                    <button type="button" class="button alt-gradient-button" id="edit-hunt-confirm-button" onClick="deleteHunt()">
                         <i class="material-icons">done</i>
-                        Edit
+                        Cancel
                     </button>
                     <!-- button to confirm -->
                     <button type="button" class="button alt-gradient-button" id="hunt-confirm-button" onClick="window.location.reload()">
@@ -169,6 +169,35 @@
                 </div>
             </form>
         </div>
+
+        <!-- hidden pop up 5 for editing hunt -->
+        <div class="container5" id="c5" style="display: none;">
+            <form id="edit-hunt">
+                <div class="edit-hunt">
+                    <h3>Edit this Hunt</h3>
+                    <div id="hunt-edit-info"></div>
+                    <br>
+                    <!-- button to delete hunt -->
+                    <button type="button" class="button primary delete" id="hunt-delete-button" onClick="deleteHunt()">
+                        Delete Hunt
+                    </button>
+                    <br>
+                    <br>
+                    <!-- button to cancel -->
+                    <button type="button" class="button alt-gradient-button" id="cancel" onClick="window.location.reload()">
+                        <i class="material-icons">done</i>
+                        Cancel
+                    </button>
+                    <!-- button to confirm -->
+                    <button type="button" class="button alt-gradient-button" id="confirm" onClick="window.location.reload()">
+                        <i class="material-icons">done</i>
+                        Confirm
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
 
     </div>
 
