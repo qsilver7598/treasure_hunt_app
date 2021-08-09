@@ -210,7 +210,7 @@ $(document).ready(function(){
       success: function(response){
         var returnedData = JSON.parse(response);
         currClueDescription = returnedData['description'];
-        currClueCoords = returnedData['gps coordinates'];
+        currClueCoords = JSON.parse(returnedData['gps coordinates']);
         //push curr coords and description
         clueDescriptionArray.push(currClueDescription);
         clueCoordsArray.push(currClueCoords);
@@ -218,6 +218,7 @@ $(document).ready(function(){
         console.log("coords array:",clueCoordsArray)
         //reveal first clue on map at initialized location
         showClue1(currClueDescription);
+        $('#clue-distance-button').show();
       },
       error: function(){
         alert('There was an error with show clue button get request')
@@ -801,33 +802,7 @@ function initMap() {
     title: "You are here",
   });*/
 
-  var id, target, options;
-
-  function success(pos) {
-    var crd = pos.coords;
-
-    if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-      console.log('Congratulations, you reached the target');
-      navigator.geolocation.clearWatch(id);
-    }
-  }
-
-  function error(err) {
-    console.warn('ERROR(' + err.code + '): ' + err.message);
-  }
-
-  target = {
-    latitude : 0,
-    longitude: 0
-  };
-
-  options = {
-    enableHighAccuracy: false,
-    timeout: 5000,
-    maximumAge: 0
-  };
-
-  id = navigator.geolocation.watchPosition(success, error, options);
+  
 
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
@@ -876,7 +851,47 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
+// function for geolocation
+function distanceToClue() {
+  var cluePosLat;
+  var cluePosLong;
+  var distance;
 
+  if (navigator.geolocation){
+    cluePosLat = currClueCoords['lat'];
+    cluePosLong = currClueCoords['lng'];
+
+    navigator.geolocation.watchPosition(function(position){
+      distance = calculateDistance(cluePosLat, cluePosLong, position.coords.latitude, position.coords.longitude);
+      
+      var popUpClue = new google.maps.InfoWindow({
+        content: 'Distance to clue: ' + distance + ' mi',
+        position: currClueCoords
+      });
+      popUpClue.open(map);
+    });
+  }
+}
+
+// calculates the distance to target
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  var R = 6371; // km
+  var dLat = (lat2-lat1).toRad();
+  var dLon = (lon2-lon1).toRad();
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c;
+  // convert to miles
+  d = d * 0.621371;
+  var dis = d.toFixed(2);
+  return dis;
+}
+
+Number.prototype.toRad = function() {
+  return this * Math.PI / 180;
+}
 
 /*
 * This section regards button clicks and hiding/showing forms
