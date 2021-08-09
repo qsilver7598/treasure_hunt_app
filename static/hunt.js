@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 2")
+console.log("Test::: 3")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -191,9 +191,7 @@ $(document).ready(function(){
       type: 'GET',
       success: function(response){
         var returnedData = JSON.parse(response);
-        console.log("returnedData after Play:",returnedData)
         storeClueIDs(returnedData['clues']);
-        console.log("play: clueIDArray[0]:", clueIDArray[0])
       },
       error: function(){
         alert('There was an error with play button get request')
@@ -203,7 +201,6 @@ $(document).ready(function(){
   })
 
   $('#show-first-clue').click(function(){
-    console.log("clue: clueIDArray[0]:", clueIDArray[0])
     $.ajax({
       url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
       type: 'GET',
@@ -214,8 +211,7 @@ $(document).ready(function(){
         //push curr coords and description
         clueDescriptionArray.push(currClueDescription);
         clueCoordsArray.push(currClueCoords);
-        console.log("description array:",clueDescriptionArray)
-        console.log("coords array:",clueCoordsArray)
+
         //reveal first clue on map at initialized location
         showClue1(currClueDescription);
         $('#clue-distance-button').show();
@@ -640,12 +636,20 @@ function toggleMap(){
 
 //reveals passed description (clue) on play map
 function showClue1(clueDescr){
-  var userLoc = getUserLocation();
-  var popUpClue = new google.maps.InfoWindow({
-    content: clueDescr,
-    position: userLoc,
-  });
-  popUpClue.open(map);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        var popUpClue = new google.maps.InfoWindow({
+          content: clueDescr,
+          position: userLoc,
+        });
+    popUpClue.open(map);
+    });
+  }
 }
 
 function hiddenMarker(clueLoc){
