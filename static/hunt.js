@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 25")
+console.log("Test::: 26")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -434,12 +434,13 @@ function markerTest(clueID){
     type: 'GET',
     success: function(response){
       returnedData = JSON.parse(response);
-      var pos = JSON.parse(returnedData['gps coordinates'])
+      var pos1 = JSON.parse(returnedData['gps coordinates'])
+      console.log("pos1::",pos1)
       var marker = new google.maps.Marker({
-        position: pos
+        position: pos1
       });
       map.setZoom(15);
-      map.setCenter(pos);
+      map.setCenter(pos1);
       marker.setMap(map);
      
     }
@@ -586,21 +587,11 @@ function initMap() {
           infoWindow.setContent("hi!");
           infoWindow.open(map);
           map.setCenter(pos);
-          //marker.setPosition(pos);
+          marker.setPosition(pos);
 
-          /*const clueMarker1 = hiddenMarker(currClueCoords);
-          clueMarker1.setMap(map);*/
-          markerTest(clueIDArray[0]);
           //clue marker
-          /*console.log(currClueCoords)
-          const clueMarker1 = new google.maps.Marker({
-            position: currClueCoords,
-            map,
-            title: "Clue 1",
-          });*/
-          //add to map after time out
-          //setTimeout(function(){ marker1.setMap(map); }, 3000);
-
+          markerTest(clueIDArray[0]);
+          
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
