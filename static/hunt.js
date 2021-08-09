@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 29")
+console.log("Test::: 1")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -852,11 +852,35 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 // function for geolocation
+function getUserLocation() {
+  initMap();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+        const marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          title: "You are here",
+      });
+      setPosition(pos);
+      map.setZoom(15);
+      map.setCenter(pos1);
+      marker.setMap(map);
+    });
+  }
+  return pos;
+}
+
+// function for geolocation
 function distanceToClue() {
   var cluePosLat;
   var cluePosLong;
   var distance;
-
+  var userLoc = getUserLocation();
   if (navigator.geolocation){
     cluePosLat = currClueCoords['lat'];
     cluePosLong = currClueCoords['lng'];
@@ -866,7 +890,7 @@ function distanceToClue() {
       
       var popUpClue = new google.maps.InfoWindow({
         content: 'Distance to clue: ' + distance + ' mi',
-        position: currClueCoords
+        position: userLoc //was currClueLoc
       });
       popUpClue.open(map);
     });
