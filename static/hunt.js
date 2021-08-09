@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 3")
+console.log("Test::: 4")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -645,7 +645,7 @@ function showClue1(clueDescr){
         };
         var popUpClue = new google.maps.InfoWindow({
           content: clueDescr,
-          position: userLoc,
+          position: pos,
         });
     popUpClue.open(map);
     });
