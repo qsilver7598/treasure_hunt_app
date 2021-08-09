@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 1")
+console.log("Test::: 2")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -640,9 +640,10 @@ function toggleMap(){
 
 //reveals passed description (clue) on play map
 function showClue1(clueDescr){
+  var userLoc = getUserLocation();
   var popUpClue = new google.maps.InfoWindow({
     content: clueDescr,
-    position: initialLocation,
+    position: userLoc,
   });
   popUpClue.open(map);
 }
@@ -866,13 +867,10 @@ function getUserLocation() {
           map: map,
           title: "You are here",
       });
-      setPosition(pos);
-      map.setZoom(15);
-      map.setCenter(pos1);
       marker.setMap(map);
+      return pos;
     });
   }
-  return pos;
 }
 
 // function for geolocation
