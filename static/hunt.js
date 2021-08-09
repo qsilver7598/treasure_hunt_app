@@ -12,11 +12,12 @@ var clueDescriptionArray = [];
 var clueCoordsArray = [];
 var currClueDescription = "cats are cool";
 var currClueCoords;
+var listener_id, target, options;
 
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 28")
+console.log("Test::: 29")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -565,11 +566,11 @@ function initMap() {
   })
 
   //set user marker
-  const userMarker = new google.maps.Marker({
+  /*const userMarker = new google.maps.Marker({
     position: initialLocation,
     map: map,
     title: "You are here",
-  });
+  });*/
 
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
@@ -589,7 +590,9 @@ function initMap() {
           infoWindow.setContent("hi!");
           infoWindow.open(map);
           map.setCenter(pos);
-          userMarker.setPosition(pos);
+          //https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition
+          //listener_id = navigator.geolocation.watchPosition(success, error, options); //working on this for success listener
+          //userMarker.setPosition(pos);
 
           //clue marker
           markerTest(clueIDArray[0]);
@@ -615,6 +618,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
   infoWindow.open(map);
 }
+
+
 
 /*
 * This section regards button clicks and hiding/showing forms
