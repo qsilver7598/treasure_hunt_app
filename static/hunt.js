@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 26")
+console.log("Test::: 27")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -545,11 +545,11 @@ function initMap() {
   });
 
   //set user marker
- /* const userMarker = new google.maps.Marker({
+ const userMarker = new google.maps.Marker({
     position: initialLocation,
     map: map,
     title: "You are here",
-  });*/
+  });
   //add to map after time out
   //setTimeout(function(){ clueMarker1.setMap(map); }, 3000);*/
 
@@ -587,7 +587,7 @@ function initMap() {
           infoWindow.setContent("hi!");
           infoWindow.open(map);
           map.setCenter(pos);
-          marker.setPosition(pos);
+          userMarker.setPosition(pos);
 
           //clue marker
           markerTest(clueIDArray[0]);
