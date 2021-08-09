@@ -16,7 +16,7 @@ var currClueCoords;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 22")
+console.log("Test::: 23")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -441,7 +441,7 @@ function markerTest(clueID){
       map.setZoom(15);
       map.setCenter(pos);
       //marker.setMap(map);
-      return marker;
+      return marker1;
     }
   })
 }
