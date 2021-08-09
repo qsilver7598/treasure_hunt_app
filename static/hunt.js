@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 6")
+console.log("Test::: 7")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -866,6 +866,7 @@ function getUserLocation() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+          console.log("pos",pos)
       return pos;
     });
   }
@@ -873,7 +874,7 @@ function getUserLocation() {
 
 // function for geolocation
 function setUserLocationMarker() {
-  initMap();
+  initMap();//NEXT do i need this?
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
