@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 8")
+console.log("Test::: 9")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -845,7 +845,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 // function for geolocation
 function getUserLocation() {
-  //initMap();
+  //initMap();//this might be resetting some shit
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -885,9 +885,24 @@ function distanceToClue() {
   var cluePosLat;
   var cluePosLong;
   var distance;
-  var userLoc = getUserLocation();
-  console.log("userLoc",userLoc)
+  var userLoc;
+  //var userLoc = getUserLocation();
+  
   if (navigator.geolocation){
+    //get user curr loc
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          console.log("pos",pos)
+          userLoc = pos;
+          console.log("userLoc",userLoc)
+    });
+  }
+
     cluePosLat = currClueCoords['lat'];
     cluePosLong = currClueCoords['lng'];
 
