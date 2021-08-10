@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 11")
+console.log("Test::: 12")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -625,6 +625,13 @@ function toggleClueBtn(){
   } else {
       x.style.display = "none";
   }
+}
+ //show second clue btn, remains available
+function toggleClue2Btn(){
+  var x = document.getElementById("show-second-clue");
+  if (x.style.display == "none") {
+      x.style.display = "inline";
+  } 
 }
 
 function toggleMap(){
