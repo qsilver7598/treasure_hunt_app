@@ -10,8 +10,13 @@ var currHuntID = 0;//updated at getSelectedHunt()
 var clueIDArray = [];
 var clueDescriptionArray = [];
 var clueCoordsArray = [];
-var currClueDescription = "cats are cool";
+var currClueDescription;
 var currClueCoords;
+var currClueIndex;
+var treasureIDArray = [];
+var currTreasureDescription;
+var currTreasureCorrds;
+var currTreasureIndex;
 var listener_id, target, options;
 
 // const Url='http://localhost:8080';
@@ -191,57 +196,13 @@ $(document).ready(function(){
       success: function(response){
         var returnedData = JSON.parse(response);
         storeClueIDs(returnedData['clues']);
+        storeTreasureIDs(returnedData['treasures']);
       },
       error: function(){
         alert('There was an error with play button get request')
         //window.location.href = '/'
       }
     })
-  })
-
-  $('#show-first-clue').click(function(){
-    $.ajax({
-      url: Url + '/clues/' + clueIDArray[0], //grab first clue in array
-      type: 'GET',
-      success: function(response){
-        var returnedData = JSON.parse(response);
-        currClueDescription = returnedData['description'];
-        currClueCoords = JSON.parse(returnedData['gps coordinates']);
-        //push curr coords and description
-        clueDescriptionArray.push(currClueDescription);
-        clueCoordsArray.push(currClueCoords);
-
-        //reveal first clue on map at initialized location
-        showClue1(currClueDescription);
-        $('#clue-distance-button').show();
-      },
-      error: function(){
-        alert('There was an error with show clue button get request')
-        //window.location.href = '/'
-      }
-    })
-  })
-    $('#show-second-clue').click(function(){
-      $.ajax({
-        url: Url + '/clues/' + clueIDArray[1], //grab first clue in array
-        type: 'GET',
-        success: function(response){
-          var returnedData = JSON.parse(response);
-          currClueDescription = returnedData['description'];
-          currClueCoords = JSON.parse(returnedData['gps coordinates']);
-          //push curr coords and description
-          clueDescriptionArray.push(currClueDescription);
-          clueCoordsArray.push(currClueCoords);
-  
-          //reveal first clue on map at initialized location
-          showClue1(currClueDescription);
-          $('#clue-distance-button').show();
-        },
-        error: function(){
-          alert('There was an error with show clue button get request')
-          //window.location.href = '/'
-        }
-      })
   })
 
   $('#edit-hunt-choose').click(function(){
@@ -613,26 +574,38 @@ function storeHuntIDs(hunts){
 }
 
 function storeClueIDs(clues){
-    for(i = 0; i < clues.length; i++) {
-      clueIDArray.push(clues[i]['clue id']);
-    }
+  for(i = 0; i < clues.length; i++) {
+    clueIDArray.push(clues[i]['clue id']);
+    // create clue buttons
+    $('<button/>', {
+      type: 'button',
+      "class": 'button alt-gradient-button',
+      id: 'show-clue-' + i,
+      onclick: 'showClue(this.id)',
+      text: 'Show Clue ' + [i + 1],
+      css: {
+        'display': 'none'
+      }
+    }).insertBefore('#clue-distance-button');
+  }
+  $('#show-clue-0').show();
 }
 
-/* MAP STUFF */
-function toggleClueBtn(){
-  var x = document.getElementById("show-first-clue");
-  if (x.style.display == "none") {
-      x.style.display = "inline";
-  } else {
-      x.style.display = "none";
+function storeTreasureIDs(treasures){
+  for(i = 0; i < treasures.length; i++) {
+    treasureIDArray.push(treasures[i]['treasure id']);
+    // create treasure buttons
+    $('<button/>', {
+      type: 'button',
+      "class": 'button alt-gradient-button',
+      id: 'show-treasure-' + i,
+      onclick: 'showTreasure(this.id)',
+      text: 'Show Treasure ' + [i + 1],
+      css: {
+        'display': 'none'
+      }
+    }).insertBefore('#treasure-distance-button');
   }
-}
- //show second clue btn, remains available
-function toggleClue2Btn(){
-  var x = document.getElementById("show-second-clue");
-  if (x.style.display == "none") {
-      x.style.display = "inline";
-  } 
 }
 
 function toggleMap(){
@@ -643,10 +616,8 @@ function toggleMap(){
   //home page show
   if (x.style.display === "none") {
       x.style.display = "block";
-      toggleClueBtn();
   } else { //home page hide
       x.style.display = "none";
-      toggleClueBtn();
   }
 
   //map show
@@ -660,21 +631,76 @@ function toggleMap(){
 }
 
 //reveals passed description (clue) on play map
-function showClue1(clueDescr){
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        var popUpClue = new google.maps.InfoWindow({
-          content: clueDescr,
-          position: pos,
+function showClue(clickedId){
+  var clueIndex = clickedId.replace('show-clue-', '');
+  $.ajax({
+    url: Url + '/clues/' + clueIDArray[clueIndex], //grab clue of the index number
+    type: 'GET',
+    success: function(response){
+      var returnedData = JSON.parse(response);
+      currClueIndex = clueIndex;
+      currClueDescription = returnedData['description'];
+      currClueCoords = JSON.parse(returnedData['gps coordinates']);
+      //push curr coords and description
+      clueDescriptionArray.push(currClueDescription);
+      clueCoordsArray.push(currClueCoords);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            var popUpClue = new google.maps.InfoWindow({
+              content: currClueDescription,
+              position: pos,
+            });
+        popUpClue.open(map);
         });
-    popUpClue.open(map);
-    });
-  }
+      }
+      $('#' + clickedId).hide();
+      $('#clue-distance-button').show();
+    },
+    error: function(){
+      alert('There was an error with show clue button get request')
+      //window.location.href = '/'
+    }
+  })
+}
+
+//reveals passed description (clue) on play map
+function showTreasure(clickedId){
+  var treasureIndex = clickedId.replace('show-treasure-', '');
+  $.ajax({
+    url: Url + '/treasures/' + treasureIDArray[treasureIndex], //grab clue of the index number
+    type: 'GET',
+    success: function(response){
+      var returnedData = JSON.parse(response);
+      currTreasureIndex = treasureIndex;
+      currTreasureDescription = returnedData['description'];
+      currTreasureCoords = JSON.parse(returnedData['gps coordinates']);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            var popUpTreasure = new google.maps.InfoWindow({
+              content: currTreasureDescription,
+              position: pos,
+            });
+        popUpTreasure.open(map);
+        });
+      }
+      $('#' + clickedId).hide();
+      $('#treasure-distance-button').show();
+    },
+    error: function(){
+      alert('There was an error with show clue button get request')
+      //window.location.href = '/'
+    }
+  })
 }
 
 function hiddenMarker(clueLoc){
@@ -927,43 +953,90 @@ function distanceToClue() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          console.log("pos",pos)
-          userLoc = pos;
-          console.log("userLoc",userLoc)
-    });
-  }
-    //get clue loc
-    cluePosLat = currClueCoords['lat'];
-    cluePosLong = currClueCoords['lng'];
+        console.log("pos",pos)
+        userLoc = pos;
+        console.log("userLoc",userLoc)
 
-    navigator.geolocation.watchPosition(function(position){
-      distance = calculateDistance(cluePosLat, cluePosLong, position.coords.latitude, position.coords.longitude);
+        //get clue loc
+        cluePosLat = currClueCoords['lat'];
+        cluePosLong = currClueCoords['lng'];
+
+        distance = calculateDistance(cluePosLat, cluePosLong, position.coords.latitude, position.coords.longitude);
+        
+        var popUpClue = new google.maps.InfoWindow({
+          content: 'Distance to clue: ' + distance + ' mi',
+          position: userLoc
+        });
+        popUpClue.open(map);
       
-      var popUpClue = new google.maps.InfoWindow({
-        content: 'Distance to clue: ' + distance + ' mi',
-        position: userLoc //was currClueLoc
+        //success message on arrival at clue TEST
+        if (distance <= 0.5){
+          var popUpSuccess = new google.maps.InfoWindow({
+            content: 'You made it!',
+            position: currClueCoords
+          });
+          popUpClue.close();
+          popUpSuccess.open(map);
+          if (currClueIndex < clueIDArray.length - 1) {
+            var nextClue = Number(currClueIndex) + 1;
+            $('#show-clue-' + nextClue).show();
+            $('#clue-distance-button').hide();
+          }
+          else {
+            $('#show-treasure-0').show();
+            $('#clue-distance-button').hide();
+          }
+        }
       });
-      popUpClue.open(map);
+    }
+  }
+}
 
-      //success message on arrival at clue TEST
-      if (distance <= 0.5){
-        var popUpSuccess = new google.maps.InfoWindow({
-          content: 'You made it!',
-          position: currClueCoords //was currClueLoc
+// function for geolocation
+function distanceToTreasure() {
+  var treasurePosLat;
+  var treasurePosLong;
+  var distance;
+  var userLoc;
+  //var userLoc = getUserLocation();
+  
+  if (navigator.geolocation){
+    //get user curr loc
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+        console.log("pos",pos)
+        userLoc = pos;
+        console.log("userLoc",userLoc)
+
+        //get treasure loc
+        treasurePosLat = currTreasureCoords['lat'];
+        treasurePosLong = currTreasureCoords['lng'];
+
+        distance = calculateDistance(treasurePosLat, treasurePosLong, position.coords.latitude, position.coords.longitude);
+        
+        var popUpClue = new google.maps.InfoWindow({
+          content: 'Distance to treasure: ' + distance + ' mi',
+          position: userLoc
         });
-        popUpSuccess.open(map);
-        toggleClue2Btn()
-      }
-    //success message on arrival at clue
-      if (distance <= 0.1){
-        var popUpSuccess = new google.maps.InfoWindow({
-          content: 'You made it!',
-          position: currClueCoords //was currClueLoc
-        });
-        popUpSuccess.open(map);
-        toggleClue2Btn()
-      }
-    });
+        popUpClue.open(map);
+      
+        //success message on arrival at clue TEST
+        if (distance <= 0.5){
+          var popUpSuccess = new google.maps.InfoWindow({
+            content: 'You made it!',
+            position: currTreasureCoords
+          });
+          popUpClue.close();
+          popUpSuccess.open(map);
+          $('#treasure-distance-button').hide();
+        }
+      });
+    }
   }
 }
 
