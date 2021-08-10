@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 9")
+console.log("Test::: 10")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -902,7 +902,7 @@ function distanceToClue() {
           console.log("userLoc",userLoc)
     });
   }
-
+    //get clue loc
     cluePosLat = currClueCoords['lat'];
     cluePosLong = currClueCoords['lng'];
 
@@ -914,6 +914,23 @@ function distanceToClue() {
         position: userLoc //was currClueLoc
       });
       popUpClue.open(map);
+
+      //success message on arrival at clue TEST
+      if (distance <= 0.5){
+        var popUpSuccess = new google.maps.InfoWindow({
+          content: 'You made it!',
+          position: currClueCoords //was currClueLoc
+        });
+        popUpSuccess.open(map);
+      }
+    //success message on arrival at clue
+      if (distance <= 0.1){
+        var popUpSuccess = new google.maps.InfoWindow({
+          content: 'You made it!',
+          position: currClueCoords //was currClueLoc
+        });
+        popUpSuccess.open(map);
+      }
     });
   }
 }
