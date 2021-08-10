@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 12")
+console.log("Test::: 13")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -220,7 +220,7 @@ $(document).ready(function(){
         //window.location.href = '/'
       }
     })
-
+  })
     $('#show-second-clue').click(function(){
       $.ajax({
         url: Url + '/clues/' + clueIDArray[1], //grab first clue in array
@@ -260,6 +260,7 @@ $(document).ready(function(){
     })
   })
 })
+
 
 //get hunt id from radio button
 //https://www.geeksforgeeks.org/how-to-get-value-of-selected-radio-button-using-javascript/
