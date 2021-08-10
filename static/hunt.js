@@ -17,7 +17,7 @@ var listener_id, target, options;
 // const Url='http://localhost:8080';
 const Url='https://cs467-capstone.uw.r.appspot.com';
 
-console.log("Test::: 10")
+console.log("Test::: 11")
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
@@ -220,6 +220,28 @@ $(document).ready(function(){
         //window.location.href = '/'
       }
     })
+
+    $('#show-second-clue').click(function(){
+      $.ajax({
+        url: Url + '/clues/' + clueIDArray[1], //grab first clue in array
+        type: 'GET',
+        success: function(response){
+          var returnedData = JSON.parse(response);
+          currClueDescription = returnedData['description'];
+          currClueCoords = JSON.parse(returnedData['gps coordinates']);
+          //push curr coords and description
+          clueDescriptionArray.push(currClueDescription);
+          clueCoordsArray.push(currClueCoords);
+  
+          //reveal first clue on map at initialized location
+          showClue1(currClueDescription);
+          $('#clue-distance-button').show();
+        },
+        error: function(){
+          alert('There was an error with show clue button get request')
+          //window.location.href = '/'
+        }
+      })
   })
 
   $('#edit-hunt-choose').click(function(){

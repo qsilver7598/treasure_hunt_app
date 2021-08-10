@@ -274,6 +274,12 @@ display: block;
     left: 0%
   }
 
+  /* keeps buttons visible*/
+  #show-first-clue, #show-second-clue, #clue-distance-button{
+    position: sticky;
+  }
+
+
   .menu, .main, .right {
     width: 100%;
   }
