@@ -970,7 +970,7 @@ function distanceToClue() {
         popUpClue.open(map);
       
         //success message on arrival at clue TEST
-        if (distance <= 0.5){
+        if (distance <= 0.01){
           var popUpSuccess = new google.maps.InfoWindow({
             content: 'You made it!',
             position: currClueCoords
@@ -1026,7 +1026,7 @@ function distanceToTreasure() {
         popUpClue.open(map);
       
         //success message on arrival at clue TEST
-        if (distance <= 0.5){
+        if (distance <= 0.01){
           var popUpSuccess = new google.maps.InfoWindow({
             content: 'You made it!',
             position: currTreasureCoords
