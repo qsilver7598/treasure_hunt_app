@@ -43,7 +43,7 @@ DOMAIN = '467-capstone.us.auth0.com'
 # URL_HUNT = "http://localhost:8080/hunts"
 # URL_CLUE = "http://localhost:8080/clues"
 # URL_TREASURE = "http://localhost:8080/treasure"
-CALLBACK_URL = 'https://cs467-capstone.uw.r.appspot.com/callback'
+CALLBACK_URL = "https://cs467-capstone.uw.r.appspot.com/callback"
 URL_USER = "https://cs467-capstone.uw.r.appspot.com/users"
 URL_HUNT = "https://cs467-capstone.uw.r.appspot.com/hunts"
 URL_CLUE = "https://cs467-capstone.uw.r.appspot.com/clues"
@@ -51,10 +51,13 @@ URL_TREASURE = "https://cs467-capstone.uw.r.appspot.com/treasure"
 
 ALGORITHMS = ["RS256"]
 
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
 
 oauth = OAuth(app)
 
-auth0 = oauth.register(
+oauth.register(
     'auth0',
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
@@ -64,6 +67,7 @@ auth0 = oauth.register(
     client_kwargs={
         'scope': 'openid profile email',
     },
+    server_metadata_url=f'https://{env.get(DOMAIN)}/.well-known/opinid-configuration'
 )
 
 
@@ -757,11 +761,11 @@ def owner_get(user_id):
         return jsonify(error='Method not recognized')
 
 
-@app.route('/callback')
+@app.route('/callback', methods=["GET", "POST"])
 def callback_handling():
     # Handles response from token endpoint
-    token = auth0.authorize_access_token()['id_token']
-    resp = auth0.get('userinfo')
+    token = oauth.auth0.authorize_access_token()['id_token']
+    resp = oauth.auth0.get('userinfo')
     userinfo = resp.json()
 
     # Store the user information in flask session.
@@ -790,7 +794,7 @@ def callback_handling():
 
 @app.route('/ui_login')
 def ui_login():
-    return auth0.authorize_redirect(redirect_uri=CALLBACK_URL)
+    return oauth.auth0.authorize_redirect(redirect_uri=url_for("callback", _external=True))
 
 
 @app.route('/ui_signup')
