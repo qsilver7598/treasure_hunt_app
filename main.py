@@ -11,6 +11,7 @@ from six.moves.urllib.request import urlopen
 from flask_cors import cross_origin
 from jose import jwt
 
+from requests_oauthlib import OAuth2Session
 
 import json
 from os import environ as env
@@ -51,6 +52,12 @@ URL_TREASURE = "https://cs467-capstone.uw.r.appspot.com/treasure"
 
 ALGORITHMS = ["RS256"]
 
+def fetch_token(name, request):
+    token = OAuth2Token.find(
+        name=name,
+        user=request.user
+    )
+    return token.to_token
 
 oauth = OAuth(app)
 
@@ -64,6 +71,8 @@ auth0 = oauth.register(
     client_kwargs={
         'scope': 'openid profile email',
     },
+    server_metadata_url=["https://467-capstone.US-3.auth0.com/.well-known/openid-configuration"],
+    fetch_token=fetch_token
 )
 
 
