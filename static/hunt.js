@@ -875,7 +875,7 @@ function initMap() {
           //userMarker.setPosition(pos);
 
           //clue marker
-          markerTest(clueIDArray[0]);
+          markerTest(pos);
           
         },
         () => {
