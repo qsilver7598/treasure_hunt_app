@@ -4,5 +4,5 @@ python-jose
 flask-cors
 six
 python-dotenv
-requests
-authlib
+requests==2.27.1
+authlib==1.0
