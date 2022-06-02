@@ -765,7 +765,7 @@ def owner_get(user_id):
 def callback_handling():
     # Handles response from token endpoint
     token = oauth.auth0.authorize_access_token()['id_token']
-    resp = auth0.get('userinfo')
+    resp = oauth.auth0.get('userinfo')
     userinfo = resp.json()
 
     # Store the user information in flask session.
