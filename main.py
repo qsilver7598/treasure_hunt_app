@@ -51,13 +51,10 @@ URL_TREASURE = "https://cs467-capstone.uw.r.appspot.com/treasure"
 
 ALGORITHMS = ["RS256"]
 
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
 
 oauth = OAuth(app)
 
-oauth.register(
+auth0 = oauth.register(
     'auth0',
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
@@ -67,7 +64,6 @@ oauth.register(
     client_kwargs={
         'scope': 'openid profile email',
     },
-    server_metadata_url=f'https://{env.get(DOMAIN)}/.well-known/openid-configuration'
 )
 
 
@@ -764,8 +760,8 @@ def owner_get(user_id):
 @app.route('/callback')
 def callback_handling():
     # Handles response from token endpoint
-    token = oauth.auth0.authorize_access_token()['id_token']
-    resp = oauth.auth0.get('userinfo')
+    token = auth0.authorize_access_token()['id_token']
+    resp = auth0.get('userinfo')
     userinfo = resp.json()
 
     # Store the user information in flask session.
@@ -794,7 +790,7 @@ def callback_handling():
 
 @app.route('/ui_login')
 def ui_login():
-    return oauth.auth0.authorize_redirect(redirect_uri=CALLBACK_URL)
+    return auth0.authorize_redirect(redirect_uri=CALLBACK_URL)
 
 
 @app.route('/ui_signup')
