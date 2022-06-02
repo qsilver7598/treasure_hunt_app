@@ -854,7 +854,7 @@ function initMap() {
  
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
-  locationButton.textContent = "Pan to Current Location";
+  locationButton.textContent = "Pan to Clue Location";
   locationButton.classList.add("custom-map-control-button");
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
   locationButton.addEventListener("click", () => {
@@ -875,7 +875,7 @@ function initMap() {
           //userMarker.setPosition(pos);
 
           //clue marker
-          //markerTest(clueIDArray[0]);
+          markerTest(clueIDArray[0]);
           
         },
         () => {
