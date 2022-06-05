@@ -24,11 +24,14 @@ from flask import render_template
 from flask import session
 from flask import url_for
 from authlib.integrations.flask_client import OAuth
-from six.moves.urllib.parse import urlencode
+from six.moves.urllib.parse import urlencode, quote_plus
 
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
 
 app = Flask(__name__)
-app.secret_key = 'SECRET_KEY'
+app.secret_key = env.get("APP_SECRET_KEY")
 
 
 client = datastore.Client()
@@ -43,31 +46,28 @@ DOMAIN = '467-capstone.us.auth0.com'
 # URL_HUNT = "http://localhost:8080/hunts"
 # URL_CLUE = "http://localhost:8080/clues"
 # URL_TREASURE = "http://localhost:8080/treasure"
-CALLBACK_URL = "https://cs467-capstone.uw.r.appspot.com/callback"
-URL_USER = "https://cs467-capstone.uw.r.appspot.com/users"
-URL_HUNT = "https://cs467-capstone.uw.r.appspot.com/hunts"
-URL_CLUE = "https://cs467-capstone.uw.r.appspot.com/clues"
-URL_TREASURE = "https://cs467-capstone.uw.r.appspot.com/treasure"
+CALLBACK_URL = 'https://treasure-hunt-352221.uc.r.appspot.com/callback'
+URL_USER = "https://treasure-hunt-352221.uc.r.appspot.com/users"
+URL_HUNT = "https://treasure-hunt-352221.uc.r.appspot.com/hunts"
+URL_CLUE = "https://treasure-hunt-352221.uc.r.appspot.com/clues"
+URL_TREASURE = "https://treasure-hunt-352221.uc.r.appspot.com/treasure"
 
 ALGORITHMS = ["RS256"]
 
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
 
 oauth = OAuth(app)
 
-oauth.register(
+auth0 = oauth.register(
     'auth0',
-    client_id=CLIENT_ID,
-    client_secret=CLIENT_SECRET,
+    client_id=env.get("AUTH0_CLIENT_ID"),
+    client_secret=env.get("AUTH0_CLIENT_SECRET"),
     api_base_url="https://" + DOMAIN,
     access_token_url="https://" + DOMAIN + "/oauth/token",
     authorize_url="https://" + DOMAIN + "/authorize",
     client_kwargs={
         'scope': 'openid profile email',
     },
-    server_metadata_url=f'https://{env.get(DOMAIN)}/.well-known/opinid-configuration'
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
 
@@ -100,7 +100,7 @@ def verify_jwt(request):
     auth_header = request.headers['Authorization'].split()
     token = auth_header[1]
     
-    jsonurl = urlopen("https://"+ DOMAIN+"/.well-known/jwks.json")
+    jsonurl = urlopen("https://"+ DOMAIN +"/.well-known/jwks.json")
     jwks = json.loads(jsonurl.read())
     try:
         unverified_header = jwt.get_unverified_header(token)
@@ -761,12 +761,12 @@ def owner_get(user_id):
         return jsonify(error='Method not recognized')
 
 
-@app.route('/callback', methods=["GET", "POST"])
-def callback_handling():
+@app.route('/callback')
+def callback():
     # Handles response from token endpoint
-    token = oauth.auth0.authorize_access_token()['id_token']
-    resp = oauth.auth0.get('userinfo')
-    userinfo = resp.json()
+    resp = auth0.authorize_access_token()
+    token = resp['id_token']
+    userinfo = resp['userinfo']
 
     # Store the user information in flask session.
     session['jwt_payload'] = userinfo
@@ -794,12 +794,16 @@ def callback_handling():
 
 @app.route('/ui_login')
 def ui_login():
-    return oauth.auth0.authorize_redirect(redirect_uri=url_for("callback", _external=True))
+    return auth0.authorize_redirect(
+        redirect_uri=url_for("callback", _external=True)
+    )
 
 
 @app.route('/ui_signup')
 def ui_signup():
-    return auth0.authorize_redirect(redirect_uri=CALLBACK_URL, screen_hint='signup')
+    return auth0.authorize_redirect(
+        redirect_uri=url_for("callback", _external=True, screen_hint='signup')
+    )
 
 
 @app.route('/profile')
@@ -815,8 +819,18 @@ def logout():
     # Clear session stored data
     session.clear()
     # Redirect user to logout endpoint
-    params = {'returnTo': url_for('index', _external=True), 'client_id': CLIENT_ID}
-    return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
+    return redirect(
+        "https://"
+        + env.get("AUTH0_DOMAIN")
+        + "/v2/logout?"
+        + urlencode(
+            {
+                "returnTo": url_for("index", _external=True),
+                "client_id": env.get("AUTH0_CLIENT_ID"),
+            },
+            quote_via=quote_plus,
+        )
+    )
 
 
 if __name__ == '__main__':

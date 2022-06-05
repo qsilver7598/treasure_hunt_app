@@ -20,9 +20,7 @@ var currTreasureIndex;
 var listener_id, target, options;
 
 // const Url='http://localhost:8080';
-const Url='https://cs467-capstone.uw.r.appspot.com';
-
-console.log("Test::: 15")
+const Url='https://treasure-hunt-352221.uc.r.appspot.com';
 
 // jQuery functions for interaction with the database
 // CREATE HUNT
